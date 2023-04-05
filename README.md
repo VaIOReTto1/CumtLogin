@@ -1,16 +1,16 @@
-# cumt_login
+# CUMT校园网自动登录
 
-A new Flutter project.
+## 简介
 
-## Getting Started
+用于自动登录中国矿业大学校园网，支持Android、iOS、MacOS、Windows。
 
-This project is a starting point for a Flutter application.
+## commit规范
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+| Commit类型 | 表情符号 | 意义                    | 样例                                      |
+| ---------- | -------- | ----------------------- | ----------------------------------------- |
+| init       | 🎉        | 初始化一个仓库          | ![img](./docs/images/readme:init.png)     |
+| feature    | ✨        | 添加新功能              | ![img](./docs/images/readme:feature.png)  |
+| bugfix     | 🐛        | 修复了一些bug           | ![img](./docs/images/readme:bugfix.png)   |
+| optimize   | 🎨        | 功能优化                | ![img](./docs/images/readme:optimize.png) |
+| refactor   | ♻️        | 代码重构                | ![img](./docs/images/readme:refactor.png) |
+| docs       | 📑        | 修改了文档（README.md） | ![img](./docs/images/readme:docs.png)     |
