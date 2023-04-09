@@ -1,5 +1,7 @@
+import 'package:cumt_login/config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_picker/Picker.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import 'login_util/account.dart';
 import 'login_util/locations.dart';
@@ -18,8 +20,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: LoginPage(),
+    return ScreenUtilInit(
+      designSize: const Size(UIConfig.designWidth, UIConfig.designHeight),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) {
+        return MaterialApp(
+          home: child,
+        );
+      },
+      child: const LoginPage(),
     );
   }
 }
@@ -67,11 +77,14 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
       onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('矿小助CUMT校园网登录'),
+          title: Text(
+            '矿小助CUMT校园网登录',
+            style: TextStyle(fontSize: UIConfig.fontSizeTitle)
+          ),
         ),
         body: Center(
           child: Padding(
-            padding: const EdgeInsets.all(16.0),
+            padding: EdgeInsets.all(UIConfig.paddingAll),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -93,11 +106,11 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
                         )),
                     ElevatedButton(
                       onPressed: () => _handleLogin(context),
-                      child: const Text('登录'),
+                      child: Text('登录', style: TextStyle(fontSize: UIConfig.fontSizeMain)),
                     ),
                     OutlinedButton(
                       onPressed: () => _handleLogout(context),
-                      child: const Text('注销'),
+                      child: Text('注销', style: TextStyle(fontSize: UIConfig.fontSizeMain)),
                     ),
                   ],
                 ),
