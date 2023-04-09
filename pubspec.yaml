@@ -15,6 +15,7 @@ dependencies:
   dio: ^5.1.1 # 网络请求
   flutter_picker: ^2.1.0 # 选择器, 用于选择校区和运营商
   cupertino_icons: ^1.0.2 # iOS图标
+  image_picker: ^0.8.7+1 # 图片选择，用于访问本地相册
 
 dev_dependencies:
   flutter_test:
