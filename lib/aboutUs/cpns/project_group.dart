@@ -48,7 +48,7 @@ class ProjectGroup extends StatelessWidget {
           githubUrl: 'https://github.com/VaIOReTto1',
           blogUrl: 'https://blog.csdn.net/VaIOReTto1?spm=1000.2115.3001.5343',
           personalSig: 'キエテシマオウ',
-          qLaunchUrl: '',
+          qLaunchUrl: 'https://qm.qq.com/cgi-bin/qm/qr?k=5oOH3MdCC4TuB-GRkMg5BJFO5mqRhcrk&noverify=0',
         ),
         SizedBox(
           height: UIConfig.fontSizeSubMain * 1.8,
