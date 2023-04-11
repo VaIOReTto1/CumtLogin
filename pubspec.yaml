@@ -17,6 +17,10 @@ dependencies:
   cupertino_icons: ^1.0.2 # iOS图标
   flutter_screenutil: ^5.7.0 # 屏幕适配
   image_picker: ^0.8.7+1 # 图片选择，用于访问本地相册
+  getwidget: ^3.0.1 # 一个ui组件库
+  cached_network_image: ^3.2.1 #缓存网络图片
+  material_design_icons_flutter: ^6.0.7096 #icon
+  url_launcher: any
 
 dev_dependencies:
   flutter_test:
@@ -25,4 +29,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - images/
 
