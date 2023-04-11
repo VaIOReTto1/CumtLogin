@@ -30,7 +30,7 @@ class _AboutPageState extends State<AboutPage> {
             floating: false,
             snap: false,
             primary: true,
-            expandedHeight: 200.0,
+            expandedHeight: 240.0,
             elevation: 0,
             backgroundColor: Theme.of(context).brightness == Brightness.dark
                 ? Theme.of(context).cardColor
@@ -53,7 +53,7 @@ class _AboutPageState extends State<AboutPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: UIConfig.fontSizeMid * 6,
+                    height: UIConfig.fontSizeMid * 4,
                   ),
                   Image(
                     image: const AssetImage('images/logo.png'),

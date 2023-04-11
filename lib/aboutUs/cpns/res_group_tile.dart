@@ -61,16 +61,21 @@ class ResGroupTile extends StatelessWidget {
             title: Text(
               text,
               style: TextStyle(
+                  fontSize: UIConfig.fontSizeMain * 1.5,
                   color: Theme.of(context).brightness == Brightness.dark
                       ? Colors.white
-                      : Colors.black54),
+                      : Colors.black),
             ),
-            subTitle: Text(
-              '点击复制群号',
-              style: TextStyle(
-                  color: Theme.of(context).brightness == Brightness.dark
-                      ? Colors.white
-                      : Colors.black54),
+            subTitle: Padding(
+              padding:  EdgeInsets.only(top: UIConfig.paddingVertical),
+              child: Text(
+                '点击复制群号',
+                style: TextStyle(
+                    fontSize: UIConfig.fontSizeMin * 1.4,
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black54),
+              ),
             )),
       ),
     );
