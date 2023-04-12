@@ -17,6 +17,9 @@ class AboutPage extends StatefulWidget {
 class _AboutPageState extends State<AboutPage> {
   @override
   Widget build(BuildContext context) {
+    final double width = MediaQuery.of(context).size.width;
+    final double height = MediaQuery.of(context).size.height;
+
     return Scaffold(
       backgroundColor: Theme.of(context).brightness == Brightness.dark
           ? Theme.of(context).cardColor
@@ -30,7 +33,7 @@ class _AboutPageState extends State<AboutPage> {
             floating: false,
             snap: false,
             primary: true,
-            expandedHeight: 240.0,
+            expandedHeight: height * .35,
             elevation: 0,
             backgroundColor: Theme.of(context).brightness == Brightness.dark
                 ? Theme.of(context).cardColor
@@ -53,13 +56,16 @@ class _AboutPageState extends State<AboutPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: UIConfig.fontSizeMid * 4,
+                    height: height * .065,
                   ),
-                  Image(
-                    image: const AssetImage('images/logo.png'),
-                    height: UIConfig.fontSizeMid * 12,
-                    width: UIConfig.fontSizeMid * 12,
-                    fit: BoxFit.cover,
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(1000),
+                    child: Image(
+                      image: const AssetImage('images/logo_modify.png'),
+                      height: UIConfig.fontSizeMid * 10,
+                      width: UIConfig.fontSizeMid * 12,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                   SizedBox(
                     height: UIConfig.fontSizeMid * 1.5,

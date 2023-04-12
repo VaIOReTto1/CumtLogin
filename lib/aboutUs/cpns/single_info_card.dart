@@ -52,7 +52,7 @@ class SingleInfoCard extends StatelessWidget {
               blurRadius: 15,
             )
           ]),
-      width: UIConfig.borderRadiusButton * 17.5,
+      width: MediaQuery.of(context).size.width * .86,
       child: GFAccordion(
         collapsedTitleBackgroundColor:
             Theme.of(context).brightness == Brightness.dark

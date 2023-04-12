@@ -18,7 +18,7 @@ class LoginTitle extends StatelessWidget {
       children: [
         Container(
           height: UIConfig.fontSizeMid / 4,
-          width: UIConfig.fontSizeMain * 10,
+          width: MediaQuery.of(context).size.width * .3,
           decoration: BoxDecoration(
               color: const Color(0xFF33CC99).withAlpha(255),
               borderRadius: BorderRadius.circular(UIConfig.borderRadiusBox)),
@@ -41,7 +41,7 @@ class LoginTitle extends StatelessWidget {
         ),
         Container(
           height: UIConfig.fontSizeMid / 4,
-          width: UIConfig.fontSizeMain * 10,
+          width: MediaQuery.of(context).size.width * .3,
           decoration: BoxDecoration(
               color: loginColorGreen1,
               borderRadius: BorderRadius.circular(UIConfig.borderRadiusBox)),
