@@ -1,18 +1,32 @@
 import 'package:cumt_login/config.dart';
+import 'package:cumt_login/drawer/backgroundimage/imageselect.dart';
+import 'package:cumt_login/drawer/drawer_page.dart';
+import 'package:cumt_login/splash_page.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_picker/Picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
+import 'drawer/theme/theme_button.dart';
 import 'login_util/account.dart';
 import 'login_util/locations.dart';
 import 'login_util/login.dart';
 import 'login_util/methods.dart';
 import 'login_util/prefs.dart';
 
+
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Prefs.init();
-  runApp(const MyApp());
+  runApp(
+      (MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        ],
+        child: const MyApp(),
+      ))
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -26,12 +40,21 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       builder: (context, child) {
         return MaterialApp(
+          theme: Provider.of<ThemeProvider>(context).themeData,
+          debugShowCheckedModeBanner: false,
           home: child,
         );
       },
-      child: const LoginPage(),
+      child: const SplashPage(),
     );
   }
+}
+
+toLoginPage(BuildContext context) {
+  Navigator.of(context).push(MaterialPageRoute(
+    builder: (context) => const LoginPage(),
+    fullscreenDialog: true, // 路由为全屏模式
+  ));
 }
 
 class LoginPage extends StatefulWidget {
@@ -47,6 +70,7 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
   final TextEditingController _passwordController = TextEditingController();
 
   CumtLoginAccount cumtLoginAccount = CumtLoginAccount();
+
 
   @override
   void initState() {
@@ -77,50 +101,57 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
       onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
       child: Scaffold(
         appBar: AppBar(
+          //automaticallyImplyLeading: false, // 禁用默认的返回箭头
           title: Text(
-            '矿小助CUMT校园网登录',
-            style: TextStyle(fontSize: UIConfig.fontSizeTitle)
+            '校园网自动登录',
+            style: TextStyle(fontSize: UIConfig.fontSizeTitle*1.2)
           ),
         ),
-        body: Center(
-          child: Padding(
-            padding: EdgeInsets.all(UIConfig.paddingAll),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(height: 16.0),
-                buildTextField("账号", _usernameController, showPopButton: true),
-                const SizedBox(height: 16.0),
-                buildTextField("密码", _passwordController, obscureText: true),
-                const SizedBox(height: 16.0),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+        body: Stack(
+          children: [
+            const BackGroundImage(),
+            Center(
+              child: Padding(
+                padding: EdgeInsets.all(UIConfig.paddingAll),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    TextButton(
-                        onPressed: () => _showLocationMethodPicker(),
-                        child: Row(
-                          children: [
-                            Text("${cumtLoginAccount.cumtLoginLocation?.name} ${cumtLoginAccount.cumtLoginMethod?.name}"),
-                            const Icon(Icons.arrow_drop_down),
-                          ],
-                        )),
-                    ElevatedButton(
-                      onPressed: () => _handleLogin(context),
-                      child: Text('登录', style: TextStyle(fontSize: UIConfig.fontSizeMain)),
+                    const SizedBox(height: 16.0),
+                    buildTextField("账号", _usernameController, showPopButton: true),
+                    const SizedBox(height: 16.0),
+                    buildTextField("密码", _passwordController, obscureText: true),
+                    const SizedBox(height: 16.0),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        TextButton(
+                            onPressed: () => _showLocationMethodPicker(),
+                            child: Row(
+                              children: [
+                                Text("${cumtLoginAccount.cumtLoginLocation?.name} ${cumtLoginAccount.cumtLoginMethod?.name}"),
+                                const Icon(Icons.arrow_drop_down),
+                              ],
+                            )),
+                        ElevatedButton(
+                          onPressed: () => _handleLogin(context),
+                          child: Text('登录', style: TextStyle(fontSize: UIConfig.fontSizeMain)),
+                        ),
+                        OutlinedButton(
+                          onPressed: () => _handleLogout(context),
+                          child: Text('注销', style: TextStyle(fontSize: UIConfig.fontSizeMain)),
+                        ),
+                      ],
                     ),
-                    OutlinedButton(
-                      onPressed: () => _handleLogout(context),
-                      child: Text('注销', style: TextStyle(fontSize: UIConfig.fontSizeMain)),
+                    const SizedBox(
+                      height: 20,
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 20,
-                ),
-              ],
+              ),
             ),
-          ),
+          ],
         ),
+        drawer: const DrawerPage(),
       ),
     );
   }

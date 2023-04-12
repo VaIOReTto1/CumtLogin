@@ -21,6 +21,7 @@ dependencies:
   cached_network_image: ^3.2.1 #缓存网络图片
   material_design_icons_flutter: ^6.0.7096 #icon
   url_launcher: any
+  provider: ^6.0.5 #状态管理，
 
 dev_dependencies:
   flutter_test:
@@ -31,4 +32,3 @@ flutter:
   uses-material-design: true
   assets:
     - images/
-
