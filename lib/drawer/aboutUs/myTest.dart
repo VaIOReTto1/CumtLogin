@@ -36,7 +36,7 @@ class _testPageState extends State<testPage> {
           /// 这里用来调试不同主题颜色对aboutUsPage的影响
           /// 我的建议是，这个【关于我们】页面用两套主题足够了
           /// 一套在ThemeData.dark()时的夜间主题，一套默认主题，就跟矿小助一样
-          // theme: ThemeData.dark(),
+          theme: ThemeData.dark(),
           home: child,
         );
       },
