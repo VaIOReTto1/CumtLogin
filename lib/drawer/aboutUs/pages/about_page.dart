@@ -1,6 +1,5 @@
 import 'package:cumt_login/config.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import '../cpns/dividing_cpn.dart';
 import '../cpns/project_group.dart';
@@ -28,7 +27,9 @@ class _AboutPageState extends State<AboutPage> {
     final double height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.primary==Colors.blue?Colors.grey.shade300:Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).brightness == Brightness.dark
+          ? Theme.of(context).cardColor
+          : Colors.grey.shade300,
       body: CustomScrollView(
         physics: const BouncingScrollPhysics(),
         slivers: [
@@ -38,7 +39,7 @@ class _AboutPageState extends State<AboutPage> {
             floating: false,
             snap: false,
             primary: true,
-            expandedHeight: height * .35,
+            expandedHeight: height * .38,
             elevation: 0,
             backgroundColor: Theme.of(context).brightness == Brightness.dark
                 ? Theme.of(context).cardColor
