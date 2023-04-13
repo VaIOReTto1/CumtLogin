@@ -90,7 +90,7 @@ class _ShortcutState extends State<Shortcut> {
             borderRadius: BorderRadius.circular(UIConfig.borderRadiusEntry),
             color: Theme.of(context).colorScheme.primary == Colors.blue
                 ? const Color.fromRGBO(230, 231, 233, 1)
-                : Theme.of(context).colorScheme.primary
+                : Colors.black38
         ),
         child: Wrap(
           spacing: 4,
