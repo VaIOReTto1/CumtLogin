@@ -4,11 +4,13 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
+import 'package:provider/provider.dart';
 //import 'package:path_provider/path_provider.dart';
 //import 'package:universal_platform/universal_platform.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:cumt_login/config.dart';
 
+import '../main.dart';
 import 'bottom_Dialogue.dart';
 
 void checkUpgrade(BuildContext context,{bool auto = true})async{
@@ -16,7 +18,6 @@ void checkUpgrade(BuildContext context,{bool auto = true})async{
   //   return;
   // }
   PackageInfo cur = await PackageInfo.fromPlatform();
-
   Response res;
   Dio dio = Dio();
   try{
@@ -38,6 +39,7 @@ void checkUpgrade(BuildContext context,{bool auto = true})async{
     //   }else{
     //     if(auto==false) show(context,"当前为最新版本！");
     //   }
+<<<<<<< Updated upstream
     //   if(map['check']==true){
           updateAlert(context,{
             'isForceUpdate': false,//是否强制更新
@@ -49,6 +51,19 @@ void checkUpgrade(BuildContext context,{bool auto = true})async{
     // }
   }catch(e){
     if(auto==false)show(context,"获取最新版本失败(X_X)");
+=======
+    if (map['check'] == false) {    //这边仅测试时选择false，正式版应当改为true
+      updateAlert(context, {
+        'isForceUpdate': false, //是否强制更新
+        'content': map['description'], //版本描述
+        'url': map['apkUrl'], // 安装包的链接
+      });
+    } else {
+      if (auto == false) show(context, "获取最新版本失败(X_X)");
+    }
+  } catch (e) {
+    if (auto == false) show(context, "获取最新版本失败(X_X)");
+>>>>>>> Stashed changes
     debugPrint(e.toString());
   }
 }
@@ -87,7 +102,7 @@ class _UpgradeDialogState extends State<UpgradeDialog> {
   @override
   Widget build(BuildContext context) {
     String info = widget.data['content']; // 更新内容
-
+    final _existNewVersioner = Provider.of<UpdatecheckModel>(context);
     return new Center(
       // 剧中组件
       child: new Material(
@@ -122,8 +137,21 @@ class _UpgradeDialogState extends State<UpgradeDialog> {
                 children: <Widget>[
                   Expanded(
                     child: InkWell(
+<<<<<<< Updated upstream
                       child: Center(child: Text("取消",style:TextStyle(fontWeight: FontWeight.w600,color: Colors.black38,fontSize: UIConfig.fontSizeSubMain))),
                       onTap: ()async{
+=======
+                      child: Center(
+                          child: Container(
+                              padding: EdgeInsets.symmetric(vertical: 10),
+                              child: Text("取消",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.black38,
+                                      fontSize: UIConfig.fontSizeSubMain)))),
+                      onTap: () async {
+                        _existNewVersioner.checkexist();
+>>>>>>> Stashed changes
                         Navigator.of(context).pop();
                       },
                     ),

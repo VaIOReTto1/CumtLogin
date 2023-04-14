@@ -9,10 +9,37 @@ import 'login_util/login.dart';
 import 'login_util/methods.dart';
 import 'login_util/prefs.dart';
 
+<<<<<<< Updated upstream
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Prefs.init();
   runApp(const MyApp());
+=======
+class UpdatecheckModel with ChangeNotifier {
+  bool existNewVersion = false;
+
+  void checkexist() {
+    existNewVersion = true;
+    notifyListeners();
+  }
+
+  void checkvisit() {
+    existNewVersion = false;
+    notifyListeners();
+  }
+}
+
+main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Prefs.init();
+  runApp((MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (_) => ThemeProvider()),
+      ChangeNotifierProvider(create: (_) => UpdatecheckModel()),
+    ],
+    child: const MyApp(),
+  )));
+>>>>>>> Stashed changes
 }
 
 class MyApp extends StatelessWidget {
@@ -55,6 +82,10 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
     _usernameController.text = cumtLoginAccount.username!;
     _passwordController.text = cumtLoginAccount.password!;
     _handleLogin(context);
+<<<<<<< Updated upstream
+=======
+    checkUpgrade(context,auto: true); //打开app后默认检查更新
+>>>>>>> Stashed changes
   }
 
   @override
@@ -77,10 +108,16 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
       onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
       child: Scaffold(
         appBar: AppBar(
+<<<<<<< Updated upstream
           title: Text(
             '矿小助CUMT校园网登录',
             style: TextStyle(fontSize: UIConfig.fontSizeTitle)
           ),
+=======
+          //automaticallyImplyLeading: false, // 禁用默认的返回箭头
+          title: Text('校园网自动登录',
+              style: TextStyle(fontSize: UIConfig.fontSizeTitle * 1.2)),
+>>>>>>> Stashed changes
         ),
         body: Center(
           child: Padding(
@@ -96,12 +133,49 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
+<<<<<<< Updated upstream
                     TextButton(
                         onPressed: () => _showLocationMethodPicker(),
                         child: Row(
                           children: [
                             Text("${cumtLoginAccount.cumtLoginLocation?.name} ${cumtLoginAccount.cumtLoginMethod?.name}"),
                             const Icon(Icons.arrow_drop_down),
+=======
+                    const Shortcut(),
+                    Column(
+                      children: [
+                        const SizedBox(height: 16.0),
+                        buildTextField("账号", _usernameController,
+                            showPopButton: true),
+                        const SizedBox(height: 16.0),
+                        buildTextField("密码", _passwordController,
+                            obscureText: true),
+                        const SizedBox(height: 16.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            TextButton(
+                                onPressed: () => _showLocationMethodPicker(),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                        "${cumtLoginAccount.cumtLoginLocation?.name} ${cumtLoginAccount.cumtLoginMethod?.name}"),
+                                    const Icon(Icons.arrow_drop_down),
+                                  ],
+                                )),
+                            ElevatedButton(
+                              onPressed: () => _handleLogin(context),
+                              child: Text('登录',
+                                  style: TextStyle(
+                                      fontSize: UIConfig.fontSizeMain)),
+                            ),
+                            OutlinedButton(
+                              onPressed: () => _handleLogout(context),
+                              child: Text('注销',
+                                  style: TextStyle(
+                                      fontSize: UIConfig.fontSizeMain)),
+                            ),
+>>>>>>> Stashed changes
                           ],
                         )),
                     ElevatedButton(
@@ -124,6 +198,7 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
       ),
     );
   }
+
   void _showLocationMethodPicker() {
     Picker(
         adapter: PickerDataAdapter<dynamic>(pickerData: [
@@ -134,8 +209,10 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
         hideHeader: false,
         onConfirm: (Picker picker, List value) {
           setState(() {
-            cumtLoginAccount.setCumtLoginLocationByName(picker.getSelectedValues()[0]);
-            cumtLoginAccount.setCumtLoginMethodByName(picker.getSelectedValues()[1]);
+            cumtLoginAccount
+                .setCumtLoginLocationByName(picker.getSelectedValues()[0]);
+            cumtLoginAccount
+                .setCumtLoginMethodByName(picker.getSelectedValues()[1]);
           });
         }).showModal(context);
   }
@@ -153,43 +230,53 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
             obscureText: obscureText,
             decoration: InputDecoration(
               labelText: labelText,
+<<<<<<< Updated upstream
               border: const OutlineInputBorder(),
+=======
+              border: OutlineInputBorder(
+                  borderRadius:
+                      BorderRadius.circular(UIConfig.borderRadiusEntry)),
+>>>>>>> Stashed changes
             ),
           ),
           showPopButton
               ? PopupMenuButton<CumtLoginAccount>(
-              icon: const Icon(Icons.arrow_drop_down_outlined),
-              onOpened: () {
-                FocusScope.of(context).unfocus();
-              },
-              onSelected: (account) {
-                setState(() {
-                  cumtLoginAccount = account.clone();
-                  _usernameController.text = cumtLoginAccount.username!;
-                  _passwordController.text = cumtLoginAccount.password!;
-                });
-              },
-              itemBuilder: (context)  {
-                return CumtLoginAccount.list.map((account) {
-                  return PopupMenuItem<CumtLoginAccount>(
-                    value: account,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(child: Text("${account.username}"
-                            " ${account.cumtLoginLocation?.name} ${account.cumtLoginMethod?.name}",),),
-                        IconButton(onPressed: (){
-                          CumtLoginAccount.removeList(account);
-                          _showSnackBar("删除成功");
-                          Navigator.of(context).pop();
-                        }, icon: const Icon(Icons.close))
-
-                      ],
-                    ),
-                  );
-                }).toList();
-              }
-          )
+                  icon: const Icon(Icons.arrow_drop_down_outlined),
+                  onOpened: () {
+                    FocusScope.of(context).unfocus();
+                  },
+                  onSelected: (account) {
+                    setState(() {
+                      cumtLoginAccount = account.clone();
+                      _usernameController.text = cumtLoginAccount.username!;
+                      _passwordController.text = cumtLoginAccount.password!;
+                    });
+                  },
+                  itemBuilder: (context) {
+                    return CumtLoginAccount.list.map((account) {
+                      return PopupMenuItem<CumtLoginAccount>(
+                        value: account,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                "${account.username}"
+                                " ${account.cumtLoginLocation?.name} ${account.cumtLoginMethod?.name}",
+                              ),
+                            ),
+                            IconButton(
+                                onPressed: () {
+                                  CumtLoginAccount.removeList(account);
+                                  _showSnackBar("删除成功");
+                                  Navigator.of(context).pop();
+                                },
+                                icon: const Icon(Icons.close))
+                          ],
+                        ),
+                      );
+                    }).toList();
+                  })
               : Container(),
         ],
       ),
