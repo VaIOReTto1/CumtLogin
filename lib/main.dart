@@ -1,14 +1,15 @@
 import 'package:cumt_login/config.dart';
 import 'package:cumt_login/drawer/backgroundimage/imageselect.dart';
 import 'package:cumt_login/drawer/drawer_page.dart';
+import 'package:cumt_login/shortcut/ui.dart';
 import 'package:cumt_login/splash_page.dart';
+import 'package:cumt_login/update/app_upgrade.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_picker/Picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
-import 'drawer/theme/theme_button.dart';
+import 'drawer/theme/theme_color.dart';
 import 'login_util/account.dart';
 import 'login_util/locations.dart';
 import 'login_util/login.dart';
@@ -79,6 +80,7 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
     _usernameController.text = cumtLoginAccount.username!;
     _passwordController.text = cumtLoginAccount.password!;
     _handleLogin(context);
+    checkUpgrade(context);      //打开app后默认检查更新
   }
 
   @override
@@ -114,37 +116,42 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
               child: Padding(
                 padding: EdgeInsets.all(UIConfig.paddingAll),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    const SizedBox(height: 16.0),
-                    buildTextField("账号", _usernameController, showPopButton: true),
-                    const SizedBox(height: 16.0),
-                    buildTextField("密码", _passwordController, obscureText: true),
-                    const SizedBox(height: 16.0),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    const Shortcut(),
+                    Column(
                       children: [
-                        TextButton(
-                            onPressed: () => _showLocationMethodPicker(),
-                            child: Row(
-                              children: [
-                                Text("${cumtLoginAccount.cumtLoginLocation?.name} ${cumtLoginAccount.cumtLoginMethod?.name}"),
-                                const Icon(Icons.arrow_drop_down),
-                              ],
-                            )),
-                        ElevatedButton(
-                          onPressed: () => _handleLogin(context),
-                          child: Text('登录', style: TextStyle(fontSize: UIConfig.fontSizeMain)),
+                        const SizedBox(height: 16.0),
+                        buildTextField("账号", _usernameController, showPopButton: true),
+                        const SizedBox(height: 16.0),
+                        buildTextField("密码", _passwordController, obscureText: true),
+                        const SizedBox(height: 16.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            TextButton(
+                                onPressed: () => _showLocationMethodPicker(),
+                                child: Row(
+                                  children: [
+                                    Text("${cumtLoginAccount.cumtLoginLocation?.name} ${cumtLoginAccount.cumtLoginMethod?.name}"),
+                                    const Icon(Icons.arrow_drop_down),
+                                  ],
+                                )),
+                            ElevatedButton(
+                              onPressed: () => _handleLogin(context),
+                              child: Text('登录', style: TextStyle(fontSize: UIConfig.fontSizeMain)),
+                            ),
+                            OutlinedButton(
+                              onPressed: () => _handleLogout(context),
+                              child: Text('注销', style: TextStyle(fontSize: UIConfig.fontSizeMain)),
+                            ),
+                          ],
                         ),
-                        OutlinedButton(
-                          onPressed: () => _handleLogout(context),
-                          child: Text('注销', style: TextStyle(fontSize: UIConfig.fontSizeMain)),
+                        const SizedBox(
+                          height: 20,
                         ),
                       ],
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
+                    )
                   ],
                 ),
               ),
@@ -184,7 +191,9 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
             obscureText: obscureText,
             decoration: InputDecoration(
               labelText: labelText,
-              border: const OutlineInputBorder(),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(UIConfig.borderRadiusEntry)
+              ),
             ),
           ),
           showPopButton
