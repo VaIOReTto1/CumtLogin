@@ -116,7 +116,7 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
               child: Padding(
                 padding: EdgeInsets.all(UIConfig.paddingAll),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     const Shortcut(),
                     Column(
