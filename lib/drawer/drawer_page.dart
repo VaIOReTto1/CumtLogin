@@ -56,7 +56,8 @@ class _DrawerPageState extends State<DrawerPage> {
                             ImageSelectButton(),
                             ImageDeleteButton(),
                             LightThemeButton(),
-                            DarkThemeButton()
+                            DarkThemeButton(),
+                            UpdatecheckButton(),
                           ],
                         ),
                       )

@@ -11,7 +11,7 @@ import 'package:cumt_login/config.dart';
 
 import 'bottom_Dialogue.dart';
 
-void checkUpgrade(BuildContext context,{bool auto = true})async{
+void checkUpgrade(BuildContext context, {bool auto = true}) async {
   // if(UniversalPlatform.isIOS){
   //   return;
   // }
@@ -19,14 +19,13 @@ void checkUpgrade(BuildContext context,{bool auto = true})async{
 
   Response res;
   Dio dio = Dio();
-  try{
+  try {
     res = await dio.get(
         //"https://user.kxz.atcumt.com/admin/version_new",
         "http://10.0.2.2:5000/update/check",
-        queryParameters: {'version':cur.version.toString()}
-    );
+        queryParameters: {'version': cur.version.toString()});
     debugPrint(res.toString());
-    Map<String,dynamic> map = jsonDecode(res.toString());
+    Map<String, dynamic> map = jsonDecode(res.toString());
     //这边会随后端更新而继续更新
     // if(map['status']==200){
     //   if(map['check']==true){
@@ -39,27 +38,30 @@ void checkUpgrade(BuildContext context,{bool auto = true})async{
     //     if(auto==false) show(context,"当前为最新版本！");
     //   }
     //   if(map['check']==true){
-          updateAlert(context,{
-            'isForceUpdate': false,//是否强制更新
-            'content': map['description'],//版本描述
-            'url': map['apkUrl'],// 安装包的链接
-            });
+    updateAlert(context, {
+      'isForceUpdate': false, //是否强制更新
+      'content': map['description'], //版本描述
+      'url': map['apkUrl'], // 安装包的链接
+    });
     // }else{
     //   if(auto==false) show( context,"获取最新版本失败(X_X)");
     // }
-  }catch(e){
-    if(auto==false)show(context,"获取最新版本失败(X_X)");
+  } catch (e) {
+    if (auto == false) show(context, "获取最新版本失败(X_X)");
     debugPrint(e.toString());
   }
 }
 
 Future<void> updateAlert(BuildContext context, Map data) async {
   bool isForceUpdate = data['isForceUpdate']; // 从数据拿到是否强制更新字段
-  showDialog( // 显示对话框
+  showDialog(
+    // 显示对话框
     context: context,
-    builder: (_) => new UpgradeDialog(data, isForceUpdate, updateUrl: data['url']),
+    builder: (_) =>
+        new UpgradeDialog(data, isForceUpdate, updateUrl: data['url']),
   );
 }
+
 class UpgradeDialog extends StatefulWidget {
   final Map data; // 数据
   final bool isForceUpdate; // 是否强制更新
@@ -94,17 +96,23 @@ class _UpgradeDialogState extends State<UpgradeDialog> {
         borderRadius: BorderRadius.circular(UIConfig.borderRadiusEntry),
         child: new Container(
           width: MediaQuery.of(context).size.width * 0.8, // 宽度是整宽的百分之80
-          padding: EdgeInsets.fromLTRB(0, UIConfig.paddingVertical*2, 0, UIConfig.paddingVertical*2),
+          padding: EdgeInsets.fromLTRB(
+              0, UIConfig.paddingVertical * 2, 0, UIConfig.paddingVertical * 2),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(UIConfig.borderRadiusEntry)), // 圆角
+            borderRadius: BorderRadius.all(
+                Radius.circular(UIConfig.borderRadiusEntry)), // 圆角
           ),
           child: Wrap(
             runSpacing: 10,
             children: <Widget>[
               Container(
+                padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                 width: double.infinity,
                 alignment: Alignment.center,
-                child: Text("发现最新版本！",style:TextStyle(fontWeight: FontWeight.bold,fontSize: UIConfig.fontSizeSubTitle)),
+                child: Text("发现最新版本！",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: UIConfig.fontSizeSubTitle)),
               ),
               Container(
                 height: 400,
@@ -112,25 +120,42 @@ class _UpgradeDialogState extends State<UpgradeDialog> {
                 child: new SingleChildScrollView(
                   physics: BouncingScrollPhysics(),
                   child: Padding(
-                      padding:
-                      EdgeInsets.symmetric(horizontal: 40.0, vertical: 15.0),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 40.0, vertical: 15.0),
                       child: new Text('$info',
-                          style: new TextStyle(color: Color(0xff7A7A7A)))),
+                          style: new TextStyle(
+                              color: Color(0xff7A7A7A),
+                              fontSize: UIConfig.fontSizeSubMain))),
                 ),
               ),
               Row(
                 children: <Widget>[
                   Expanded(
                     child: InkWell(
-                      child: Center(child: Text("取消",style:TextStyle(fontWeight: FontWeight.w600,color: Colors.black38,fontSize: UIConfig.fontSizeSubMain))),
-                      onTap: ()async{
+                      child: Center(
+                          child: Container(
+                              padding: EdgeInsets.symmetric(vertical: 10),
+                              child: Text("取消",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.black38,
+                                      fontSize: UIConfig.fontSizeSubMain)))),
+                      onTap: () async {
                         Navigator.of(context).pop();
                       },
                     ),
                   ),
                   Expanded(
                     child: InkWell(
-                      child: Center(child: Text("立即更新",style:TextStyle(fontWeight: FontWeight.w600,color: Colors.black38,fontSize: UIConfig.fontSizeSubMain))),
+                      child: Center(
+                          child: Container(
+                        padding: EdgeInsets.symmetric(vertical: 10),
+                        child: Text("立即更新",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                color: Color(0xff00c5a8),
+                                fontSize: UIConfig.fontSizeSubMain)),
+                      )),
                       onTap: () => launch(widget.updateUrl),
                     ),
                   ),
@@ -142,6 +167,7 @@ class _UpgradeDialogState extends State<UpgradeDialog> {
       ),
     );
   }
+
   @override
   void dispose() {
     //if (!token.isCancelled) token?.cancel();
@@ -151,4 +177,3 @@ class _UpgradeDialogState extends State<UpgradeDialog> {
 }
 
 enum UploadingFlag { uploading, idle, uploaded, uploadingFailed }
-

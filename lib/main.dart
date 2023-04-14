@@ -3,6 +3,7 @@ import 'package:cumt_login/drawer/backgroundimage/imageselect.dart';
 import 'package:cumt_login/drawer/drawer_page.dart';
 import 'package:cumt_login/shortcut/ui.dart';
 import 'package:cumt_login/splash_page.dart';
+import 'package:cumt_login/update/app_upgrade.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_picker/Picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -79,6 +80,7 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
     _usernameController.text = cumtLoginAccount.username!;
     _passwordController.text = cumtLoginAccount.password!;
     _handleLogin(context);
+    checkUpgrade(context);      //打开app后默认检查更新
   }
 
   @override
