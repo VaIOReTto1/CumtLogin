@@ -1,13 +1,17 @@
 import 'package:cumt_login/drawer/theme/theme_color.dart';
 import 'package:cumt_login/update/app_upgrade.dart';
+import 'package:cumt_login/feedback/feedback.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../config.dart';
 import 'aboutUs/pages/about_page.dart';
 import 'backgroundimage/imageselect.dart';
+
 class DrawerButton extends StatefulWidget {
-  const DrawerButton({Key? key, }) : super(key: key);
+  const DrawerButton({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<DrawerButton> createState() => _DrawerButtonState();
@@ -23,16 +27,20 @@ class _DrawerButtonState extends State<DrawerButton> {
         child: SizedBox(
           width: 370,
           child: Padding(
-              padding: EdgeInsets.all(UIConfig.paddingAll*3),
+              padding: EdgeInsets.all(UIConfig.paddingAll * 3),
               child: Row(
                 children: [
                   Expanded(
-                    child: Text("关于我们", style: TextStyle( fontSize: UIConfig.fontSizeMain * 1.2)),
+                    child: Text("关于我们",
+                        style:
+                            TextStyle(fontSize: UIConfig.fontSizeMain * 1.2)),
                   ),
-                  Icon(Icons.keyboard_arrow_right_rounded,size: UIConfig.fontSizeMin * 2.5,),
+                  Icon(
+                    Icons.keyboard_arrow_right_rounded,
+                    size: UIConfig.fontSizeMin * 2.5,
+                  ),
                 ],
-              )
-          ),
+              )),
         ));
   }
 }
@@ -51,17 +59,23 @@ class _ImageSelectButtonState extends State<ImageSelectButton> {
         width: 370,
         height: 58,
         child: Container(
-          color: Theme.of(context).colorScheme.primary == Colors.blue ? Colors.grey.shade300 : Theme.of(context).cardColor,
-          padding: EdgeInsets.all(UIConfig.paddingAll*3),
+          color: Theme.of(context).colorScheme.primary == Colors.blue
+              ? Colors.grey.shade300
+              : Theme.of(context).cardColor,
+          padding: EdgeInsets.all(UIConfig.paddingAll * 3),
           child: Row(
             children: [
               Expanded(
                 child: Text('更换背景',
                     style: TextStyle(
-                        fontSize: UIConfig
-                            .fontSizeMain*1.2)), // 中间文本
+                        fontSize: UIConfig.fontSizeMain * 1.2)), // 中间文本
               ),
-              ImageSelect(child: Icon(Icons.keyboard_arrow_right_rounded, size: UIConfig.fontSizeMin * 2.5,),)
+              ImageSelect(
+                child: Icon(
+                  Icons.keyboard_arrow_right_rounded,
+                  size: UIConfig.fontSizeMin * 2.5,
+                ),
+              )
             ],
           ),
         ));
@@ -82,17 +96,23 @@ class _ImageDeleteButtonState extends State<ImageDeleteButton> {
         width: 370,
         height: 58,
         child: Container(
-          color: Theme.of(context).colorScheme.primary == Colors.blue ? Colors.grey.shade300 : Theme.of(context).cardColor,
-          padding: EdgeInsets.all(UIConfig.paddingAll*3),
+          color: Theme.of(context).colorScheme.primary == Colors.blue
+              ? Colors.grey.shade300
+              : Theme.of(context).cardColor,
+          padding: EdgeInsets.all(UIConfig.paddingAll * 3),
           child: Row(
             children: [
               Expanded(
                 child: Text('删除背景',
                     style: TextStyle(
-                        fontSize: UIConfig
-                            .fontSizeMain*1.2)), // 中间文本
+                        fontSize: UIConfig.fontSizeMain * 1.2)), // 中间文本
               ),
-              ImageDelete(child: Icon(Icons.keyboard_arrow_right_rounded, size: UIConfig.fontSizeMin * 2.5,),)
+              ImageDelete(
+                child: Icon(
+                  Icons.keyboard_arrow_right_rounded,
+                  size: UIConfig.fontSizeMin * 2.5,
+                ),
+              )
             ],
           ),
         ));
@@ -117,16 +137,20 @@ class _LightThemeButtonState extends State<LightThemeButton> {
         child: SizedBox(
           width: 370,
           child: Padding(
-              padding: EdgeInsets.all(UIConfig.paddingAll*3),
+              padding: EdgeInsets.all(UIConfig.paddingAll * 3),
               child: Row(
                 children: [
                   Expanded(
-                    child: Text("日间模式",style: TextStyle( fontSize: UIConfig .fontSizeMain * 1.2)),
+                    child: Text("日间模式",
+                        style:
+                            TextStyle(fontSize: UIConfig.fontSizeMain * 1.2)),
                   ),
-                  Icon(Icons.keyboard_arrow_right_rounded,size: UIConfig.fontSizeMin * 2.5,),
+                  Icon(
+                    Icons.keyboard_arrow_right_rounded,
+                    size: UIConfig.fontSizeMin * 2.5,
+                  ),
                 ],
-              )
-          ),
+              )),
         ));
   }
 }
@@ -149,17 +173,20 @@ class _DarkThemeButtonState extends State<DarkThemeButton> {
         child: SizedBox(
           width: 370,
           child: Padding(
-              padding: EdgeInsets.all(UIConfig.paddingAll*3),
+              padding: EdgeInsets.all(UIConfig.paddingAll * 3),
               child: Row(
                 children: [
                   Expanded(
                     child: Text("黑夜模式",
-                        style: TextStyle(fontSize: UIConfig.fontSizeMain * 1.2)),
+                        style:
+                            TextStyle(fontSize: UIConfig.fontSizeMain * 1.2)),
                   ),
-                  Icon(Icons.keyboard_arrow_right_rounded, size: UIConfig.fontSizeMin * 2.5,),
+                  Icon(
+                    Icons.keyboard_arrow_right_rounded,
+                    size: UIConfig.fontSizeMin * 2.5,
+                  ),
                 ],
-              )
-          ),
+              )),
         ));
   }
 }
@@ -181,16 +208,63 @@ class _UpdatecheckButtonState extends State<UpdatecheckButton> {
         child: SizedBox(
           width: 370,
           child: Padding(
-              padding: EdgeInsets.all(UIConfig.paddingAll*3),
+              padding: EdgeInsets.all(UIConfig.paddingAll * 3),
               child: Row(
                 children: [
                   Expanded(
-                    child: Text("软件更新",style: TextStyle( fontSize: UIConfig .fontSizeMain * 1.2)),
+                    child: Text("软件更新",
+                        style:
+                            TextStyle(fontSize: UIConfig.fontSizeMain * 1.2)),
                   ),
-                  Icon(Icons.keyboard_arrow_right_rounded,size: UIConfig.fontSizeMin * 2.5,),
+                  Icon(
+                    Icons.keyboard_arrow_right_rounded,
+                    size: UIConfig.fontSizeMin * 2.5,
+                  ),
                 ],
-              )
-          ),
+              )),
+        ));
+  }
+}
+
+class FeedBackButton extends StatefulWidget {
+  const FeedBackButton({Key? key}) : super(key: key);
+
+  @override
+  State<FeedBackButton> createState() => _FeedBackButtonState();
+}
+
+class _FeedBackButtonState extends State<FeedBackButton> {
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+        onTap: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text('意见反馈'),
+                content: FeedbackForm(),
+              );
+            },
+          );
+        },
+        child: SizedBox(
+          width: 370,
+          child: Padding(
+              padding: EdgeInsets.all(UIConfig.paddingAll * 3),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text("反馈与建议",
+                        style:
+                            TextStyle(fontSize: UIConfig.fontSizeMain * 1.2)),
+                  ),
+                  Icon(
+                    Icons.keyboard_arrow_right_rounded,
+                    size: UIConfig.fontSizeMin * 2.5,
+                  ),
+                ],
+              )),
         ));
   }
 }

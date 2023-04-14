@@ -13,7 +13,9 @@ class _DrawerPageState extends State<DrawerPage> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-        backgroundColor: Theme.of(context).colorScheme.primary == Colors.blue? const Color.fromRGBO(230, 231, 233, 1) : Colors.grey.shade700,
+        backgroundColor: Theme.of(context).colorScheme.primary == Colors.blue
+            ? const Color.fromRGBO(230, 231, 233, 1)
+            : Colors.grey.shade700,
         child: Column(
           children: [
             Container(
@@ -31,37 +33,46 @@ class _DrawerPageState extends State<DrawerPage> {
               ),
             ),
             Padding(
-                  padding: EdgeInsets.all(UIConfig.paddingAll),
-                  child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16),
-                          color:Theme.of(context).colorScheme.primary == Colors.blue ? Colors.grey.shade300 : Theme.of(context).cardColor,
-                          boxShadow: [
-                            BoxShadow(
-                              offset: const Offset(8, 8),
-                              color:Theme.of(context).brightness == Brightness.dark ? const Color(0xFF383837).withAlpha(255) : Colors.black38,
-                              blurRadius: 15,
-                            ),
-                            BoxShadow(
-                              offset: const Offset(-8, -8),
-                              color:Theme.of(context).brightness == Brightness.dark ? const Color(0xFF4c4c4b).withAlpha(255) : Colors.white70,
-                              blurRadius: 15,
-                            )
-                          ]),
-                      width: MediaQuery .of(context) .size.width * .86,
-                      child:SingleChildScrollView(
-                        child: Column(
-                          children: const [
-                            DrawerButton(),
-                            ImageSelectButton(),
-                            ImageDeleteButton(),
-                            LightThemeButton(),
-                            DarkThemeButton(),
-                            UpdatecheckButton(),
-                          ],
-                        ),
-                      )
-                  )),
+                padding: EdgeInsets.all(UIConfig.paddingAll),
+                child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        color:
+                            Theme.of(context).colorScheme.primary == Colors.blue
+                                ? Colors.grey.shade300
+                                : Theme.of(context).cardColor,
+                        boxShadow: [
+                          BoxShadow(
+                            offset: const Offset(8, 8),
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? const Color(0xFF383837).withAlpha(255)
+                                    : Colors.black38,
+                            blurRadius: 15,
+                          ),
+                          BoxShadow(
+                            offset: const Offset(-8, -8),
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? const Color(0xFF4c4c4b).withAlpha(255)
+                                    : Colors.white70,
+                            blurRadius: 15,
+                          )
+                        ]),
+                    width: MediaQuery.of(context).size.width * .86,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: const [
+                          DrawerButton(),
+                          ImageSelectButton(),
+                          ImageDeleteButton(),
+                          LightThemeButton(),
+                          DarkThemeButton(),
+                          UpdatecheckButton(),
+                          FeedBackButton(),
+                        ],
+                      ),
+                    ))),
           ],
         ));
   }
