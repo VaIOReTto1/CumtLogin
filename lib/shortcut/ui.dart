@@ -15,7 +15,7 @@ class _ShortcutState extends State<Shortcut> {
     {"name" : "中国矿业大学", "url" : "https://www.cumt.edu.cn"},
     {"name" : "必应", "url":"https://bing.com"},
     {"name" : "物理实验中心", "url" : "http://10.103.4.10:8020/"},
-    {"name" : "教务选课", "url" : "http://127.0.0.1:8000"},
+    {"name" : "教务选课", "url" : "http://10.0.2.2:8000"},
     {"name" : "中国矿业大学馆藏数字化平台", "url" : "http://121.248.104.172:8080/"},
   ];
 
