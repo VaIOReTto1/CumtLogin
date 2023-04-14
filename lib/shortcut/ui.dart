@@ -1,3 +1,4 @@
+import 'package:cumt_login/shortcut/input.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/services.dart';
@@ -11,6 +12,7 @@ class Shortcut extends StatefulWidget {
 }
 
 class _ShortcutState extends State<Shortcut> {
+  // 默认网址
   List<Map<String, String>> links = [
     {"name" : "中国矿业大学", "url" : "https://www.cumt.edu.cn"},
     {"name" : "必应", "url":"https://bing.com"},
@@ -21,7 +23,6 @@ class _ShortcutState extends State<Shortcut> {
 
   @override
   Widget build(BuildContext context) {
-    print("build");
     return _buildShorcutBox(
         context: context,
         child: Column(
@@ -38,7 +39,7 @@ class _ShortcutState extends State<Shortcut> {
                 for(int i = 0; i < links.length; i++)
                   _buildEntry(context, links[i]),
                 // 添加新的快捷方式
-                //_buildAddButton(context),
+                _buildAddButton(context),
               ],
             )
           ],
@@ -46,13 +47,8 @@ class _ShortcutState extends State<Shortcut> {
     );
   }
 
-  void _openUrl(String? url) {
-    launchUrl(
-        Uri.parse(url!),
-        mode: LaunchMode.externalApplication
-    );
-  }
 
+  // 定义整个快捷方式板块的UI
   Widget _buildShorcutBox({
     required BuildContext context,
     required Widget child
@@ -74,13 +70,12 @@ class _ShortcutState extends State<Shortcut> {
     );
   }
 
+  // 定义每个快捷选项的UI
   Widget _buildEntry(BuildContext context, Map<String?, String?> web) {
     return InkWell(
       onLongPress: () {
         Clipboard.setData(ClipboardData(text: web["url"]));
-        ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("已复制到剪切板"))
-        );
+        showSnackBar(context, "已复制到剪切板");
       },
       onTap: () { _openUrl(web["url"]); },
       child: Container(
@@ -105,17 +100,27 @@ class _ShortcutState extends State<Shortcut> {
     );
   }
 
+  // 添加按钮
   Widget _buildAddButton(BuildContext context) {
     return InkWell(
       onTap: () {
-        setState(() {});
+        toDialog(
+            context: context,
+            list: links,
+            // 把setState作为回调传入
+            // 调用时机在点击添加按钮，add进links之后
+            callback: () { setState(() {}); }
+        );
+
       },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: UIConfig.marginVertical),
         padding: EdgeInsets.all(UIConfig.paddingAll),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(UIConfig.borderRadiusEntry),
-            color: Colors.grey[200]
+            color: Theme.of(context).colorScheme.primary == Colors.blue
+                ? const Color.fromRGBO(230, 231, 233, 1)
+                : Colors.black38
         ),
         child: Wrap(
           children: const [Icon(Icons.add)],
@@ -123,4 +128,18 @@ class _ShortcutState extends State<Shortcut> {
       ),
     );
   }
+}
+
+// TODO 多次调用，要讨论统一实现方式
+void showSnackBar(BuildContext context, String message) {
+  ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message))
+  );
+}
+
+void _openUrl(String? url) {
+  launchUrl(
+      Uri.parse(url!),
+      mode: LaunchMode.externalApplication
+  );
 }
