@@ -1,4 +1,6 @@
+import 'package:cumt_login/drawer/backgroundimage/imageselect.dart';
 import 'package:cumt_login/drawer/drawer_button.dart';
+import 'package:cumt_login/drawer/theme/theme_color.dart';
 import 'package:flutter/material.dart';
 import '../config.dart';
 
@@ -51,13 +53,13 @@ class _DrawerPageState extends State<DrawerPage> {
                       width: MediaQuery .of(context) .size.width * .86,
                       child:SingleChildScrollView(
                         child: Column(
-                          children: const [
-                            DrawerButton(),
-                            ImageSelectButton(),
-                            ImageDeleteButton(),
-                            LightThemeButton(),
-                            DarkThemeButton(),
-                            UpdatecheckButton(),
+                          children: [
+                            const ImageSelect(child: ImageButton(text: "更换背景")),
+                            const ImageDelete(child: ImageButton(text: "删除背景")),
+                            ThemeButton(themeData: ThemeData.light(),text: "日间模式",),
+                            ThemeButton(themeData: AppTheme.darkTheme().themeData,text: "黑夜模式",),
+                            const UpdatecheckButton(),
+                            const AboutButton()
                           ],
                         ),
                       )

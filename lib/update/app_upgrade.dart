@@ -99,6 +99,7 @@ class _UpgradeDialogState extends State<UpgradeDialog> {
           padding: EdgeInsets.fromLTRB(
               0, UIConfig.paddingVertical * 2, 0, UIConfig.paddingVertical * 2),
           decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.primary == Colors.blue ? Colors.grey.shade300 : Theme.of(context).cardColor,
             borderRadius: BorderRadius.all(
                 Radius.circular(UIConfig.borderRadiusEntry)), // 圆角
           ),
@@ -124,7 +125,7 @@ class _UpgradeDialogState extends State<UpgradeDialog> {
                           horizontal: 40.0, vertical: 15.0),
                       child: new Text('$info',
                           style: new TextStyle(
-                              color: Color(0xff7A7A7A),
+                              color: Theme.of(context).colorScheme.primary == Colors.blue ?Color(0xff7A7A7A):Colors.white,
                               fontSize: UIConfig.fontSizeSubMain))),
                 ),
               ),
@@ -138,7 +139,7 @@ class _UpgradeDialogState extends State<UpgradeDialog> {
                               child: Text("取消",
                                   style: TextStyle(
                                       fontWeight: FontWeight.w600,
-                                      color: Colors.black38,
+                                      color: Theme.of(context).colorScheme.primary == Colors.blue ?Colors.black38:Colors.white,
                                       fontSize: UIConfig.fontSizeSubMain)))),
                       onTap: () async {
                         Navigator.of(context).pop();
