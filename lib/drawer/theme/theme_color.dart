@@ -84,40 +84,30 @@ class AppTheme {
 }
 
 class ThemeProvider with ChangeNotifier {
-  ThemeData _themeData = ThemeData.light();
-
-  final String _selectedThemeKey = 'selected_theme';
+  static ThemeData _themeData = ThemeData.light();
+  static const String _themeKey = 'theme'; // 用于存储主题数据的键名
 
   ThemeData get themeData => _themeData;
 
   ThemeProvider() {
-    _loadSelectedTheme();
+    loadThemeData();
   }
 
   Future<void> setThemeData(ThemeData themeData) async {
     _themeData = themeData;
     notifyListeners();
-
-    // Save selected theme to shared preferences
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setInt(_selectedThemeKey, _themeData.hashCode);
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt(_themeKey, themeData == ThemeData.light() ? 1 : 0);
   }
 
-  void _loadSelectedTheme() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    int? selectedThemeHash = prefs.getInt(_selectedThemeKey);
-
-    if (selectedThemeHash != null) {
-      _themeData = _getThemeFromHash(selectedThemeHash);
-      notifyListeners();
+  Future<void> loadThemeData() async {
+    final prefs = await SharedPreferences.getInstance();
+    final int? isLight = prefs.getInt(_themeKey);
+    if ((isLight != null && isLight == 1)|| _themeData == ThemeData.light()) {
+      _themeData = ThemeData.light();
     }
-  }
-
-  ThemeData _getThemeFromHash(int hashCode) {
-    if (hashCode == ThemeData.light().hashCode) {
-      return ThemeData.light();
-    } else {
-      return AppTheme.darkTheme().themeData;
+    else {
+      _themeData= AppTheme.darkTheme().themeData;
     }
   }
 }

@@ -76,6 +76,7 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
+    ThemeProvider;
     WidgetsBinding.instance.addObserver(this);
     _usernameController.text = cumtLoginAccount.username!;
     _passwordController.text = cumtLoginAccount.password!;
