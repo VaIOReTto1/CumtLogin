@@ -93,21 +93,26 @@ class ThemeProvider with ChangeNotifier {
     loadThemeData();
   }
 
+  Future<void> saveThemeData() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt(_themeKey, _themeData == ThemeData.light() ? 1 : 0);
+  }
+
   Future<void> setThemeData(ThemeData themeData) async {
     _themeData = themeData;
     notifyListeners();
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setInt(_themeKey, themeData == ThemeData.light() ? 1 : 0);
+    await saveThemeData();
   }
+
 
   Future<void> loadThemeData() async {
     final prefs = await SharedPreferences.getInstance();
     final int? isLight = prefs.getInt(_themeKey);
-    if (isLight != null && isLight == 1) {
+    if (isLight == null || isLight == 1) {
       _themeData = ThemeData.light();
+    } else {
+      _themeData = AppTheme.darkTheme().themeData;
     }
-    else {
-      _themeData= AppTheme.darkTheme().themeData;
-    }
+    notifyListeners();
   }
 }
