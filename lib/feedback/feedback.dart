@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class FeedbackForm extends StatelessWidget {
   final TextEditingController _textEditingController = TextEditingController();
 
@@ -15,9 +14,10 @@ class FeedbackForm extends StatelessWidget {
           Expanded(
             child: TextField(
               controller: _textEditingController,
-              maxLines: null,
+              maxLines: 8,
+              minLines: 1,
               decoration: InputDecoration(
-                hintText: '请填写您的反馈意见,这对我们非常重要。（也可留下联系方式，方便我们联系您）',
+                hintText: '请填写您的宝贵意见',
                 border: OutlineInputBorder(),
               ),
             ),
@@ -37,7 +37,7 @@ class FeedbackForm extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   String feedback = _textEditingController.text;
-                  await cumt.dio.post("", data: {'data': feedback,});
+                  // 处理用户反馈
                   _textEditingController.clear();
                   Navigator.of(context).pop();
                 },
