@@ -154,9 +154,9 @@ class _SingleInfoCardState extends State<SingleInfoCard> {
     return Row(
       children: [
         Icon(
-          // Icons.add,
+          Icons.add,
           size: UIConfig.fontSizeMin * 2.5,
-          MdiIcons.github,
+          // MdiIcons.github,
           color: getTextTileBGC(context),
         ),
         SizedBox(
@@ -216,8 +216,8 @@ class _SingleInfoCardState extends State<SingleInfoCard> {
     return Row(
       children: [
         Icon(
-          // Icons.add,
-          MdiIcons.qqchat,
+          Icons.add,
+          // MdiIcons.qqchat,
           size: UIConfig.fontSizeMin * 2.5,
           color: getTextTileBGC(context),
         ),
