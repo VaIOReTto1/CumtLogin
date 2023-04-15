@@ -3,13 +3,14 @@ import 'package:cumt_login/drawer/backgroundimage/imageselect.dart';
 import 'package:cumt_login/drawer/drawer_page.dart';
 import 'package:cumt_login/shortcut/ui.dart';
 import 'package:cumt_login/splash_page.dart';
-import 'package:cumt_login/update/app_upgrade.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_picker/Picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import 'drawer/theme/theme_color.dart';
+import 'drawer/update/app_upgrade.dart';
 import 'login_util/account.dart';
 import 'login_util/locations.dart';
 import 'login_util/login.dart';

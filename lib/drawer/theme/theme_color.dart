@@ -103,7 +103,7 @@ class ThemeProvider with ChangeNotifier {
   Future<void> loadThemeData() async {
     final prefs = await SharedPreferences.getInstance();
     final int? isLight = prefs.getInt(_themeKey);
-    if ((isLight != null && isLight == 1)|| _themeData == ThemeData.light()) {
+    if (isLight != null && isLight == 1) {
       _themeData = ThemeData.light();
     }
     else {

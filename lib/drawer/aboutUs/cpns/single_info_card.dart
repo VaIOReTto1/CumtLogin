@@ -48,7 +48,7 @@ class _SingleInfoCardState extends State<SingleInfoCard> {
   Widget build(BuildContext context) {
     return Container(
       decoration:
-          BoxDecoration(borderRadius: BorderRadius.circular(16), boxShadow: [
+      BoxDecoration(borderRadius: BorderRadius.circular(16), boxShadow: [
         BoxShadow(
           offset: const Offset(8, 8),
           color: Theme.of(context).brightness == Brightness.dark
@@ -67,7 +67,7 @@ class _SingleInfoCardState extends State<SingleInfoCard> {
       width: MediaQuery.of(context).size.width * .86,
       child: ExpansionTile(
         collapsedShape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         tilePadding: const EdgeInsets.all(6),
         childrenPadding: const EdgeInsets.all(6),
@@ -102,14 +102,14 @@ class _SingleInfoCardState extends State<SingleInfoCard> {
                     child: CircleAvatar(
                       child: ClipRRect(
                         borderRadius:
-                            BorderRadius.circular(UIConfig.borderRadiusBox),
+                        BorderRadius.circular(UIConfig.borderRadiusBox),
                         child: CachedNetworkImage(
                           imageUrl:
-                              "http://q1.qlogo.cn/g?b=qq&nk=${widget.QNumber}&s=640",
+                          "http://q1.qlogo.cn/g?b=qq&nk=${widget.QNumber}&s=640",
                           placeholder: (context, url) =>
-                              const CircularProgressIndicator(),
+                          const CircularProgressIndicator(),
                           errorWidget: (context, url, error) =>
-                              const Icon(Icons.error),
+                          const Icon(Icons.error),
                         ),
                       ),
                     ),
@@ -154,9 +154,9 @@ class _SingleInfoCardState extends State<SingleInfoCard> {
     return Row(
       children: [
         Icon(
-          Icons.add,
+          // Icons.add,
           size: UIConfig.fontSizeMin * 2.5,
-          // MdiIcons.github,
+          MdiIcons.github,
           color: getTextTileBGC(context),
         ),
         SizedBox(
@@ -216,8 +216,8 @@ class _SingleInfoCardState extends State<SingleInfoCard> {
     return Row(
       children: [
         Icon(
-          Icons.add,
-          // MdiIcons.qqchat,
+          // Icons.add,
+          MdiIcons.qqchat,
           size: UIConfig.fontSizeMin * 2.5,
           color: getTextTileBGC(context),
         ),
