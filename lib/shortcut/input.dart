@@ -38,11 +38,20 @@ class _InputDialogState extends State<InputDialog> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(UIConfig.borderRadiusBox),
+      ),
       child: Container(
         padding: EdgeInsets.all(UIConfig.paddingAll),
         width: double.infinity,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(50)
+            borderRadius: BorderRadius.circular(UIConfig.borderRadiusBox),
+            border: Border.all(
+                color: Theme.of(context).colorScheme.primary == Colors.blue
+                    ? const Color.fromRGBO(230, 231, 233, 1)
+                    : Theme.of(context).colorScheme.primary,
+                width: 2.0
+            )
         ),
         child: SingleChildScrollView(
           child: Column(
