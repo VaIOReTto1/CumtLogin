@@ -9,7 +9,13 @@ class AppTheme {
   factory AppTheme.darkTheme() {
     return AppTheme(
       ThemeData(
+        drawerTheme: DrawerThemeData(
+            backgroundColor: Colors.grey.shade700
+        ),
         appBarTheme: AppBarTheme(
+            iconTheme: IconThemeData(
+color: Colors.white
+            ),
             toolbarTextStyle: const TextTheme(
               //更改appbar标题颜色
               titleLarge: TextStyle(
@@ -23,7 +29,7 @@ class AppTheme {
             ).titleLarge),
 
         cardTheme: const CardTheme(
-          color: Colors.black38, // 更改Card的颜色
+          color: Colors.black54, // 更改Card的颜色
         ),
 
         dialogBackgroundColor: Colors.black12,
@@ -31,22 +37,6 @@ class AppTheme {
         popupMenuTheme: const PopupMenuThemeData(
             //更改按钮弹窗颜色
             color: Colors.black38),
-
-        inputDecorationTheme: InputDecorationTheme(
-          //更改输入框颜色
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.grey[400]!),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.blueGrey[700]!),
-          ),
-          disabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.grey[300]!),
-          ),
-          errorBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.red),
-          ),
-        ),
 
         outlinedButtonTheme: OutlinedButtonThemeData(
           style: ButtonStyle(
@@ -68,8 +58,8 @@ class AppTheme {
           primary: Colors.white60,
           //Picker颜色
           secondary: Colors.black87,
-          background: Colors.black38,
           error: Colors.redAccent[700]!,
+          background: Colors.grey.shade700,
           brightness: Brightness.dark,
           onBackground: Colors.black38,
           onError: Colors.white,
@@ -81,11 +71,74 @@ class AppTheme {
       ),
     );
   }
+
+  factory AppTheme.LightTheme() {
+    return AppTheme(
+      ThemeData(
+        drawerTheme: const DrawerThemeData(
+          backgroundColor: Color.fromRGBO(230, 231, 233, 1)
+        ),
+        appBarTheme: AppBarTheme(
+            toolbarTextStyle: const TextTheme(
+              //更改appbar标题颜色
+              titleLarge: TextStyle(
+                color: Colors.white,
+              ),
+            ).bodyMedium,
+            titleTextStyle: const TextTheme(
+              titleLarge: TextStyle(
+                color: Colors.white,
+              ),
+            ).titleLarge),
+
+        cardTheme: CardTheme(
+          color: Colors.green[200]!, // 更改Card的颜色
+        ),
+
+        dialogBackgroundColor: Colors.grey.shade300,
+        //更改弹窗颜色
+        popupMenuTheme: PopupMenuThemeData(
+          //更改按钮弹窗颜色
+            color: Colors.green[100],),
+
+        outlinedButtonTheme: OutlinedButtonThemeData(
+          style: ButtonStyle(
+            side: MaterialStateProperty.all(BorderSide(color: Colors.green[200]!)),
+            //更改边框颜色
+            foregroundColor:
+            MaterialStateProperty.all(Colors.greenAccent[200]), //更改按钮字体颜色
+          ),
+        ),
+        elevatedButtonTheme:  ElevatedButtonThemeData(
+            style: ButtonStyle(
+                backgroundColor: MaterialStatePropertyAll(Colors.green[200]))),
+
+        scaffoldBackgroundColor: Color.fromRGBO(230, 231, 233, 1),
+        //更改页面顶端颜色
+
+        colorScheme: ColorScheme(
+          primary: Colors.green[200]!,
+          //Picker颜色
+          secondary: Colors.white,
+          background: Color.fromRGBO(230, 231, 233, 1),
+          error: Colors.redAccent[700]!,
+          brightness: Brightness.light,
+          onBackground: Colors.white,
+          onError: Colors.white,
+          onPrimary: Colors.white,
+          onSecondary: Colors.white,
+          onSurface: Colors.white,
+          surface: Colors.white,
+        ),
+      ),
+    );
+  }
 }
 
 class ThemeProvider with ChangeNotifier {
   static ThemeData _themeData = ThemeData.light();
-  static const String _themeKey = 'theme'; // 用于存储主题数据的键名
+  static Brightness _brightness = Brightness.light;
+  static const String _themeKey = 'brightness';
 
   ThemeData get themeData => _themeData;
 
@@ -95,24 +148,34 @@ class ThemeProvider with ChangeNotifier {
 
   Future<void> saveThemeData() async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setInt(_themeKey, _themeData == ThemeData.light() ? 1 : 0);
+    await prefs.setInt(_themeKey, _brightness == Brightness.light ? 1 : 0);
   }
 
   Future<void> setThemeData(ThemeData themeData) async {
     _themeData = themeData;
+    _brightness = _themeData.brightness;
     notifyListeners();
     await saveThemeData();
   }
-
 
   Future<void> loadThemeData() async {
     final prefs = await SharedPreferences.getInstance();
     final int? isLight = prefs.getInt(_themeKey);
     if (isLight == null || isLight == 1) {
-      _themeData = ThemeData.light();
+      _brightness = Brightness.light;
+    } else {
+      _brightness = Brightness.dark;
+    }
+    updateThemeData();
+    notifyListeners();
+  }
+
+  void updateThemeData() {
+    if (_brightness == Brightness.light) {
+      _themeData = AppTheme.LightTheme().themeData;
     } else {
       _themeData = AppTheme.darkTheme().themeData;
     }
-    notifyListeners();
   }
 }
+

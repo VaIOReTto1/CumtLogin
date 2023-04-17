@@ -1,51 +1,58 @@
-import 'package:cumt_login/config.dart';
 import 'package:flutter/material.dart';
+
+import '../config.dart';
 import '../utils/utils.dart';
 
-// 点击添加按钮调用此函数，弹出输入对话框
-void toDialog({
+void toEditing({
   required BuildContext context,
   required List<Map<String, String>> list,
   required VoidCallback callback,
+  required String? initName,
+  required String? initUrl,
+  required int index
 }) {
   showDialog(
       context: context,
       builder: (BuildContext context) {
-        return InputDialog(
-            list: list,
-            callback: callback,
-            title: "添加自定义网址",
-            usage: '添加',
+        return EditDialog(
+          list: list,
+          callback: callback,
+          title: "编辑自定义网址",
+          usage: '提交编辑',
+          initName: initName,
+          initUrl: initUrl,
+          index: index,
         );
       }
   );
 }
 
-
 // 定义对话框
-class InputDialog extends StatefulWidget {
+class EditDialog extends StatefulWidget {
   final List<Map<String, String>> list;
   final VoidCallback callback;
   final String title;
   final String usage;
   final String? initName;
   final String? initUrl;
+  final int index;
 
-  const InputDialog({
+  const EditDialog({
     Key? key,
     required this.list,
     required this.callback,
     required this.title,
     required this.usage,
     this.initName,
-    this.initUrl
+    this.initUrl,
+    required this.index
   }) : super(key: key);
 
   @override
-  State<InputDialog> createState() => _InputDialogState();
+  State<EditDialog> createState() => _EditDialogState();
 }
 
-class _InputDialogState extends State<InputDialog> {
+class _EditDialogState extends State<EditDialog> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _urlController = TextEditingController();
 
@@ -61,7 +68,7 @@ class _InputDialogState extends State<InputDialog> {
   Widget build(BuildContext context) {
     return Dialog(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(UIConfig.borderRadiusBox)
+          borderRadius: BorderRadius.circular(UIConfig.borderRadiusBox)
       ),
       child: Container(
         padding: EdgeInsets.all(UIConfig.paddingAll),
@@ -69,9 +76,11 @@ class _InputDialogState extends State<InputDialog> {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(UIConfig.borderRadiusBox),
             border: Border.all(
-            color: Theme.of(context).colorScheme.primary,
-          width: 2.0
-      )
+                color: Theme.of(context).colorScheme.primary == Colors.blue
+                    ? const Color.fromRGBO(230, 231, 233, 1)
+                    : Theme.of(context).colorScheme.primary,
+                width: 2.0
+            )
         ),
         child: SingleChildScrollView(
           child: Column(
@@ -103,7 +112,7 @@ class _InputDialogState extends State<InputDialog> {
     );
   }
 
-  
+
   Widget _buildTextField(
       String labelText, TextEditingController textEditingController,
       {obscureText = false, showPopButton = false}) {
@@ -117,7 +126,7 @@ class _InputDialogState extends State<InputDialog> {
         decoration: InputDecoration(
           labelText: labelText,
           border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(UIConfig.borderRadiusEntry),
+            borderRadius: BorderRadius.circular(UIConfig.borderRadiusEntry),
           ),
         ),
       ),
@@ -134,7 +143,8 @@ class _InputDialogState extends State<InputDialog> {
             "name": _nameController.text.trim(),
             "url" : _urlController.text.trim()
           };
-          widget.list.add(web);
+          widget.list[widget.index] = web;
+          // widget.list.add(web);
           Navigator.of(context).pop();
           showSnackBar(context, "成功${widget.usage} ${_nameController.text}");
           widget.callback();

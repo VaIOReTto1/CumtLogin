@@ -1,8 +1,10 @@
+import 'package:cumt_login/shortcut/entry.dart';
 import 'package:cumt_login/shortcut/input.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/services.dart';
 import '../config.dart';
+import '../utils/utils.dart';
 
 class Shortcut extends StatefulWidget {
   const Shortcut({Key? key}) : super(key: key);
@@ -37,7 +39,7 @@ class _ShortcutState extends State<Shortcut> {
               children: [
                 // 遍历List创建快捷方式
                 for(int i = 0; i < links.length; i++)
-                  _buildEntry(context, links[i]),
+                  _buildEntry(context, links, i),
                 // 添加新的快捷方式
                 _buildAddButton(context),
               ],
@@ -60,9 +62,7 @@ class _ShortcutState extends State<Shortcut> {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(UIConfig.borderRadiusBox),
           border: Border.all(
-              color: Theme.of(context).colorScheme.primary == Colors.blue
-                  ? const Color.fromRGBO(230, 231, 233, 1)
-                  : Theme.of(context).colorScheme.primary,
+              color: Theme.of(context).colorScheme.primary,
               width: 2.0
           )
       ),
@@ -71,30 +71,40 @@ class _ShortcutState extends State<Shortcut> {
   }
 
   // 定义每个快捷选项的UI
-  Widget _buildEntry(BuildContext context, Map<String?, String?> web) {
-    return InkWell(
-      onLongPress: () {
-        Clipboard.setData(ClipboardData(text: web["url"]));
-        showSnackBar(context, "已复制到剪切板");
+  Widget _buildEntry(
+      BuildContext context,
+      List<Map<String, String>> links,
+      int index
+      ) {
+    return Entry(
+      callback: () {
+        setState(() {});
       },
-      onTap: () { _openUrl(web["url"]); },
-      child: Container(
-        margin: EdgeInsets.symmetric(vertical: UIConfig.marginVertical),
-        padding: EdgeInsets.all(UIConfig.paddingAll),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(UIConfig.borderRadiusEntry),
-            color: Theme.of(context).colorScheme.primary == Colors.blue
-                ? const Color.fromRGBO(230, 231, 233, 1)
-                : Colors.black38
-        ),
-        child: Wrap(
-          spacing: 4,
-          crossAxisAlignment: WrapCrossAlignment.center,
-          alignment: WrapAlignment.center,
-          children: [
-            const Icon(Icons.link,),
-            Text(web["name"]!, style: TextStyle(fontSize: UIConfig.fontSizeMid))
-          ],
+      web: links[index],
+      links: links,
+      index: index,
+      child: InkWell(
+        onLongPress: () {
+          Clipboard.setData(ClipboardData(text: links[index]["url"]));
+          showSnackBar(context, "已复制到剪切板");
+        },
+        onTap: () { _openUrl(links[index]["url"]); },
+        child: Container(
+          margin: EdgeInsets.symmetric(vertical: UIConfig.marginVertical),
+          padding: EdgeInsets.all(UIConfig.paddingAll),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(UIConfig.borderRadiusEntry),
+              color: Theme.of(context).colorScheme.primary
+          ),
+          child: Wrap(
+            spacing: 4,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            alignment: WrapAlignment.center,
+            children: [
+              const Icon(Icons.link,),
+              Text(links[index]["name"]!, style: TextStyle(fontSize: UIConfig.fontSizeMid))
+            ],
+          ),
         ),
       ),
     );
@@ -118,9 +128,7 @@ class _ShortcutState extends State<Shortcut> {
         padding: EdgeInsets.all(UIConfig.paddingAll),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(UIConfig.borderRadiusEntry),
-            color: Theme.of(context).colorScheme.primary == Colors.blue
-                ? const Color.fromRGBO(230, 231, 233, 1)
-                : Colors.black38
+            color: Theme.of(context).colorScheme.primary
         ),
         child: Wrap(
           children: const [Icon(Icons.add)],
@@ -131,15 +139,9 @@ class _ShortcutState extends State<Shortcut> {
 }
 
 // TODO 多次调用，要讨论统一实现方式
-void showSnackBar(BuildContext context, String message) {
-  ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message))
-  );
-}
-
 void _openUrl(String? url) {
   launchUrl(
-      Uri.parse(url!),
-      mode: LaunchMode.externalApplication
+    Uri.parse(url!),
+    mode: LaunchMode.externalApplication,
   );
 }

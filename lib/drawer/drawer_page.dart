@@ -2,6 +2,7 @@ import 'package:cumt_login/drawer/backgroundimage/imageselect.dart';
 import 'package:cumt_login/drawer/drawer_button.dart';
 import 'package:cumt_login/drawer/theme/theme_color.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../config.dart';
 
 class DrawerPage extends StatefulWidget {
@@ -15,29 +16,18 @@ class _DrawerPageState extends State<DrawerPage> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-        backgroundColor: Theme.of(context).colorScheme.primary == Colors.blue? const Color.fromRGBO(230, 231, 233, 1) : Colors.grey.shade700,
         child: Column(
           children: [
             Container(
               height: 250,
-              color: const Color.fromRGBO(230, 231, 233, 1), // 设置Container的颜色
-              child: const UserAccountsDrawerHeader(
-                accountName: null,
-                accountEmail: null,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    scale: 1.5,
-                    image: AssetImage('images/logo_modify.png'),
-                  ),
-                ),
-              ),
+              color: Theme.of(context).colorScheme.primary,
             ),
             Padding(
                   padding: EdgeInsets.all(UIConfig.paddingAll),
                   child: Container(
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16),
-                          color:Theme.of(context).colorScheme.primary == Colors.blue ? Colors.grey.shade300 : Theme.of(context).cardColor,
+                          color:Theme.of(context).colorScheme.background,
                           boxShadow: [
                             BoxShadow(
                               offset: const Offset(8, 8),
@@ -56,7 +46,7 @@ class _DrawerPageState extends State<DrawerPage> {
                           children: [
                             const ImageSelect(child: ImageButton(text: "更换背景")),
                             const ImageDelete(child: ImageButton(text: "删除背景")),
-                            ThemeButton(themeData: ThemeData.light(),text: "日间模式",),
+                            ThemeButton(themeData: AppTheme.LightTheme().themeData,text: "日间模式",),
                             ThemeButton(themeData: AppTheme.darkTheme().themeData,text: "黑夜模式",),
                             const FeedBackButton(),
                             const UpdatecheckButton(),

@@ -2,7 +2,6 @@ import 'package:cumt_login/config.dart';
 import 'package:cumt_login/drawer/backgroundimage/imageselect.dart';
 import 'package:cumt_login/drawer/drawer_page.dart';
 import 'package:cumt_login/shortcut/ui.dart';
-import 'package:cumt_login/splash_page.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_picker/Picker.dart';
@@ -18,18 +17,15 @@ import 'login_util/login.dart';
 import 'login_util/methods.dart';
 import 'login_util/prefs.dart';
 
-
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Prefs.init();
-  runApp(
-      (MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (_) => ThemeProvider()),
-        ],
-        child: const MyApp(),
-      ))
-  );
+  runApp((MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (_) => ThemeProvider()),
+    ],
+    child: const MyApp(),
+  )));
 }
 
 class MyApp extends StatelessWidget {
@@ -48,7 +44,7 @@ class MyApp extends StatelessWidget {
           home: child,
         );
       },
-      child: const SplashPage(),
+      child: const LoginPage(),
     );
   }
 }
@@ -73,7 +69,6 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
   final TextEditingController _passwordController = TextEditingController();
 
   CumtLoginAccount cumtLoginAccount = CumtLoginAccount();
-
 
   @override
   void initState() {
@@ -116,10 +111,8 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
       child: Scaffold(
         appBar: AppBar(
           //automaticallyImplyLeading: false, // 禁用默认的返回箭头
-          title: Text(
-            '校园网自动登录',
-            style: TextStyle(fontSize: UIConfig.fontSizeTitle*1.2)
-          ),
+          title: Text('校园网自动登录',
+              style: TextStyle(fontSize: UIConfig.fontSizeTitle * 1.2)),
         ),
         body: Stack(
           children: [
@@ -134,9 +127,13 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
                     Column(
                       children: [
                         const SizedBox(height: 16.0),
-                        GlassMorphism(child: buildTextField("账号", _usernameController, showPopButton: true)),
+                        GlassMorphism(
+                            child: buildTextField("账号", _usernameController,
+                                showPopButton: true)),
                         const SizedBox(height: 16.0),
-                        GlassMorphism(child: buildTextField("密码", _passwordController, obscureText: true)),
+                        GlassMorphism(
+                            child: buildTextField("密码", _passwordController,
+                                obscureText: true)),
                         const SizedBox(height: 16.0),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -145,17 +142,22 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
                                 onPressed: () => _showLocationMethodPicker(),
                                 child: Row(
                                   children: [
-                                    Text("${cumtLoginAccount.cumtLoginLocation?.name} ${cumtLoginAccount.cumtLoginMethod?.name}"),
+                                    Text(
+                                        "${cumtLoginAccount.cumtLoginLocation?.name} ${cumtLoginAccount.cumtLoginMethod?.name}"),
                                     const Icon(Icons.arrow_drop_down),
                                   ],
                                 )),
                             ElevatedButton(
                               onPressed: () => _handleLogin(context),
-                              child: Text('登录', style: TextStyle(fontSize: UIConfig.fontSizeMain)),
+                              child: Text('登录',
+                                  style: TextStyle(
+                                      fontSize: UIConfig.fontSizeMain)),
                             ),
                             OutlinedButton(
                               onPressed: () => _handleLogout(context),
-                              child: Text('注销', style: TextStyle(fontSize: UIConfig.fontSizeMain)),
+                              child: Text('注销',
+                                  style: TextStyle(
+                                      fontSize: UIConfig.fontSizeMain)),
                             ),
                           ],
                         ),
@@ -174,6 +176,7 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
       ),
     );
   }
+
   void _showLocationMethodPicker() {
     Picker(
         adapter: PickerDataAdapter<dynamic>(pickerData: [
@@ -184,8 +187,10 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
         hideHeader: false,
         onConfirm: (Picker picker, List value) {
           setState(() {
-            cumtLoginAccount.setCumtLoginLocationByName(picker.getSelectedValues()[0]);
-            cumtLoginAccount.setCumtLoginMethodByName(picker.getSelectedValues()[1]);
+            cumtLoginAccount
+                .setCumtLoginLocationByName(picker.getSelectedValues()[0]);
+            cumtLoginAccount
+                .setCumtLoginMethodByName(picker.getSelectedValues()[1]);
           });
         }).showModal(context);
   }
@@ -202,46 +207,50 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
             controller: textEditingController,
             obscureText: obscureText,
             decoration: InputDecoration(
-              labelText: labelText,
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(UIConfig.borderRadiusEntry)
+                borderRadius: BorderRadius.zero,
+                borderSide: BorderSide.none,
               ),
             ),
           ),
           showPopButton
               ? PopupMenuButton<CumtLoginAccount>(
-              icon: const Icon(Icons.arrow_drop_down_outlined),
-              onOpened: () {
-                FocusScope.of(context).unfocus();
-              },
-              onSelected: (account) {
-                setState(() {
-                  cumtLoginAccount = account.clone();
-                  _usernameController.text = cumtLoginAccount.username!;
-                  _passwordController.text = cumtLoginAccount.password!;
-                });
-              },
-              itemBuilder: (context)  {
-                return CumtLoginAccount.list.map((account) {
-                  return PopupMenuItem<CumtLoginAccount>(
-                    value: account,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Expanded(child: Text("${account.username}"
-                            " ${account.cumtLoginLocation?.name} ${account.cumtLoginMethod?.name}",),),
-                        IconButton(onPressed: (){
-                          CumtLoginAccount.removeList(account);
-                          _showSnackBar("删除成功");
-                          Navigator.of(context).pop();
-                        }, icon: const Icon(Icons.close))
-
-                      ],
-                    ),
-                  );
-                }).toList();
-              }
-          )
+                  icon: const Icon(Icons.arrow_drop_down_outlined),
+                  onOpened: () {
+                    FocusScope.of(context).unfocus();
+                  },
+                  onSelected: (account) {
+                    setState(() {
+                      cumtLoginAccount = account.clone();
+                      _usernameController.text = cumtLoginAccount.username!;
+                      _passwordController.text = cumtLoginAccount.password!;
+                    });
+                  },
+                  itemBuilder: (context) {
+                    return CumtLoginAccount.list.map((account) {
+                      return PopupMenuItem<CumtLoginAccount>(
+                        value: account,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(
+                              child: Text(
+                                "${account.username}"
+                                " ${account.cumtLoginLocation?.name} ${account.cumtLoginMethod?.name}",
+                              ),
+                            ),
+                            IconButton(
+                                onPressed: () {
+                                  CumtLoginAccount.removeList(account);
+                                  _showSnackBar(context, "删除成功");
+                                  Navigator.of(context).pop();
+                                },
+                                icon: const Icon(Icons.close))
+                          ],
+                        ),
+                      );
+                    }).toList();
+                  })
               : Container(),
         ],
       ),
@@ -250,18 +259,24 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
 
   void _handleLogout(BuildContext context) {
     CumtLogin.logout(account: cumtLoginAccount).then((value) {
-      _showSnackBar(value);
+      _showSnackBar(context, value);
     });
   }
 
-  void _showSnackBar(String text) {
-    print(text);
+  void _showSnackBar(BuildContext context, String text) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        content: Text(text,style: const TextStyle(color: Colors.white),),
+        duration: const Duration(seconds: 1),
+      ),
+    );
   }
 
   void _handleLogin(BuildContext context) {
     if (_usernameController.text.trim().isEmpty ||
         _passwordController.text.trim().isEmpty) {
-      _showSnackBar('账号或密码不能为空');
+      _showSnackBar(context, '账号或密码不能为空');
       return;
     }
     cumtLoginAccount.username = _usernameController.text.trim();
@@ -269,7 +284,7 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
 
     CumtLogin.login(account: cumtLoginAccount).then((value) {
       setState(() {
-        _showSnackBar(value);
+        _showSnackBar(context, value);
       });
     });
   }
