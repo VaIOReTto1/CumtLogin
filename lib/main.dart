@@ -10,7 +10,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 
 import 'drawer/theme/theme_color.dart';
-import 'drawer/update/app_upgrade.dart';
+//import 'drawer/update/app_upgrade.dart';
+import 'drawer/update/app_upgrade2.dart';
 import 'login_util/account.dart';
 import 'login_util/locations.dart';
 import 'login_util/login.dart';
@@ -82,7 +83,16 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
     _usernameController.text = cumtLoginAccount.username!;
     _passwordController.text = cumtLoginAccount.password!;
     _handleLogin(context);
-    checkUpgrade(context);      //打开app后默认检查更新
+    // checkUpgrade(context);      //打开app后默认检查更新
+    Update.initCheckUpdate(context);
+
+    Update.checkNeedUpdate(context).then((_){
+      if(Update.isUpDate == true && Update.isIgnore!=true ){
+        showDialog(context: context, builder: (BuildContext context){
+          return UpgradeDialog();
+        });
+      }
+    });
   }
 
   @override

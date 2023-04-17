@@ -14,6 +14,8 @@ class UIConfig {
       ScreenUtil().setSp(42); // 关于我们、反馈、检查更新正文
   static final double fontSizeMid = ScreenUtil().setSp(42); // TextField 快捷入口
   static final double fontSizeMin = ScreenUtil().setSp(40); // 校区&运营商
+  static final double fontAlertText = ScreenUtil().setSp(40); // Drawer中提示字体大小
+  static final double fontAlertIcon = ScreenUtil().setSp(40); // Drawer中提示Icon大小
 
   // 布局
   static final double marginVertical = ScreenUtil().setHeight(10); // 上下外边距

@@ -1,5 +1,6 @@
 import 'package:cumt_login/drawer/theme/theme_color.dart';
-import 'package:cumt_login/drawer/update/app_upgrade.dart';
+import 'package:cumt_login/drawer/update/app_upgrade2.dart';
+import 'package:cumt_login/drawer/update/update_Alert_Icon.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -112,11 +113,14 @@ class UpdatecheckButton extends StatefulWidget {
 }
 
 class _UpdatecheckButtonState extends State<UpdatecheckButton> {
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {
-          checkUpgrade(context);
+          showDialog(context: context, builder: (BuildContext context){
+            return UpgradeDialog2();
+          });
         },
         child: SizedBox(
           width: 370,
@@ -126,6 +130,10 @@ class _UpdatecheckButtonState extends State<UpdatecheckButton> {
                 children: [
                   Expanded(
                     child: Text("软件更新",style: TextStyle( fontSize: UIConfig .fontSizeMain * 1.2)),
+                  ),
+                  if (Update.isIgnore==true)
+                    Expanded(
+                      child: UpdateAlertIcon(),
                   ),
                   Icon(Icons.keyboard_arrow_right_rounded,size: UIConfig.fontSizeMin * 2.5,),
                 ],
