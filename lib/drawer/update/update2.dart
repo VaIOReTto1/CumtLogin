@@ -6,6 +6,26 @@ import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:cumt_login/config.dart';
 
+//  使用说明
+//  1.在main函数里使用
+//  在main函数的LoginPage里的initState里，添加如下代码：
+
+//  Update.initCheckUpdate();
+
+//  Update.checkNeedUpdate().then((_){
+//    if(Update.isUpDate == true && Update.isIgnore!=true ){
+//      showDialog(context: context, builder: (BuildContext context){
+//         return const UpdateDialog();
+//        });
+//      }
+//    });
+
+//  2.在抽屉栏里使用
+//  直接为检查更新的inkWell的onTap里填入
+//  showDialog(context: context, builder: (BuildContext context){
+//             return const UpdateDialog();
+//           });
+
 class Update {
 
   // 用户的版本号和设备
