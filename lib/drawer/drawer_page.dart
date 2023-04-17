@@ -2,7 +2,6 @@ import 'package:cumt_login/drawer/backgroundimage/imageselect.dart';
 import 'package:cumt_login/drawer/drawer_button.dart';
 import 'package:cumt_login/drawer/theme/theme_color.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import '../config.dart';
 import 'dart:io';
 
