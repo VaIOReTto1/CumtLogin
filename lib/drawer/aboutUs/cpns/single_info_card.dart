@@ -67,57 +67,35 @@ class _SingleInfoCardState extends State<SingleInfoCard> {
       width: MediaQuery.of(context).size.width * .86,
       child: ExpansionTile(
         collapsedShape:
-        RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        tilePadding: const EdgeInsets.all(6),
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(UIConfig.borderRadiusBox)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(UIConfig.borderRadiusBox)),
+        tilePadding: const EdgeInsets.all(0),
         childrenPadding: const EdgeInsets.all(6),
         collapsedBackgroundColor: getBGC(context),
         backgroundColor: getBGC(context),
-        title: SizedBox(
-          width: UIConfig.borderRadiusBox * 2,
-          height: UIConfig.borderRadiusBox * 2,
-          child: Stack(children: [
-            Positioned(
-              top: -UIConfig.fontSizeMain * 1.6,
-              child: SizedBox(
-                width: UIConfig.fontSizeMain * 20,
-                child: ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  title: Text(
-                    widget.title,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: DefaultTextStyle.of(context).style.color,
-                    ),
-                  ),
-                  subtitle: Text(
-                    widget.subTitle,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: DefaultTextStyle.of(context).style.color,
-                    ),
-                  ),
-                  leading: Padding(
-                    padding: const EdgeInsets.only(left: 5),
-                    child: CircleAvatar(
-                      child: ClipRRect(
-                        borderRadius:
-                        BorderRadius.circular(UIConfig.borderRadiusBox),
-                        child: CachedNetworkImage(
-                          imageUrl:
-                          "http://q1.qlogo.cn/g?b=qq&nk=${widget.QNumber}&s=640",
-                          placeholder: (context, url) =>
-                          const CircularProgressIndicator(),
-                          errorWidget: (context, url, error) =>
-                          const Icon(Icons.error),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+        title: ListTile(
+          title: Text(
+            widget.title,
+            overflow: TextOverflow.ellipsis,
+          ),
+          subtitle: Text(
+            widget.subTitle,
+            overflow: TextOverflow.ellipsis,
+          ),
+          leading: CircleAvatar(
+            child: ClipRRect(
+              borderRadius:
+              BorderRadius.circular(UIConfig.borderRadiusBox),
+              child: CachedNetworkImage(
+                imageUrl:
+                "http://q1.qlogo.cn/g?b=qq&nk=${widget.QNumber}&s=640",
+                placeholder: (context, url) =>
+                const CircularProgressIndicator(),
+                errorWidget: (context, url, error) =>
+                const Icon(Icons.error),
               ),
             ),
-          ]),
+          ),
         ),
         children: [
           Column(
