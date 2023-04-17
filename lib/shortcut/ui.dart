@@ -62,9 +62,7 @@ class _ShortcutState extends State<Shortcut> {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(UIConfig.borderRadiusBox),
           border: Border.all(
-              color: Theme.of(context).colorScheme.primary == Colors.blue
-                  ? const Color.fromRGBO(230, 231, 233, 1)
-                  : Theme.of(context).colorScheme.primary,
+              color: Theme.of(context).colorScheme.primary,
               width: 2.0
           )
       ),
@@ -96,9 +94,7 @@ class _ShortcutState extends State<Shortcut> {
           padding: EdgeInsets.all(UIConfig.paddingAll),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(UIConfig.borderRadiusEntry),
-              color: Theme.of(context).colorScheme.primary == Colors.blue
-                  ? const Color.fromRGBO(230, 231, 233, 1)
-                  : Colors.black38
+              color: Theme.of(context).colorScheme.primary
           ),
           child: Wrap(
             spacing: 4,
@@ -132,9 +128,7 @@ class _ShortcutState extends State<Shortcut> {
         padding: EdgeInsets.all(UIConfig.paddingAll),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(UIConfig.borderRadiusEntry),
-            color: Theme.of(context).colorScheme.primary == Colors.blue
-                ? const Color.fromRGBO(230, 231, 233, 1)
-                : Colors.black38
+            color: Theme.of(context).colorScheme.primary
         ),
         child: Wrap(
           children: const [Icon(Icons.add)],

@@ -101,8 +101,8 @@ class _UpgradeDialogState extends State<UpgradeDialog> {
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.primary == Colors.blue ? Colors.grey.shade300 : Theme.of(context).cardColor,
             borderRadius: BorderRadius.all(
-                Radius.circular(UIConfig.borderRadiusEntry)), // 圆角
-          ),
+        Radius.circular(UIConfig.borderRadiusEntry)), // 圆角
+    ),
           child: Wrap(
             runSpacing: 10,
             children: <Widget>[

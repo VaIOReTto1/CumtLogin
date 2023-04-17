@@ -53,7 +53,7 @@ class _ImageButtonState extends State<ImageButton> {
         width: 370,
         height: 58,
         child: Container(
-          color: Theme.of(context).colorScheme.primary == Colors.blue ? Colors.grey.shade300 : Theme.of(context).cardColor,
+          color: Theme.of(context).colorScheme.background,
           padding: EdgeInsets.all(UIConfig.paddingAll*3),
           child: Row(
             children: [
@@ -153,7 +153,7 @@ class _FeedBackButtonState extends State<FeedBackButton> {
               return AlertDialog(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(UIConfig.borderRadiusBox)),
-                backgroundColor: Theme.of(context).colorScheme.primary == Colors.blue ? Colors.grey.shade300 : Theme.of(context).cardColor,
+                backgroundColor: Theme.of(context).colorScheme.background,
                 title: Text('意见反馈'),
                 content: FeedbackForm(),
               );
