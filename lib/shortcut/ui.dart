@@ -21,8 +21,13 @@ class _ShortcutState extends State<Shortcut> {
   List<Map<String, String>> defaultLinks = [
     {"name" : "中国矿业大学", "url" : "https://www.cumt.edu.cn"},
     {"name" : "物理实验中心", "url" : "http://10.103.4.10:8020/"},
-    {"name" : "教务选课", "url" : "http://127.0.0.1:8000"},
+    {"name" : "教务选课1", "url" : "https://jwxk1-cumt-edu-cn.webvpn.cumt.edu.cn:8118/jwglxt/xtgl/login_slogin.html"},
+    {"name" : "教务选课2", "url" : "https://jwxk2-cumt-edu-cn.webvpn.cumt.edu.cn:8118/jwglxt/xtgl/login_slogin.html"},
     {"name" : "中国矿业大学馆藏数字化平台", "url" : "http://121.248.104.172:8080/"},
+    {"name" : "研究生院", "url" : "https://yjsb.cumt.edu.cn"},
+    {"name" : "科学技术研究院", "url" : "https://dsi.cumt.edu.cn"},
+    {"name" : "党委组织部", "url" : "https://zzb.cumt.edu.cn"},
+    {"name" : "财务处", "url" : "https://cwb.cumt.edu.cn"},
   ];
 
   @override

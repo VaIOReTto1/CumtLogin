@@ -89,6 +89,8 @@ class _InputDialogState extends State<InputDialog> {
               const SizedBox(height: 10),
               _buildTextField("标题", _nameController),
               _buildTextField("网址", _urlController),
+              Text("请输入完整链接",style: TextStyle(fontSize: UIConfig.fontSizeMin),),
+              const SizedBox(height: 5),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
