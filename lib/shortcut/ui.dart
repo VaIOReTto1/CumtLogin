@@ -1,10 +1,12 @@
 import 'package:cumt_login/shortcut/entry.dart';
 import 'package:cumt_login/shortcut/input.dart';
+import 'package:cumt_login/shortcut/prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/services.dart';
 import '../config.dart';
 import '../utils/utils.dart';
+
 
 class Shortcut extends StatefulWidget {
   const Shortcut({Key? key}) : super(key: key);
@@ -14,14 +16,32 @@ class Shortcut extends StatefulWidget {
 }
 
 class _ShortcutState extends State<Shortcut> {
+  List<Map<String, String>> links = [];
   // 默认网址
-  List<Map<String, String>> links = [
+  List<Map<String, String>> defaultLinks = [
     {"name" : "中国矿业大学", "url" : "https://www.cumt.edu.cn"},
-    {"name" : "必应", "url":"https://bing.com"},
     {"name" : "物理实验中心", "url" : "http://10.103.4.10:8020/"},
     {"name" : "教务选课", "url" : "http://127.0.0.1:8000"},
     {"name" : "中国矿业大学馆藏数字化平台", "url" : "http://121.248.104.172:8080/"},
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    firstLoad();
+  }
+
+  void firstLoad() async {
+    // 先读取数据
+    links = await readLinks();
+    setState(() {});
+    // 没有数据就传入默认网址
+    if(links.isEmpty) {
+      links.addAll(defaultLinks);
+      // 保存
+      saveLinks(links);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
