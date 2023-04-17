@@ -8,9 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_picker/Picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'drawer/theme/theme_color.dart';
-//import 'drawer/update/app_upgrade.dart';
 import 'drawer/update/app_upgrade2.dart';
 import 'login_util/account.dart';
 import 'login_util/locations.dart';
@@ -51,13 +51,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-toLoginPage(BuildContext context) {
-  Navigator.of(context).push(MaterialPageRoute(
-    builder: (context) => const LoginPage(),
-    fullscreenDialog: true, // 路由为全屏模式
-  ));
-}
-
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -79,7 +72,9 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
     WidgetsBinding.instance.addObserver(this);
     _usernameController.text = cumtLoginAccount.username!;
     _passwordController.text = cumtLoginAccount.password!;
-    //_handleLogin(context);
+    if (_usernameController.text.isNotEmpty) {
+      _handleLogin(context);
+    }
     // checkUpgrade(context);      //打开app后默认检查更新
 
     //Update.initCheckUpdate(context,auto: true);
@@ -126,49 +121,61 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    GlassMorphism(child: const Shortcut()),
-                    Column(
-                      children: [
-                        const SizedBox(height: 16.0),
-                        GlassMorphism(
-                            child: buildTextField("账号", _usernameController,
-                                showPopButton: true)),
-                        const SizedBox(height: 16.0),
-                        GlassMorphism(
-                            child: buildTextField("密码", _passwordController,
-                                obscureText: true)),
-                        const SizedBox(height: 16.0),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: Column(
                           children: [
-                            TextButton(
-                                onPressed: () => _showLocationMethodPicker(),
-                                child: Row(
+                            SizedBox(height: MediaQuery.of(context).size.height*0.07,),
+                            QQButton(),
+                            SizedBox(height: MediaQuery.of(context).size.height*0.03,),
+                            GlassMorphism(child: const Shortcut()),
+                            SizedBox(height: MediaQuery.of(context).size.height*0.03,),
+                            Column(
+                              children: [
+                                const SizedBox(height: 16.0),
+                                GlassMorphism(
+                                    child: buildTextField("账号", _usernameController,
+                                        showPopButton: true)),
+                                const SizedBox(height: 16.0),
+                                GlassMorphism(
+                                    child: buildTextField("密码", _passwordController,
+                                        obscureText: true)),
+                                const SizedBox(height: 16.0),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                                   children: [
-                                    Text(
-                                        "${cumtLoginAccount.cumtLoginLocation?.name} ${cumtLoginAccount.cumtLoginMethod?.name}"),
-                                    const Icon(Icons.arrow_drop_down),
+                                    TextButton(
+                                        onPressed: () => _showLocationMethodPicker(),
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                                "${cumtLoginAccount.cumtLoginLocation?.name} ${cumtLoginAccount.cumtLoginMethod?.name}"),
+                                            const Icon(Icons.arrow_drop_down),
+                                          ],
+                                        )),
+                                    ElevatedButton(
+                                      onPressed: () => _handleLogin(context),
+                                      child: Text('登录',
+                                          style: TextStyle(
+                                              fontSize: UIConfig.fontSizeMain)),
+                                    ),
+                                    OutlinedButton(
+                                      onPressed: () => _handleLogout(context),
+                                      child: Text('注销',
+                                          style: TextStyle(
+                                              fontSize: UIConfig.fontSizeMain)),
+                                    ),
                                   ],
-                                )),
-                            ElevatedButton(
-                              onPressed: () => _handleLogin(context),
-                              child: Text('登录',
-                                  style: TextStyle(
-                                      fontSize: UIConfig.fontSizeMain)),
-                            ),
-                            OutlinedButton(
-                              onPressed: () => _handleLogout(context),
-                              child: Text('注销',
-                                  style: TextStyle(
-                                      fontSize: UIConfig.fontSizeMain)),
-                            ),
+                                ),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                              ],
+                            )
                           ],
                         ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                      ],
-                    )
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -210,7 +217,12 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
             controller: textEditingController,
             obscureText: obscureText,
             decoration: InputDecoration(
-              border: OutlineInputBorder(
+              enabledBorder: const OutlineInputBorder(
+                borderRadius: BorderRadius.zero,
+                borderSide: BorderSide.none,
+              ),
+              labelText: labelText,
+              border: const OutlineInputBorder(
                 borderRadius: BorderRadius.zero,
                 borderSide: BorderSide.none,
               ),
@@ -270,7 +282,10 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         backgroundColor: Theme.of(context).colorScheme.primary,
-        content: Text(text,style: const TextStyle(color: Colors.white),),
+        content: Text(
+          text,
+          style: const TextStyle(color: Colors.white),
+        ),
         duration: const Duration(seconds: 1),
       ),
     );
@@ -290,5 +305,30 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
         _showSnackBar(context, value);
       });
     });
+  }
+}
+
+class QQButton extends StatefulWidget {
+  const QQButton({Key? key}) : super(key: key);
+
+  @override
+  State<QQButton> createState() => _QQButtonState();
+}
+
+class _QQButtonState extends State<QQButton> {
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      style: ButtonStyle(
+        backgroundColor: MaterialStatePropertyAll(Colors.redAccent),
+      ),
+      child: Text('加入QQ群',
+          style: TextStyle(
+              fontSize: UIConfig.fontSizeMain)),
+      onPressed: () {
+        launchUrl(Uri.parse('https://jq.qq.com/?_wv=1027&k=RPprjgMn'),
+            mode: LaunchMode.externalApplication);
+      },
+    );
   }
 }

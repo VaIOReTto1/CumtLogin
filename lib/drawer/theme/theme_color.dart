@@ -9,13 +9,9 @@ class AppTheme {
   factory AppTheme.darkTheme() {
     return AppTheme(
       ThemeData(
-        drawerTheme: DrawerThemeData(
-            backgroundColor: Colors.grey.shade700
-        ),
+        drawerTheme: DrawerThemeData(backgroundColor: Colors.grey.shade700),
         appBarTheme: AppBarTheme(
-            iconTheme: IconThemeData(
-color: Colors.white
-            ),
+            iconTheme: IconThemeData(color: Colors.white),
             toolbarTextStyle: const TextTheme(
               //更改appbar标题颜色
               titleLarge: TextStyle(
@@ -59,7 +55,7 @@ color: Colors.white
           //Picker颜色
           secondary: Colors.black87,
           error: Colors.redAccent[700]!,
-          background: Colors.grey.shade700,
+          background: Colors.grey[700]!,
           brightness: Brightness.dark,
           onBackground: Colors.black38,
           onError: Colors.white,
@@ -76,8 +72,7 @@ color: Colors.white
     return AppTheme(
       ThemeData(
         drawerTheme: const DrawerThemeData(
-          backgroundColor: Color.fromRGBO(230, 231, 233, 1)
-        ),
+            backgroundColor: Color.fromRGBO(230, 231, 233, 1)),
         appBarTheme: AppBarTheme(
             toolbarTextStyle: const TextTheme(
               //更改appbar标题颜色
@@ -99,17 +94,19 @@ color: Colors.white
         //更改弹窗颜色
         popupMenuTheme: PopupMenuThemeData(
           //更改按钮弹窗颜色
-            color: Colors.green[100],),
+          color: Colors.green[100],
+        ),
 
         outlinedButtonTheme: OutlinedButtonThemeData(
           style: ButtonStyle(
-            side: MaterialStateProperty.all(BorderSide(color: Colors.green[200]!)),
+            side: MaterialStateProperty.all(
+                BorderSide(color: Colors.green[200]!)),
             //更改边框颜色
             foregroundColor:
-            MaterialStateProperty.all(Colors.greenAccent[200]), //更改按钮字体颜色
+                MaterialStateProperty.all(Colors.greenAccent[200]), //更改按钮字体颜色
           ),
         ),
-        elevatedButtonTheme:  ElevatedButtonThemeData(
+        elevatedButtonTheme: ElevatedButtonThemeData(
             style: ButtonStyle(
                 backgroundColor: MaterialStatePropertyAll(Colors.green[200]))),
 
@@ -136,7 +133,7 @@ color: Colors.white
 }
 
 class ThemeProvider with ChangeNotifier {
-  static ThemeData _themeData = ThemeData.light();
+  static ThemeData _themeData = AppTheme.LightTheme().themeData;
   static Brightness _brightness = Brightness.light;
   static const String _themeKey = 'brightness';
 
@@ -178,4 +175,3 @@ class ThemeProvider with ChangeNotifier {
     }
   }
 }
-

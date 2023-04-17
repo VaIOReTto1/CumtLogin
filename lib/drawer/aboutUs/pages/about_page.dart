@@ -1,8 +1,6 @@
 import 'package:cumt_login/config.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-import '../../theme/theme_color.dart';
 import '../cpns/dividing_cpn.dart';
 import '../cpns/project_group.dart';
 import '../cpns/res_group_tile.dart';
@@ -135,6 +133,14 @@ class _AboutPageState extends State<AboutPage> {
           context: context,
           qNumber: '957634136',
           text: '交流2群',
+        ),
+        SizedBox(
+          height: UIConfig.fontSizeSubMain * 1.8,
+        ),
+        ResGroupTile(
+          context: context,
+          qNumber: '738340698',
+          text: '交流3群',
         ),
       ],
     );
