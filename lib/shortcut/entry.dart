@@ -1,8 +1,9 @@
+import 'package:cumt_login/shortcut/prefs.dart';
 import 'package:cumt_login/utils/utils.dart';
 import 'package:flutter/material.dart';
-
 import 'edit.dart';
 
+// 定义每个entry的滑动操作
 class Entry extends StatelessWidget {
   final Widget child;
   final Map<String?, String?> web;
@@ -26,6 +27,7 @@ class Entry extends StatelessWidget {
       onDismissed: (DismissDirection direction) {
         if(direction == DismissDirection.startToEnd) {
           links.remove(web);
+          saveLinks(links);
           showSnackBar(context, "已删除 ${web["name"]}");
         }
       },

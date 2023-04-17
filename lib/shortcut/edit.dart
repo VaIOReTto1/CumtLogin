@@ -1,5 +1,5 @@
+import 'package:cumt_login/shortcut/prefs.dart';
 import 'package:flutter/material.dart';
-
 import '../config.dart';
 import '../utils/utils.dart';
 
@@ -27,7 +27,8 @@ void toEditing({
   );
 }
 
-// 定义对话框
+// 定义编辑对话框
+// TODO：大大滴复用，其实只用重写一个函数，之后改一下
 class EditDialog extends StatefulWidget {
   final List<Map<String, String>> list;
   final VoidCallback callback;
@@ -144,6 +145,7 @@ class _EditDialogState extends State<EditDialog> {
             "url" : _urlController.text.trim()
           };
           widget.list[widget.index] = web;
+          saveLinks(widget.list);
           // widget.list.add(web);
           Navigator.of(context).pop();
           showSnackBar(context, "成功${widget.usage} ${_nameController.text}");

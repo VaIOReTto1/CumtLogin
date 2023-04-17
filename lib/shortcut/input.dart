@@ -1,4 +1,5 @@
 import 'package:cumt_login/config.dart';
+import 'package:cumt_login/shortcut/prefs.dart';
 import 'package:flutter/material.dart';
 import '../utils/utils.dart';
 
@@ -22,7 +23,7 @@ void toDialog({
 }
 
 
-// 定义对话框
+// 这个是添加新网址的对话框
 class InputDialog extends StatefulWidget {
   final List<Map<String, String>> list;
   final VoidCallback callback;
@@ -135,6 +136,7 @@ class _InputDialogState extends State<InputDialog> {
             "url" : _urlController.text.trim()
           };
           widget.list.add(web);
+          saveLinks(widget.list);
           Navigator.of(context).pop();
           showSnackBar(context, "成功${widget.usage} ${_nameController.text}");
           widget.callback();
