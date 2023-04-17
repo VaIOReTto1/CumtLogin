@@ -123,8 +123,12 @@ class _UpdatecheckButtonState extends State<UpdatecheckButton> {
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {
-          showDialog(context: context, builder: (BuildContext context){
-            return UpgradeDialog2();
+          Update.checkNeedUpdate(context,auto: false).then((_){
+            if(Update.isUpDate == true){
+              showDialog(context: context, builder: (BuildContext context){
+                return UpgradeDialog2();
+              });
+            }
           });
         },
         child: SizedBox(

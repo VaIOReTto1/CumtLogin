@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:cumt_login/config.dart';
 import 'package:cumt_login/drawer/backgroundimage/imageselect.dart';
 import 'package:cumt_login/drawer/drawer_page.dart';
@@ -19,6 +20,7 @@ import 'login_util/prefs.dart';
 
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  BotToastInit();
   await Prefs.init();
   runApp((MultiProvider(
     providers: [
@@ -74,15 +76,14 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
       _handleLogin(context);
     }
     // checkUpgrade(context);      //打开app后默认检查更新
-    Update.initCheckUpdate(context);
 
-    Update.checkNeedUpdate(context).then((_) {
-      if (Update.isUpDate == true && Update.isIgnore != true) {
-        showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return UpgradeDialog();
-            });
+    //Update.initCheckUpdate(context,auto: true);
+
+    Update.checkNeedUpdate(context,auto: true).then((_){
+      if(Update.isUpDate == true && Update.isIgnore!=true ){
+        showDialog(context: context, builder: (BuildContext context){
+          return UpgradeDialog();
+        });
       }
     });
   }

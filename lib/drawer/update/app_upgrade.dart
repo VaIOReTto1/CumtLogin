@@ -9,7 +9,6 @@ import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:cumt_login/config.dart';
 
-import 'bottom_Dialogue.dart';
 
 void checkUpgrade(BuildContext context, {bool auto = true}) async {
   // if(UniversalPlatform.isIOS){
@@ -47,7 +46,7 @@ void checkUpgrade(BuildContext context, {bool auto = true}) async {
     //   if(auto==false) show( context,"获取最新版本失败(X_X)");
     // }
   } catch (e) {
-    if (auto == false) show(context, "获取最新版本失败(X_X)");
+    //if (auto == false) show(context, "获取最新版本失败(X_X)");
     debugPrint(e.toString());
   }
 }
