@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -8,7 +9,7 @@ import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:cumt_login/config.dart';
 
-import 'bottom_Dialogue.dart';
+import 'toast.dart';
 
 //  使用说明
 //  1.在main函数里使用
@@ -55,13 +56,14 @@ class Update {
     try {
       PackageInfo packageInfo = await PackageInfo.fromPlatform();
       Update.version = packageInfo.version;
+      print(Update.version);
     } catch (e) {
       print('getVersionERROR:$e');
     }
   }
 
   // 初始化时使用的检查用户更新
-  static Future initCheckUpdate(BuildContext context) async {
+  static Future initCheckUpdate(BuildContext context,{bool auto = true}) async {
     // 获取用户平台
     // if(Platform.isAndroid){
     //   Update.platform = 'android';
@@ -85,18 +87,22 @@ class Update {
       //mapData = res.data;
       Map<String, dynamic> mapData = jsonDecode(res.toString());
       print(mapData);
-      Update.upVersion = mapData['version'];
-      Update.upDateUrl = mapData['url'];
-      Update.upDateDescription = mapData['description'];
-      Update.uri = Uri.parse(Update.upDateUrl!);
+      if (mapData["description"]== "没有可用的更新") {if (auto==false) showToast("当前为最新版本！");}
+      else {
+        Update.upVersion = mapData['version'];
+        Update.upDateUrl = mapData['url'];
+        Update.upDateDescription = mapData['description'];
+        Update.uri = Uri.parse(Update.upDateUrl!);
+        showToast('获取最新版本失败(X_X)');
+      }
     } catch (e) {
-      show(context, "获取最新版本失败(X_X)");
+      if (auto==false) showToast('获取最新版本失败(X_X)');
     }
   }
 
   // 判断是否需要更新
-  static Future checkNeedUpdate(BuildContext context) async {
-    await Update.initCheckUpdate(context);
+  static Future checkNeedUpdate(BuildContext context,{bool auto = true}) async {
+    await Update.initCheckUpdate(context, auto: auto);
     Update.isIgnore = await Update.getIsIgnore();
     if (Update.upVersion != null && Update.upVersion != Update.version) {
       Update.isUpDate = true;
@@ -161,6 +167,7 @@ class UpgradeDialog extends StatefulWidget {
 }
 
 class _UpgradeDialogState extends State<UpgradeDialog> {
+
   @override
   void initState() {
     super.initState();
@@ -253,6 +260,10 @@ class _UpgradeDialogState extends State<UpgradeDialog> {
                         onTap: () async {
                           Update.saveIsIgnore(false);
                           launchUrl(Update.uri);
+                          setState(() {
+                            Update.isIgnore=false;
+                          });
+                          Navigator.of(context).pop();
                         }),
                   ),
                 ],
@@ -278,6 +289,7 @@ class UpgradeDialog2 extends StatefulWidget {
 }
 
 class _UpgradeDialog2State extends State<UpgradeDialog2> {
+
   @override
   void initState() {
     super.initState();
