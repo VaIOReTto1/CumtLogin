@@ -120,13 +120,13 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    const Shortcut(),
+                    GlassMorphism(child: const Shortcut()),
                     Column(
                       children: [
                         const SizedBox(height: 16.0),
-                        buildTextField("账号", _usernameController, showPopButton: true),
+                        GlassMorphism(child: buildTextField("账号", _usernameController, showPopButton: true)),
                         const SizedBox(height: 16.0),
-                        buildTextField("密码", _passwordController, obscureText: true),
+                        GlassMorphism(child: buildTextField("密码", _passwordController, obscureText: true)),
                         const SizedBox(height: 16.0),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,

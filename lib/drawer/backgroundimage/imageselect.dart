@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -59,6 +60,7 @@ class F {
 
 
 class BackGroundImage extends StatefulWidget {
+  static String? selectedImage = null;
   const BackGroundImage({Key? key}) : super(key: key);
 
   @override
@@ -66,7 +68,6 @@ class BackGroundImage extends StatefulWidget {
 }
 
 class _BackGroundImageState extends State<BackGroundImage> {
-  String? _selectedImage;
 
   @override
   void initState() {
@@ -90,22 +91,22 @@ class _BackGroundImageState extends State<BackGroundImage> {
   Future<void> _updateSelectedImage() async {
     final String? imagePath = await F._getImagePath();
     setState(() {
-      _selectedImage = imagePath;
+      BackGroundImage.selectedImage = imagePath;
     });
   }
 
   Future<void> _deleteSelectedImage() async {
     setState(() {
-      _selectedImage = null;
+      BackGroundImage.selectedImage = null;
     });
   }
 
 
   @override
   Widget build(BuildContext context) {
-    return _selectedImage != null
+    return BackGroundImage.selectedImage != null
         ? Image.file(
-      File(_selectedImage!),
+      File(BackGroundImage.selectedImage!),
       fit: BoxFit.cover,
       width: double.infinity,
       height: double.infinity,
@@ -159,6 +160,40 @@ class _ImageDeleteState extends State<ImageDelete> {
         F._removeImagePath();
       },
       child: widget.child,
+    );
+  }
+}
+
+
+class GlassMorphism extends StatefulWidget {
+  double blur = BackGroundImage.selectedImage != null && BackGroundImage.selectedImage!.isNotEmpty ? 0.5 : 0;
+  final double opacity = BackGroundImage.selectedImage != null && BackGroundImage.selectedImage!.isNotEmpty ? 0.5 :0;
+  final Widget child;
+  GlassMorphism({Key? key,required this.child,}) : super(key: key);
+
+  @override
+  State<GlassMorphism> createState() => _GlassMorphismState();
+}
+
+class _GlassMorphismState extends State<GlassMorphism> {
+  @override
+  Widget build(BuildContext context) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(20),
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: widget.blur,sigmaY: widget.blur),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white.withOpacity(widget.opacity),
+            borderRadius: const BorderRadius.all(Radius.circular(29)),
+            border: Border.all(
+              width: 1.5,
+              color: Colors.white.withOpacity(0.3),
+            ),
+          ),
+          child: widget.child,
+        ),
+      ),
     );
   }
 }
