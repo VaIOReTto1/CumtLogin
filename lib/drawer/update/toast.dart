@@ -17,3 +17,24 @@ void showToast(String text,
     duration: Duration(seconds: duration),
   );
 }
+
+class TopToast {
+  static void showToast(String message) {
+    BotToast.showCustomNotification(
+      duration: Duration(seconds: 2),
+      toastBuilder: (cancelFunc) => Align(
+        alignment: Alignment.topCenter,
+        child: Card(
+          color: Colors.black.withOpacity(0.8),
+          child: Padding(
+            padding: EdgeInsets.all(10.0),
+            child: Text(
+              message,
+              style: TextStyle(color: Colors.white, fontSize: 16),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:bot_toast/bot_toast.dart';
+//import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -43,7 +43,7 @@ class Update {
   }
 
   // 初始化时使用的检查用户更新
-  static Future initCheckUpdate(BuildContext context) async {
+  static Future initCheckUpdate(BuildContext context, {bool auto = true}) async {
 
     Update.platform = Platform.operatingSystem;
 
@@ -65,7 +65,7 @@ class Update {
         Update.upDateUrl = mapData['url'];
         Update.upDateDescription = mapData['description'];
         Update.uri = Uri.parse(Update.upDateUrl!);
-        showToast('获取最新版本失败(X_X)');
+        //TopToast.showToast('获取最新版本失败(X_X)');
       }
     } catch (e) {
       if (auto==false) showToast('获取最新版本失败(X_X)');
@@ -143,7 +143,7 @@ class _UpgradeDialogState extends State<UpgradeDialog> {
                   child: Padding(
                       padding: EdgeInsets.symmetric(
                           horizontal: 40.0, vertical: 15.0),
-                      child: new Text('$Update.upDateDescription',
+                      child: new Text('${Update.upDateDescription}',
                           style: new TextStyle(
                               fontSize: UIConfig.fontSizeSubMain*1.4))),
                 ),
