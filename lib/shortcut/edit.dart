@@ -77,9 +77,7 @@ class _EditDialogState extends State<EditDialog> {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(UIConfig.borderRadiusBox),
             border: Border.all(
-                color: Theme.of(context).colorScheme.primary == Colors.blue
-                    ? const Color.fromRGBO(230, 231, 233, 1)
-                    : Theme.of(context).colorScheme.primary,
+                color: Theme.of(context).colorScheme.background,
                 width: 2.0
             )
         ),

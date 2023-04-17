@@ -105,15 +105,14 @@ class _UpgradeDialogState extends State<UpgradeDialog> {
     return new Center(
       // 剧中组件
       child: new Material(
+        color: Theme.of(context).colorScheme.background,
         borderRadius: BorderRadius.circular(UIConfig.borderRadiusEntry),
         child: new Container(
           width: MediaQuery.of(context).size.width * 0.8, // 宽度是整宽的百分之80
           padding: EdgeInsets.fromLTRB(
               0, UIConfig.paddingVertical * 2, 0, UIConfig.paddingVertical * 2),
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.primary == Colors.blue
-                ? Colors.grey.shade300
-                : Theme.of(context).cardColor,
+            color: Theme.of(context).colorScheme.background,
             borderRadius: BorderRadius.all(
                 Radius.circular(UIConfig.borderRadiusEntry)), // 圆角
           ),
@@ -127,7 +126,7 @@ class _UpgradeDialogState extends State<UpgradeDialog> {
                 child: Text("发现最新版本！",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: UIConfig.fontSizeSubTitle)),
+                        fontSize: UIConfig.fontSizeSubTitle*1.5)),
               ),
               Container(
                 height: 400,
@@ -139,11 +138,7 @@ class _UpgradeDialogState extends State<UpgradeDialog> {
                           horizontal: 40.0, vertical: 15.0),
                       child: new Text('$Update.upDateDescription',
                           style: new TextStyle(
-                              color: Theme.of(context).colorScheme.primary ==
-                                      Colors.blue
-                                  ? Color(0xff7A7A7A)
-                                  : Colors.white,
-                              fontSize: UIConfig.fontSizeSubMain))),
+                              fontSize: UIConfig.fontSizeSubMain*1.4))),
                 ),
               ),
               Row(
@@ -156,13 +151,7 @@ class _UpgradeDialogState extends State<UpgradeDialog> {
                               child: Text("暂不更新",
                                   style: TextStyle(
                                       fontWeight: FontWeight.w600,
-                                      color: Theme.of(context)
-                                                  .colorScheme
-                                                  .primary ==
-                                              Colors.blue
-                                          ? Colors.black38
-                                          : Colors.white,
-                                      fontSize: UIConfig.fontSizeSubMain)))),
+                                      fontSize: UIConfig.fontSizeSubMain*1.3)))),
                       onTap: () async {
                         Update.saveIsIgnore(true);
                         setState(() {
@@ -176,13 +165,13 @@ class _UpgradeDialogState extends State<UpgradeDialog> {
                     child: InkWell(
                         child: Center(
                             child: Container(
-                          padding: EdgeInsets.symmetric(vertical: 10),
-                          child: Text("立即更新",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: Color(0xff00c5a8),
-                                  fontSize: UIConfig.fontSizeSubMain)),
-                        )),
+                              padding: EdgeInsets.symmetric(vertical: 10),
+                              child: Text("立即更新",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      color: Color(0xff00c5a8),
+                                      fontSize: UIConfig.fontSizeSubMain*1.3)),
+                            )),
                         onTap: () async {
                           Update.saveIsIgnore(false);
                           launchUrl(Update.uri);
@@ -219,48 +208,42 @@ class _UpgradeDialog2State extends State<UpgradeDialog2> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return new Center(
       // 剧中组件
-      child: Material(
+      child: new Material(
+        color: Theme.of(context).colorScheme.background,
         borderRadius: BorderRadius.circular(UIConfig.borderRadiusEntry),
-        child: Container(
+        child: new Container(
           width: MediaQuery.of(context).size.width * 0.8, // 宽度是整宽的百分之80
           padding: EdgeInsets.fromLTRB(
               0, UIConfig.paddingVertical * 2, 0, UIConfig.paddingVertical * 2),
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.primary == Colors.blue
-                ? Colors.grey.shade300
-                : Theme.of(context).cardColor,
-            borderRadius: const BorderRadius.all(
+            borderRadius: BorderRadius.all(
                 Radius.circular(UIConfig.borderRadiusEntry)), // 圆角
           ),
           child: Wrap(
             runSpacing: 10,
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                 width: double.infinity,
                 alignment: Alignment.center,
                 child: Text("发现最新版本！",
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: UIConfig.fontSizeSubTitle)),
+                        fontSize: UIConfig.fontSizeSubTitle*1.4)),
               ),
               Container(
                 height: 400,
                 width: double.infinity,
-                child: SingleChildScrollView(
-                  physics: const BouncingScrollPhysics(),
+                child: new SingleChildScrollView(
+                  physics: BouncingScrollPhysics(),
                   child: Padding(
-                      padding: const EdgeInsets.symmetric(
+                      padding: EdgeInsets.symmetric(
                           horizontal: 40.0, vertical: 15.0),
-                      child: Text('$Update.upDateDescription',
-                          style: TextStyle(
-                              color: Theme.of(context).colorScheme.primary ==
-                                  Colors.blue
-                                  ? const Color(0xff7A7A7A)
-                                  : Colors.white,
-                              fontSize: UIConfig.fontSizeSubMain))),
+                      child: new Text('$Update.upDateDescription',
+                          style: new TextStyle(
+                              fontSize: UIConfig.fontSizeSubMain*1.3))),
                 ),
               ),
               Row(
@@ -269,17 +252,11 @@ class _UpgradeDialog2State extends State<UpgradeDialog2> {
                     child: InkWell(
                       child: Center(
                           child: Container(
-                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              padding: EdgeInsets.symmetric(vertical: 10),
                               child: Text("暂不更新",
                                   style: TextStyle(
                                       fontWeight: FontWeight.w600,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .primary ==
-                                          Colors.blue
-                                          ? Colors.black38
-                                          : Colors.white,
-                                      fontSize: UIConfig.fontSizeSubMain)))),
+                                      fontSize: UIConfig.fontSizeSubMain*1.2)))),
                       onTap: () async {
                         Navigator.of(context).pop();
                       },
@@ -289,12 +266,12 @@ class _UpgradeDialog2State extends State<UpgradeDialog2> {
                     child: InkWell(
                         child: Center(
                             child: Container(
-                              padding: const EdgeInsets.symmetric(vertical: 10),
+                              padding: EdgeInsets.symmetric(vertical: 10),
                               child: Text("立即更新",
                                   style: TextStyle(
                                       fontWeight: FontWeight.w600,
-                                      color: const Color(0xff00c5a8),
-                                      fontSize: UIConfig.fontSizeSubMain)),
+                                      color: Color(0xff00c5a8),
+                                      fontSize: UIConfig.fontSizeSubMain*1.2)),
                             )),
                         onTap: () async {
                           launchUrl(Update.uri);
