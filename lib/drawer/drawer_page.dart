@@ -4,6 +4,7 @@ import 'package:cumt_login/drawer/theme/theme_color.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../config.dart';
+import 'dart:io';
 
 class DrawerPage extends StatefulWidget {
   const DrawerPage({Key? key}) : super(key: key);
@@ -44,8 +45,8 @@ class _DrawerPageState extends State<DrawerPage> {
                       child:SingleChildScrollView(
                         child: Column(
                           children: [
-                            const ImageSelect(child: ImageButton(text: "更换背景")),
-                            const ImageDelete(child: ImageButton(text: "删除背景")),
+                            Platform.isWindows?Container():const ImageSelect(child: ImageButton(text: "更换背景")),
+                            Platform.isWindows?Container():const ImageDelete(child: ImageButton(text: "删除背景")),
                             ThemeButton(themeData: AppTheme.LightTheme().themeData,text: "日间模式",),
                             ThemeButton(themeData: AppTheme.darkTheme().themeData,text: "黑夜模式",),
                             const FeedBackButton(),
