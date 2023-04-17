@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import '../config.dart';
 import 'aboutUs/pages/about_page.dart';
 import 'feedback/feedback.dart';
+import 'help/help_page.dart';
 
 class AboutButton extends StatefulWidget {
   const AboutButton({Key? key, }) : super(key: key);
@@ -189,6 +190,38 @@ class _FeedBackButtonState extends State<FeedBackButton> {
                   ),
                 ],
               )),
+        ));
+  }
+}
+
+class HelpButton extends StatefulWidget {
+  const HelpButton({Key? key}) : super(key: key);
+
+  @override
+  State<HelpButton> createState() => _HelpButtonState();
+}
+
+class _HelpButtonState extends State<HelpButton> {
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+        onTap: () {
+          toHelpPage(context);
+        },
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width*0.7,
+          height: MediaQuery.of(context).size.height*0.07,
+          child: Padding(
+              padding: EdgeInsets.all(UIConfig.paddingAll*3),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text("帮助", style: TextStyle( fontSize: UIConfig.fontSizeMain * 1.2)),
+                  ),
+                  Icon(Icons.keyboard_arrow_right_rounded,size: UIConfig.fontSizeMin * 2.5,),
+                ],
+              )
+          ),
         ));
   }
 }

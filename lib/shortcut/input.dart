@@ -61,6 +61,7 @@ class _InputDialogState extends State<InputDialog> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
+      backgroundColor: Theme.of(context).cardColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(UIConfig.borderRadiusBox)
       ),
@@ -70,7 +71,7 @@ class _InputDialogState extends State<InputDialog> {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(UIConfig.borderRadiusBox),
             border: Border.all(
-            color: Theme.of(context).colorScheme.primary,
+            color: Theme.of(context).cardColor,
           width: 2.0
       )
         ),
@@ -120,6 +121,7 @@ class _InputDialogState extends State<InputDialog> {
         decoration: InputDecoration(
           labelText: labelText,
           border: OutlineInputBorder(
+            borderSide: BorderSide(color: Theme.of(context).colorScheme.background),
               borderRadius: BorderRadius.circular(UIConfig.borderRadiusEntry),
           ),
         ),

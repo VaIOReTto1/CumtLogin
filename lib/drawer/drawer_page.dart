@@ -19,9 +19,11 @@ class _DrawerPageState extends State<DrawerPage> {
     return Drawer(
         child: Column(
           children: [
-            Container(
-              height: 250,
-              color: Theme.of(context).colorScheme.primary,
+            SingleChildScrollView(
+              child: Container(
+                height: 250,
+                color: Theme.of(context).colorScheme.primary,
+              ),
             ),
             Padding(
                   padding: EdgeInsets.all(UIConfig.paddingAll),
@@ -51,7 +53,8 @@ class _DrawerPageState extends State<DrawerPage> {
                             ThemeButton(themeData: AppTheme.darkTheme().themeData,text: "黑夜模式",),
                             const FeedBackButton(),
                             const UpdatecheckButton(),
-                            const AboutButton()
+                            const AboutButton(),
+                            const HelpButton()
                           ],
                         ),
                       )
