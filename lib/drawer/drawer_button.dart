@@ -22,7 +22,8 @@ class _AboutButtonState extends State<AboutButton> {
           toAboutPage(context);
         },
         child: SizedBox(
-          width: 370,
+          width: MediaQuery.of(context).size.width*0.7,
+          height: MediaQuery.of(context).size.height*0.07,
           child: Padding(
               padding: EdgeInsets.all(UIConfig.paddingAll*3),
               child: Row(
@@ -50,8 +51,8 @@ class _ImageButtonState extends State<ImageButton> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        width: 370,
-        height: 58,
+        width: MediaQuery.of(context).size.width*0.7,
+        height: MediaQuery.of(context).size.height*0.07,
         child: Container(
           color: Theme.of(context).colorScheme.background,
           padding: EdgeInsets.all(UIConfig.paddingAll*3),
@@ -88,7 +89,8 @@ class _ThemeButtonState extends State<ThemeButton> {
               .setThemeData(widget.themeData);
         },
         child: SizedBox(
-          width: 370,
+          width: MediaQuery.of(context).size.width*0.7,
+          height: MediaQuery.of(context).size.height*0.07,
           child: Padding(
               padding: EdgeInsets.all(UIConfig.paddingAll*3),
               child: Row(
@@ -119,7 +121,8 @@ class _UpdatecheckButtonState extends State<UpdatecheckButton> {
           checkUpgrade(context);
         },
         child: SizedBox(
-          width: 370,
+          width: MediaQuery.of(context).size.width*0.7,
+          height: MediaQuery.of(context).size.height*0.07,
           child: Padding(
               padding: EdgeInsets.all(UIConfig.paddingAll*3),
               child: Row(
@@ -161,7 +164,8 @@ class _FeedBackButtonState extends State<FeedBackButton> {
           );
         },
         child: SizedBox(
-          width: 370,
+          width: MediaQuery.of(context).size.width*0.7,
+          height: MediaQuery.of(context).size.height*0.07,
           child: Padding(
               padding: EdgeInsets.all(UIConfig.paddingAll * 3),
               child: Row(
