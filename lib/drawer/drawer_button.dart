@@ -141,7 +141,7 @@ class _UpdatecheckButtonState extends State<UpdatecheckButton> {
                   Expanded(
                     child: Text("软件更新",style: TextStyle( fontSize: UIConfig .fontSizeMain * 1.2)),
                   ),
-                  if (Update.isIgnore==true)
+                  if (Update.isIgnore==true&&Update.isUpDate==true)
                     Expanded(
                       child: UpdateAlertIcon(),
                   ),
