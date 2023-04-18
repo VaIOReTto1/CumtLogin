@@ -3,7 +3,7 @@ description: A new Flutter project.
 
 publish_to: 'none'
 
-version: 3.4.0+1
+version: 1.0.0+1
 
 environment:
   sdk: '>=2.19.4 <3.0.0'
@@ -23,7 +23,7 @@ dependencies:
   url_launcher: ^6.1.10   #进行app外页面访问
   provider: ^6.0.5 #状态管理，
   package_info: any   #调取本地的版本信息
-  bot_toast: ^4.0.3
+  bot_toast: ^4.0.3   #错误弹窗
 
 dev_dependencies:
   flutter_test:

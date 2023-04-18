@@ -20,7 +20,7 @@ import 'login_util/prefs.dart';
 
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  BotToastInit();
+
   await Prefs.init();
   runApp((MultiProvider(
     providers: [
@@ -28,6 +28,7 @@ main() async {
     ],
     child: const MyApp(),
   )));
+  BotToastInit();
 }
 
 class MyApp extends StatelessWidget {
@@ -44,6 +45,8 @@ class MyApp extends StatelessWidget {
           theme: Provider.of<ThemeProvider>(context).themeData,
           debugShowCheckedModeBanner: false,
           home: child,
+          builder: BotToastInit(),
+          navigatorObservers: [BotToastNavigatorObserver()],
         );
       },
       child: const LoginPage(),

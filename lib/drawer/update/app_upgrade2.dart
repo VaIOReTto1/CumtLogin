@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 //import 'package:bot_toast/bot_toast.dart';
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -61,14 +62,16 @@ class Update {
       print(mapData);
       if (mapData["description"]== "没有可用的更新") {if (auto==false) showToast("当前为最新版本！");}
       else {
+        //print(Update.version);
         Update.upVersion = mapData['version'];
         Update.upDateUrl = mapData['url'];
         Update.upDateDescription = mapData['description'];
         Update.uri = Uri.parse(Update.upDateUrl!);
-        //TopToast.showToast('获取最新版本失败(X_X)');
+        //showToast("获取最新版本失败(X_X)");
       }
     } catch (e) {
       if (auto==false) showToast('获取最新版本失败(X_X)');
+      debugPrint(e.toString());
     }
   }
 
@@ -253,7 +256,7 @@ class _UpgradeDialog2State extends State<UpgradeDialog2> {
                   child: Padding(
                       padding: EdgeInsets.symmetric(
                           horizontal: 40.0, vertical: 15.0),
-                      child: new Text('$Update.upDateDescription',
+                      child: new Text('${Update.upDateDescription}',
                           style: new TextStyle(
                               fontSize: UIConfig.fontSizeSubMain*1.3))),
                 ),
