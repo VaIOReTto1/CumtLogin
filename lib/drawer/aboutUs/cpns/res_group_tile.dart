@@ -34,7 +34,7 @@ class ResGroupTile extends StatelessWidget {
     return InkWell(
       onTap: () {
         Clipboard.setData(ClipboardData(text: qNumber)).then((_) {
-          showSnackBar(context, '已复制到粘贴板');
+          showSnackBar(context, '已复制到剪贴板');
         });
       },
       child: Container(
