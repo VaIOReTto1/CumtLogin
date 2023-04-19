@@ -46,8 +46,8 @@ class _DrawerPageState extends State<DrawerPage> {
                       child:SingleChildScrollView(
                         child: Column(
                           children: [
-                            Platform.isWindows?Container():const ImageSelect(child: ImageButton(text: "更换背景")),
-                            Platform.isWindows?Container():const ImageDelete(child: ImageButton(text: "删除背景")),
+                            Platform.isIOS||Platform.isAndroid?const ImageSelect(child: ImageButton(text: "更换背景")):Container(),
+                            Platform.isIOS||Platform.isAndroid?const ImageDelete(child: ImageButton(text: "删除背景")):Container(),
                             ThemeButton(themeData: AppTheme.LightTheme().themeData,text: "日间模式",),
                             ThemeButton(themeData: AppTheme.darkTheme().themeData,text: "黑夜模式",),
                             const FeedBackButton(),
