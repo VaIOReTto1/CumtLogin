@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../../../config.dart';
-
+import 'package:cumt_login/utils/utils.dart';
 
 class ResGroupTile extends StatelessWidget {
   const ResGroupTile({
@@ -34,9 +34,7 @@ class ResGroupTile extends StatelessWidget {
     return InkWell(
       onTap: () {
         Clipboard.setData(ClipboardData(text: qNumber)).then((_) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('已复制到剪贴板')),
-          );
+          showSnackBar(context, '已复制到粘贴板');
         });
       },
       child: Container(

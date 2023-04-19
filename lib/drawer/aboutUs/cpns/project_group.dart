@@ -101,7 +101,7 @@ class ProjectGroup extends StatelessWidget {
           QNumber: '2930877510',
           githubUrl: 'https://github.com/xiangxinliao43',
           blogUrl: 'mirrso.icu',
-          personalSig: 'nULL',
+          personalSig: '没有签名',
           qLaunchUrl:
           'https://qm.qq.com/cgi-bin/qm/qr?k=QA35pFWmWonZ_KDs_ZFGPtaqBlXW1ZMh&noverify=0&personal_qrcode_source=4',
         ),
