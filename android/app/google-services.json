@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1018559916657",
+    "project_id": "wifiusercount",
+    "storage_bucket": "wifiusercount.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1018559916657:android:cfb31c3837aad82409c9d0",
+        "android_client_info": {
+          "package_name": "com.example.cumt_login"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1018559916657-bbv10f0g9eokl48jp7t9gjiq0lc3lnv9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAqJ2IwpGp38tpFArWss9vGLZ2KO8cB1_M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1018559916657-bbv10f0g9eokl48jp7t9gjiq0lc3lnv9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

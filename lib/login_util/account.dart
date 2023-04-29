@@ -1,14 +1,8 @@
 import 'dart:convert';
-
-
-
-
 import 'package:cumt_login/login_util/prefs.dart';
 
 import 'locations.dart';
 import 'methods.dart';
-
-
 
 class CumtLoginAccount{
   late String? _username;
@@ -120,7 +114,6 @@ class CumtLoginAccount{
     return _cumtLoginMethod;
   }
 
-
   /// set方法
   set username(String? value){
     _username = value;
@@ -146,8 +139,6 @@ class CumtLoginAccount{
     _cumtLoginMethod = CumtLoginMethodExtension.fromName(name!);
     Prefs.cumtLoginMethod = name;
   }
-
-
 
   @override
   bool operator ==(Object other) {

@@ -9,6 +9,8 @@ import 'package:flutter_picker/Picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 
 import 'drawer/theme/theme_color.dart';
 import 'drawer/update/app_upgrade2.dart';
@@ -20,6 +22,7 @@ import 'login_util/prefs.dart';
 
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
 
   await Prefs.init();
   runApp((MultiProvider(
@@ -68,10 +71,20 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
 
   CumtLoginAccount cumtLoginAccount = CumtLoginAccount();
 
+  static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+
+  Future<void> logLoginEvent() async {
+    await analytics.logEvent(
+        name: 'app_open',
+    );
+    print('1');
+  }
+
   @override
   void initState() {
     super.initState();
     ThemeProvider;
+    logLoginEvent();
     WidgetsBinding.instance.addObserver(this);
     _usernameController.text = cumtLoginAccount.username!;
     _passwordController.text = cumtLoginAccount.password!;
