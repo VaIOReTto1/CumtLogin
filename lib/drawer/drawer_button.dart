@@ -27,7 +27,7 @@ class _AboutButtonState extends State<AboutButton> {
         },
         child: SizedBox(
           width: MediaQuery.of(context).size.width*0.7,
-          height: Platform.isWindows?MediaQuery.of(context).size.height*0.09:MediaQuery.of(context).size.height*0.07,
+          //height: Platform.isWindows?MediaQuery.of(context).size.height*0.09:MediaQuery.of(context).size.height*0.07,
           child: Padding(
               padding: EdgeInsets.all(UIConfig.paddingAll*3),
               child: Row(
@@ -56,7 +56,7 @@ class _ImageButtonState extends State<ImageButton> {
   Widget build(BuildContext context) {
     return SizedBox(
         width: MediaQuery.of(context).size.width*0.7,
-        height: Platform.isWindows?MediaQuery.of(context).size.height*0.09:MediaQuery.of(context).size.height*0.07,
+        //height: Platform.isWindows?MediaQuery.of(context).size.height*0.09:MediaQuery.of(context).size.height*0.07,
         child: Container(
           color: Theme.of(context).colorScheme.background,
           padding: EdgeInsets.all(UIConfig.paddingAll*3),
@@ -94,7 +94,7 @@ class _ThemeButtonState extends State<ThemeButton> {
         },
         child: SizedBox(
           width: MediaQuery.of(context).size.width*0.7,
-          height: Platform.isWindows?MediaQuery.of(context).size.height*0.09:MediaQuery.of(context).size.height*0.07,
+          //height: Platform.isWindows?MediaQuery.of(context).size.height*0.09:MediaQuery.of(context).size.height*0.07,
           child: Padding(
               padding: EdgeInsets.all(UIConfig.paddingAll*3),
               child: Row(
@@ -133,7 +133,7 @@ class _UpdatecheckButtonState extends State<UpdatecheckButton> {
         },
         child: SizedBox(
           width: MediaQuery.of(context).size.width*0.7,
-          height: Platform.isWindows?MediaQuery.of(context).size.height*0.09:MediaQuery.of(context).size.height*0.07,
+          //height: Platform.isWindows?MediaQuery.of(context).size.height*0.09:MediaQuery.of(context).size.height*0.07,
           child: Padding(
               padding: EdgeInsets.all(UIConfig.paddingAll*3),
               child: Row(
@@ -180,7 +180,7 @@ class _FeedBackButtonState extends State<FeedBackButton> {
         },
         child: SizedBox(
           width: MediaQuery.of(context).size.width*0.7,
-          height: Platform.isWindows?MediaQuery.of(context).size.height*0.09:MediaQuery.of(context).size.height*0.07,
+          //height: Platform.isWindows?MediaQuery.of(context).size.height*0.09:MediaQuery.of(context).size.height*0.07,
           child: Padding(
               padding: EdgeInsets.all(UIConfig.paddingAll * 3),
               child: Row(
@@ -216,7 +216,7 @@ class _HelpButtonState extends State<HelpButton> {
         },
         child: SizedBox(
           width: MediaQuery.of(context).size.width*0.7,
-          height: Platform.isWindows?MediaQuery.of(context).size.height*0.09:MediaQuery.of(context).size.height*0.07,
+          //height: Platform.isWindows?MediaQuery.of(context).size.height*0.09:MediaQuery.of(context).size.height*0.07,
           child: Padding(
               padding: EdgeInsets.all(UIConfig.paddingAll*3),
               child: Row(

@@ -75,9 +75,8 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
 
   Future<void> logLoginEvent() async {
     await analytics.logEvent(
-        name: 'app_open',
+        name: 'daily user count',
     );
-    print('1');
   }
 
   @override

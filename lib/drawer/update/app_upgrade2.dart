@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-//import 'package:bot_toast/bot_toast.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
@@ -184,7 +183,7 @@ class _UpgradeDialogState extends State<UpgradeDialog> {
                             )),
                         onTap: () async {
                           Update.saveIsIgnore(false);
-                          launchUrl(Update.uri);
+                          launchUrl(Update.uri,mode: LaunchMode.externalApplication);
                           setState(() {
                             Update.isIgnore=false;
                           });
@@ -289,7 +288,7 @@ class _UpgradeDialog2State extends State<UpgradeDialog2> {
                                       fontSize: UIConfig.fontSizeSubMain*1.2)),
                             )),
                         onTap: () async {
-                          launchUrl(Update.uri);
+                          launchUrl(Update.uri,mode: LaunchMode.externalApplication);
                           Update.saveIsIgnore(false);
                           setState(() {
                             Update.isIgnore=false;
