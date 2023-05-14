@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -45,7 +44,15 @@ class Update {
   // 初始化时使用的检查用户更新
   static Future initCheckUpdate(BuildContext context, {bool auto = true}) async {
 
-    Update.platform = Platform.operatingSystem;
+    //Update.platform = Platform.operatingSystem;     //判断不了windows
+    if(Platform.isAndroid){
+      Update.platform = 'android';
+    }else if(Platform.isIOS){
+      Update.platform = 'ios';
+    }else if(Platform.isWindows){
+      Update.platform = 'windows';
+    }
+    print(Update.platform);
 
     // 获取用户版本
     try {
