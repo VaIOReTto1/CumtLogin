@@ -1,24 +1,20 @@
 import 'dart:convert';
-import 'package:cumt_login/login_util/prefs.dart';
-
-import 'locations.dart';
+import 'prefs.dart';
 import 'methods.dart';
 
 class CumtLoginAccount{
   late String? _username;
   late String? _password;
-  late CumtLoginLocation? _cumtLoginLocation;
   late CumtLoginMethod? _cumtLoginMethod;
   static List<CumtLoginAccount>? _list; /// 账号列表
 
   CumtLoginAccount(){
     _username = "";
     _password = "";
-    _cumtLoginLocation = null;
     _cumtLoginMethod = null;
   }
 
-  CumtLoginAccount.fill(this._username, this._password, this._cumtLoginLocation, this._cumtLoginMethod);
+  CumtLoginAccount.fill(this._username, this._password, this._cumtLoginMethod);
 
   /// 懒加载账号列表
   static List<CumtLoginAccount> get list{
@@ -56,14 +52,13 @@ class CumtLoginAccount{
 
   /// 值拷贝
   CumtLoginAccount clone(){
-    return CumtLoginAccount.fill(_username, _password, _cumtLoginLocation, _cumtLoginMethod);
+    return CumtLoginAccount.fill(_username, _password, _cumtLoginMethod);
   }
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['username'] = username;
     map['password'] = password;
-    map['location'] = cumtLoginLocation!.name;
     map['method'] = cumtLoginMethod!.name;
     return map;
   }
@@ -71,13 +66,26 @@ class CumtLoginAccount{
   CumtLoginAccount.fromJson(dynamic json) {
     username = json['username'];
     password = json['password'];
-    cumtLoginLocation = CumtLoginLocationExtension.fromName(json['location']);
     cumtLoginMethod = CumtLoginMethodExtension.fromName(json['method']);
   }
 
   @override
   String toString() {
-    return "$username $password ${cumtLoginLocation!.name} ${cumtLoginMethod!.name}";
+    return "$username $password  ${cumtLoginMethod!.name}";
+  }
+
+  Future<String> loginUrl(
+      String? username, String? password, CumtLoginMethod? loginMethod) async {
+    String head =Prefs.loginurl;
+    head = head.replaceAll('{username}', username ?? '');
+    head = head.replaceAll('{methods}', loginMethod!.code ?? '');
+    head = head.replaceAll('{password}', password ?? '');
+    return head;
+  }
+
+  Future<String> get logoutUrl async {
+    String head =Prefs.logouturl;
+    return head;
   }
 
   /// get方法
@@ -93,22 +101,12 @@ class CumtLoginAccount{
     }
     return _password;
   }
-  CumtLoginLocation? get cumtLoginLocation{
-    if(_cumtLoginLocation==null){
-      if(Prefs.cumtLoginLocation!=""){
-        _cumtLoginLocation = CumtLoginLocationExtension.fromName(Prefs.cumtLoginLocation);
-      }else{
-        _cumtLoginLocation = CumtLoginLocation.nh;
-      }
-    }
-    return _cumtLoginLocation;
-  }
   CumtLoginMethod? get cumtLoginMethod{
     if(_cumtLoginMethod==null){
       if(Prefs.cumtLoginMethod!=""){
         _cumtLoginMethod = CumtLoginMethodExtension.fromName(Prefs.cumtLoginMethod);
       }else{
-        _cumtLoginMethod = CumtLoginMethod.cumt;
+        _cumtLoginMethod = CumtLoginMethod.school;
       }
     }
     return _cumtLoginMethod;
@@ -122,14 +120,6 @@ class CumtLoginAccount{
   set password(String? value){
     _password = value;
     Prefs.cumtLoginPassword = value!;
-  }
-  set cumtLoginLocation(CumtLoginLocation? value){
-    _cumtLoginLocation = value;
-    Prefs.cumtLoginLocation = value!.name;
-  }
-  setCumtLoginLocationByName(String? name){
-    _cumtLoginLocation = CumtLoginLocationExtension.fromName(name!);
-    Prefs.cumtLoginLocation = name;
   }
   set cumtLoginMethod(CumtLoginMethod? value){
     _cumtLoginMethod = value;
@@ -147,13 +137,12 @@ class CumtLoginAccount{
     return other is CumtLoginAccount &&
         other.username == username &&
         other.password == password &&
-        other.cumtLoginLocation == cumtLoginLocation &&
         other.cumtLoginMethod == cumtLoginMethod;
   }
 
   @override
   int get hashCode{
-    return username.hashCode^password.hashCode^cumtLoginLocation.hashCode^cumtLoginMethod.hashCode;
+    return username.hashCode^password.hashCode^cumtLoginMethod.hashCode;
   }
 
 }

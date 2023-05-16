@@ -1,5 +1,5 @@
 enum CumtLoginMethod {
-  cumt, // 校园网
+  school, // 校园网
   telecom, // 电信
   unicom, // 联通
   cmcc // 移动
@@ -9,7 +9,7 @@ extension CumtLoginMethodExtension on CumtLoginMethod {
 
   String get code {
     switch (this) {
-      case CumtLoginMethod.cumt:
+      case CumtLoginMethod.school:
         return '';
       case CumtLoginMethod.telecom:
         return '%40telecom';
@@ -22,7 +22,7 @@ extension CumtLoginMethodExtension on CumtLoginMethod {
 
   String get name {
     switch (this) {
-      case CumtLoginMethod.cumt:
+      case CumtLoginMethod.school:
         return '校园网';
       case CumtLoginMethod.telecom:
         return '电信';

@@ -3,6 +3,7 @@ import 'package:cumt_login/config.dart';
 import 'package:cumt_login/drawer/backgroundimage/imageselect.dart';
 import 'package:cumt_login/drawer/drawer_page.dart';
 import 'package:cumt_login/shortcut/ui.dart';
+import 'package:cumt_login/welcome.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_picker/Picker.dart';
@@ -15,10 +16,16 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'drawer/theme/theme_color.dart';
 import 'drawer/update/app_upgrade2.dart';
 import 'login_util/account.dart';
-import 'login_util/locations.dart';
 import 'login_util/login.dart';
 import 'login_util/methods.dart';
 import 'login_util/prefs.dart';
+
+toLoginPage(BuildContext context) {
+  Navigator.of(context).pushReplacement(MaterialPageRoute(
+    builder: (context) => const LoginPage(),
+    fullscreenDialog: true, // 路由为全屏模式
+  ));
+}
 
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -52,7 +59,7 @@ class MyApp extends StatelessWidget {
           navigatorObservers: [BotToastNavigatorObserver()],
         );
       },
-      child: const LoginPage(),
+      child: Prefs.school==''?WelComePage():LoginPage(),
     );
   }
 }
@@ -169,10 +176,9 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
                                   children: [
                                     TextButton(
                                         onPressed: () => _showLocationMethodPicker(),
-                                        child: Row(
+                                        child:  Row(
                                           children: [
-                                            Text(
-                                                "${cumtLoginAccount.cumtLoginLocation?.name} ${cumtLoginAccount.cumtLoginMethod?.name}"),
+                                            Text("${cumtLoginAccount.cumtLoginMethod?.name}"),
                                             const Icon(Icons.arrow_drop_down),
                                           ],
                                         )),
@@ -213,17 +219,13 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
   void _showLocationMethodPicker() {
     Picker(
         adapter: PickerDataAdapter<dynamic>(pickerData: [
-          CumtLoginLocationExtension.nameList,
           CumtLoginMethodExtension.nameList,
         ], isArray: true),
         changeToFirst: true,
         hideHeader: false,
         onConfirm: (Picker picker, List value) {
           setState(() {
-            cumtLoginAccount
-                .setCumtLoginLocationByName(picker.getSelectedValues()[0]);
-            cumtLoginAccount
-                .setCumtLoginMethodByName(picker.getSelectedValues()[1]);
+            cumtLoginAccount.setCumtLoginMethodByName(picker.getSelectedValues()[0]);
           });
         }).showModal(context);
   }
@@ -274,7 +276,7 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
                             Expanded(
                               child: Text(
                                 "${account.username}"
-                                " ${account.cumtLoginLocation?.name} ${account.cumtLoginMethod?.name}",
+                                    " ${account.cumtLoginMethod?.name}",
                               ),
                             ),
                             IconButton(
