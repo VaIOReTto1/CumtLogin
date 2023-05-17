@@ -1,8 +1,8 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:cumt_login/UrlPage/url_page.dart';
 import 'package:cumt_login/config.dart';
-import 'package:cumt_login/drawer/backgroundimage/imageselect.dart';
-import 'package:cumt_login/drawer/drawer_page.dart';
-import 'package:cumt_login/shortcut/ui.dart';
+import 'package:cumt_login/settings//backgroundimage/imageselect.dart';
+import 'package:cumt_login/settings/settings.dart';
 import 'package:cumt_login/welcome.dart';
 
 import 'package:flutter/material.dart';
@@ -13,8 +13,9 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
-import 'drawer/theme/theme_color.dart';
-import 'drawer/update/app_upgrade2.dart';
+import 'UrlPage/shortcut/ui.dart';
+import 'settings/theme/theme_color.dart';
+import 'settings/update/app_upgrade2.dart';
 import 'login_util/account.dart';
 import 'login_util/login.dart';
 import 'login_util/methods.dart';
@@ -59,7 +60,7 @@ class MyApp extends StatelessWidget {
           navigatorObservers: [BotToastNavigatorObserver()],
         );
       },
-      child: Prefs.school==''?WelComePage():LoginPage(),
+      child: Prefs.school == '' ? WelComePage() : HomePage(),
     );
   }
 }
@@ -82,7 +83,7 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
 
   Future<void> logLoginEvent() async {
     await analytics.logEvent(
-        name: 'daily user count',
+      name: 'daily user count',
     );
   }
 
@@ -101,11 +102,13 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
 
     //Update.initCheckUpdate(context,auto: true);
 
-    Update.checkNeedUpdate(context,auto: true).then((_){
-      if(Update.isUpDate == true && Update.isIgnore!=true ){
-        showDialog(context: context, builder: (BuildContext context){
-          return UpgradeDialog();
-        });
+    Update.checkNeedUpdate(context, auto: true).then((_) {
+      if (Update.isUpDate == true && Update.isIgnore != true) {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return UpgradeDialog();
+            });
       }
     });
   }
@@ -129,11 +132,6 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
       child: Scaffold(
-        appBar: AppBar(
-          //automaticallyImplyLeading: false, // 禁用默认的返回箭头
-          title: Text('校园网自动登录',
-              style: TextStyle(fontSize: UIConfig.fontSizeTitle * 1.2)),
-        ),
         body: Stack(
           children: [
             const BackGroundImage(),
@@ -147,38 +145,49 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
-                            SizedBox(height: MediaQuery.of(context).size.height*0.07,),
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.07,
+                            ),
                             QQButton(),
-                            SizedBox(height: MediaQuery.of(context).size.height*0.03,),
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.03,
+                            ),
                             GlassMorphism(child: const Shortcut()),
-                            SizedBox(height: MediaQuery.of(context).size.height*0.03,),
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.03,
+                            ),
                             Column(
                               children: [
                                 const SizedBox(height: 16.0),
                                 GlassMorphism(
-                                    child: Column(
-                                      children:[
-                                        const SizedBox(height: 5,),
-                                        buildTextField("账号", _usernameController,
-                                          showPopButton: true),]
-                                    )),
+                                    child: Column(children: [
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  buildTextField("账号", _usernameController,
+                                      showPopButton: true),
+                                ])),
                                 const SizedBox(height: 16.0),
                                 GlassMorphism(
-                                    child: Column(
-                                        children:[
-                                          const SizedBox(height: 5,),
-                                          buildTextField("密码", _passwordController,
-                                          obscureText: true),]
-                                    )),
+                                    child: Column(children: [
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  buildTextField("密码", _passwordController,
+                                      obscureText: true),
+                                ])),
                                 const SizedBox(height: 16.0),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
                                   children: [
                                     TextButton(
-                                        onPressed: () => _showLocationMethodPicker(),
-                                        child:  Row(
+                                        onPressed: () =>
+                                            _showLocationMethodPicker(),
+                                        child: Row(
                                           children: [
-                                            Text("${cumtLoginAccount.cumtLoginMethod?.name}"),
+                                            Text(
+                                                "${cumtLoginAccount.cumtLoginMethod?.name}"),
                                             const Icon(Icons.arrow_drop_down),
                                           ],
                                         )),
@@ -211,7 +220,6 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
             ),
           ],
         ),
-        drawer: const DrawerPage(),
       ),
     );
   }
@@ -225,7 +233,8 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
         hideHeader: false,
         onConfirm: (Picker picker, List value) {
           setState(() {
-            cumtLoginAccount.setCumtLoginMethodByName(picker.getSelectedValues()[0]);
+            cumtLoginAccount
+                .setCumtLoginMethodByName(picker.getSelectedValues()[0]);
           });
         }).showModal(context);
   }
@@ -276,7 +285,7 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
                             Expanded(
                               child: Text(
                                 "${account.username}"
-                                    " ${account.cumtLoginMethod?.name}",
+                                " ${account.cumtLoginMethod?.name}",
                               ),
                             ),
                             IconButton(
@@ -347,13 +356,86 @@ class _QQButtonState extends State<QQButton> {
       style: ButtonStyle(
         backgroundColor: MaterialStatePropertyAll(Colors.redAccent),
       ),
-      child: Text('加入QQ群',
-          style: TextStyle(
-              fontSize: UIConfig.fontSizeMain)),
+      child: Text('加入QQ群', style: TextStyle(fontSize: UIConfig.fontSizeMain)),
       onPressed: () {
         launchUrl(Uri.parse('https://jq.qq.com/?_wv=1027&k=RPprjgMn'),
             mode: LaunchMode.externalApplication);
       },
     );
+  }
+}
+
+toHomePage(BuildContext context, int currentPageIndex) {
+  Navigator.of(context).pushReplacement(MaterialPageRoute(
+    builder: (context) => HomePage(
+      currentPageIndex: currentPageIndex,
+    ),
+    fullscreenDialog: true, // 路由为全屏模式
+  ));
+}
+
+class HomePage extends StatefulWidget {
+  int currentPageIndex; // 默认显示第一个子组件
+  HomePage({Key? key, this.currentPageIndex = 0}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePage();
+}
+
+class _HomePage extends State<HomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          automaticallyImplyLeading: false, // 禁用默认的返回箭头
+          title: Text(
+            '校园网自动登录',
+            style: TextStyle(fontSize: UIConfig.fontSizeTitle * 1.2),
+          ),
+        ),
+        body: IndexedStack(
+          index: widget.currentPageIndex,
+          children: [
+            const LoginPage(),
+            UrlPage(),
+            SettingPage(),
+          ],
+        ),
+        bottomNavigationBar: Container(
+          decoration:
+              BoxDecoration(color: Theme.of(context).colorScheme.primary),
+          child: BottomAppBar(
+            color: Colors.transparent,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.add),
+                  onPressed: () {
+                    setState(() {
+                      widget.currentPageIndex = 2;
+                    });
+                  },
+                ),
+                IconButton(
+                  icon: const Icon(Icons.home),
+                  onPressed: () {
+                    setState(() {
+                      widget.currentPageIndex = 0;
+                    });
+                  },
+                ),
+                IconButton(
+                  icon: const Icon(Icons.person),
+                  onPressed: () {
+                    setState(() {
+                      widget.currentPageIndex = 1;
+                    });
+                  },
+                ),
+              ],
+            ),
+          ),
+        ));
   }
 }

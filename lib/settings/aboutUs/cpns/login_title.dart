@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:cumt_login/drawer/aboutUs/cpns/single_info_card.dart';
+import 'package:cumt_login/settings/aboutUs/cpns/single_info_card.dart';
 import '../../../config.dart';
 
 

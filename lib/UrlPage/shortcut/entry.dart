@@ -1,4 +1,4 @@
-import 'package:cumt_login/shortcut/prefs.dart';
+import 'prefs.dart';
 import 'package:cumt_login/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'edit.dart';

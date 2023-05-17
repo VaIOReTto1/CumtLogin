@@ -1,59 +1,52 @@
-import 'package:cumt_login/shortcut/prefs.dart';
+import 'package:cumt_login/config.dart';
+import '../../utils/utils.dart';
+import 'prefs.dart';
 import 'package:flutter/material.dart';
-import '../config.dart';
-import '../utils/utils.dart';
 
-void toEditing({
+// 点击添加按钮调用此函数，弹出输入对话框
+void toDialog({
   required BuildContext context,
   required List<Map<String, String>> list,
   required VoidCallback callback,
-  required String? initName,
-  required String? initUrl,
-  required int index
 }) {
   showDialog(
       context: context,
       builder: (BuildContext context) {
-        return EditDialog(
-          list: list,
-          callback: callback,
-          title: "编辑自定义网址",
-          usage: '提交编辑',
-          initName: initName,
-          initUrl: initUrl,
-          index: index,
+        return InputDialog(
+            list: list,
+            callback: callback,
+            title: "添加自定义网址",
+            usage: '添加',
         );
       }
   );
 }
 
-// 定义编辑对话框
-// TODO：大大滴复用，其实只用重写一个函数，之后改一下
-class EditDialog extends StatefulWidget {
+
+// 这个是添加新网址的对话框
+class InputDialog extends StatefulWidget {
   final List<Map<String, String>> list;
   final VoidCallback callback;
   final String title;
   final String usage;
   final String? initName;
   final String? initUrl;
-  final int index;
 
-  const EditDialog({
+  const InputDialog({
     Key? key,
     required this.list,
     required this.callback,
     required this.title,
     required this.usage,
     this.initName,
-    this.initUrl,
-    required this.index
+    this.initUrl
   }) : super(key: key);
 
   @override
-  State<EditDialog> createState() => _EditDialogState();
+  State<InputDialog> createState() => _InputDialogState();
 }
 
-class _EditDialogState extends State<EditDialog> {
+class _InputDialogState extends State<InputDialog> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _urlController = TextEditingController();
 
@@ -68,8 +61,9 @@ class _EditDialogState extends State<EditDialog> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
+      backgroundColor: Theme.of(context).cardColor,
       shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(UIConfig.borderRadiusBox)
+        borderRadius: BorderRadius.circular(UIConfig.borderRadiusBox)
       ),
       child: Container(
         padding: EdgeInsets.all(UIConfig.paddingAll),
@@ -77,9 +71,9 @@ class _EditDialogState extends State<EditDialog> {
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(UIConfig.borderRadiusBox),
             border: Border.all(
-                color: Theme.of(context).colorScheme.background,
-                width: 2.0
-            )
+            color: Theme.of(context).cardColor,
+          width: 2.0
+      )
         ),
         child: SingleChildScrollView(
           child: Column(
@@ -96,6 +90,8 @@ class _EditDialogState extends State<EditDialog> {
               const SizedBox(height: 10),
               _buildTextField("标题", _nameController),
               _buildTextField("网址", _urlController),
+              Text("请输入完整链接",style: TextStyle(fontSize: UIConfig.fontSizeMin),),
+              const SizedBox(height: 5),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -111,7 +107,7 @@ class _EditDialogState extends State<EditDialog> {
     );
   }
 
-
+  
   Widget _buildTextField(
       String labelText, TextEditingController textEditingController,
       {obscureText = false, showPopButton = false}) {
@@ -125,7 +121,8 @@ class _EditDialogState extends State<EditDialog> {
         decoration: InputDecoration(
           labelText: labelText,
           border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(UIConfig.borderRadiusEntry),
+            borderSide: BorderSide(color: Theme.of(context).colorScheme.background),
+              borderRadius: BorderRadius.circular(UIConfig.borderRadiusEntry),
           ),
         ),
       ),
@@ -142,9 +139,8 @@ class _EditDialogState extends State<EditDialog> {
             "name": _nameController.text.trim(),
             "url" : _urlController.text.trim()
           };
-          widget.list[widget.index] = web;
+          widget.list.add(web);
           saveLinks(widget.list);
-          // widget.list.add(web);
           Navigator.of(context).pop();
           showSnackBar(context, "成功${widget.usage} ${_nameController.text}");
           widget.callback();

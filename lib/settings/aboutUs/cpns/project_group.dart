@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../config.dart';
-import 'package:cumt_login/drawer/aboutUs/cpns/single_info_card.dart';
+import 'package:cumt_login/settings/aboutUs/cpns/single_info_card.dart';
 
 class ProjectGroup extends StatelessWidget {
   const ProjectGroup({

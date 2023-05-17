@@ -1,11 +1,11 @@
-import 'package:cumt_login/shortcut/entry.dart';
-import 'package:cumt_login/shortcut/input.dart';
-import 'package:cumt_login/shortcut/prefs.dart';
+import '../../config.dart';
+import '../../utils/utils.dart';
+import 'entry.dart';
+import 'input.dart';
+import 'prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/services.dart';
-import '../config.dart';
-import '../utils/utils.dart';
 
 
 class Shortcut extends StatefulWidget {

@@ -1,8 +1,8 @@
 
 import 'dart:io';
-import 'package:cumt_login/drawer/theme/theme_color.dart';
-import 'package:cumt_login/drawer/update/app_upgrade2.dart';
-import 'package:cumt_login/drawer/update/update_Alert_Icon.dart';
+import 'package:cumt_login/settings/theme/theme_color.dart';
+import 'package:cumt_login/settings/update/app_upgrade2.dart';
+import 'package:cumt_login/settings/update/update_Alert_Icon.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
