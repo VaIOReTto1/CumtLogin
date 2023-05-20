@@ -2,6 +2,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:cumt_login/UrlPage/url_page.dart';
 import 'package:cumt_login/config.dart';
 import 'package:cumt_login/settings//backgroundimage/imageselect.dart';
+import 'package:cumt_login/settings/drawer_button.dart';
 import 'package:cumt_login/settings/settings.dart';
 import 'package:cumt_login/welcome.dart';
 
@@ -132,93 +133,89 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
       child: Scaffold(
-        body: Stack(
-          children: [
-            const BackGroundImage(),
-            Center(
-              child: Padding(
-                padding: EdgeInsets.all(UIConfig.paddingAll),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Expanded(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.07,
-                            ),
-                            QQButton(),
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.03,
-                            ),
-                            GlassMorphism(child: const Shortcut()),
-                            SizedBox(
-                              height: MediaQuery.of(context).size.height * 0.03,
-                            ),
-                            Column(
-                              children: [
-                                const SizedBox(height: 16.0),
-                                GlassMorphism(
-                                    child: Column(children: [
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  buildTextField("账号", _usernameController,
-                                      showPopButton: true),
-                                ])),
-                                const SizedBox(height: 16.0),
-                                GlassMorphism(
-                                    child: Column(children: [
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  buildTextField("密码", _passwordController,
-                                      obscureText: true),
-                                ])),
-                                const SizedBox(height: 16.0),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    TextButton(
-                                        onPressed: () =>
-                                            _showLocationMethodPicker(),
-                                        child: Row(
-                                          children: [
-                                            Text(
-                                                "${cumtLoginAccount.cumtLoginMethod?.name}"),
-                                            const Icon(Icons.arrow_drop_down),
-                                          ],
-                                        )),
-                                    ElevatedButton(
-                                      onPressed: () => _handleLogin(context),
-                                      child: Text('登录',
-                                          style: TextStyle(
-                                              fontSize: UIConfig.fontSizeMain)),
-                                    ),
-                                    OutlinedButton(
-                                      onPressed: () => _handleLogout(context),
-                                      child: Text('注销',
-                                          style: TextStyle(
-                                              fontSize: UIConfig.fontSizeMain)),
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
-                              ],
-                            )
-                          ],
+        body: Center(
+          child: Padding(
+            padding: EdgeInsets.all(UIConfig.paddingAll),
+            child: Column(
+              children: [
+                Container(
+                  height: MediaQuery.of(context).size.height*0.12,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Text(
+                          '        校园网自动登录',
+                          style:
+                              TextStyle(fontSize: UIConfig.fontSizeTitle * 1.2),
+                          textAlign: TextAlign.center,
                         ),
                       ),
-                    ),
-                  ],
+                      HelpButton(color: const Color.fromRGBO(73,114,175,1),),
+                    ],
+                  ),
                 ),
-              ),
+                SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Column(
+                        children: [
+                          const SizedBox(height: 16.0),
+                          GlassMorphism(
+                              child: Column(children: [
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            buildTextField("账号", _usernameController,
+                                showPopButton: true),
+                          ])),
+                          const SizedBox(height: 16.0),
+                          GlassMorphism(
+                              child: Column(children: [
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            buildTextField("密码", _passwordController,
+                                obscureText: true),
+                          ])),
+                          const SizedBox(height: 16.0),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              TextButton(
+                                  onPressed: () => _showLocationMethodPicker(),
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                          "${cumtLoginAccount.cumtLoginMethod?.name}"),
+                                      const Icon(Icons.arrow_drop_down),
+                                    ],
+                                  )),
+                              ElevatedButton(
+                                onPressed: () => _handleLogin(context),
+                                child: Text('登录',
+                                    style: TextStyle(
+                                        fontSize: UIConfig.fontSizeMain)),
+                              ),
+                              OutlinedButton(
+                                onPressed: () => _handleLogout(context),
+                                child: Text('注销',
+                                    style: TextStyle(
+                                        fontSize: UIConfig.fontSizeMain)),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
@@ -342,29 +339,6 @@ class _LoginPageState extends State<LoginPage> with WidgetsBindingObserver {
   }
 }
 
-class QQButton extends StatefulWidget {
-  const QQButton({Key? key}) : super(key: key);
-
-  @override
-  State<QQButton> createState() => _QQButtonState();
-}
-
-class _QQButtonState extends State<QQButton> {
-  @override
-  Widget build(BuildContext context) {
-    return ElevatedButton(
-      style: ButtonStyle(
-        backgroundColor: MaterialStatePropertyAll(Colors.redAccent),
-      ),
-      child: Text('加入QQ群', style: TextStyle(fontSize: UIConfig.fontSizeMain)),
-      onPressed: () {
-        launchUrl(Uri.parse('https://jq.qq.com/?_wv=1027&k=RPprjgMn'),
-            mode: LaunchMode.externalApplication);
-      },
-    );
-  }
-}
-
 toHomePage(BuildContext context, int currentPageIndex) {
   Navigator.of(context).pushReplacement(MaterialPageRoute(
     builder: (context) => HomePage(
@@ -386,31 +360,25 @@ class _HomePage extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false, // 禁用默认的返回箭头
-          title: Text(
-            '校园网自动登录',
-            style: TextStyle(fontSize: UIConfig.fontSizeTitle * 1.2),
-          ),
-        ),
         body: IndexedStack(
           index: widget.currentPageIndex,
           children: [
             const LoginPage(),
-            UrlPage(),
             SettingPage(),
+            UrlPage(),
           ],
         ),
         bottomNavigationBar: Container(
-          decoration:
-              BoxDecoration(color: Theme.of(context).colorScheme.primary),
           child: BottomAppBar(
-            color: Colors.transparent,
+            elevation: 0,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 IconButton(
-                  icon: const Icon(Icons.add),
+                  icon: const Icon(
+                    Icons.layers_rounded,
+                    color: Color.fromRGBO(111, 111, 111, 1),
+                  ),
                   onPressed: () {
                     setState(() {
                       widget.currentPageIndex = 2;
@@ -418,7 +386,8 @@ class _HomePage extends State<HomePage> {
                   },
                 ),
                 IconButton(
-                  icon: const Icon(Icons.home),
+                  icon: const Icon(Icons.home,
+                      color: Color.fromRGBO(111, 111, 111, 1)),
                   onPressed: () {
                     setState(() {
                       widget.currentPageIndex = 0;
@@ -426,7 +395,8 @@ class _HomePage extends State<HomePage> {
                   },
                 ),
                 IconButton(
-                  icon: const Icon(Icons.person),
+                  icon: const Icon(Icons.settings,
+                      color: Color.fromRGBO(111, 111, 111, 1)),
                   onPressed: () {
                     setState(() {
                       widget.currentPageIndex = 1;

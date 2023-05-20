@@ -72,17 +72,17 @@ class AppTheme {
     return AppTheme(
       ThemeData(
         drawerTheme: const DrawerThemeData(
-            backgroundColor: Color.fromRGBO(230, 231, 233, 1)),
+            backgroundColor: Colors.white),
         appBarTheme: AppBarTheme(
             toolbarTextStyle: const TextTheme(
               //更改appbar标题颜色
               titleLarge: TextStyle(
-                color: Colors.white,
+                color: Color.fromRGBO(60,60,60, 1),
               ),
             ).bodyMedium,
             titleTextStyle: const TextTheme(
               titleLarge: TextStyle(
-                color: Colors.white,
+                color: Color.fromRGBO(60,60,60, 1),
               ),
             ).titleLarge),
 
@@ -92,9 +92,9 @@ class AppTheme {
 
         dialogBackgroundColor: Colors.grey.shade300,
         //更改弹窗颜色
-        popupMenuTheme: PopupMenuThemeData(
+        popupMenuTheme: const PopupMenuThemeData(
           //更改按钮弹窗颜色
-          color: Colors.green[100],
+          color: Color.fromRGBO(233,232,252,1),
         ),
 
         outlinedButtonTheme: OutlinedButtonThemeData(
@@ -110,14 +110,14 @@ class AppTheme {
             style: ButtonStyle(
                 backgroundColor: MaterialStatePropertyAll(Colors.green[200]))),
 
-        scaffoldBackgroundColor: Color.fromRGBO(230, 231, 233, 1),
+        scaffoldBackgroundColor: Colors.white,
         //更改页面顶端颜色
 
         colorScheme: ColorScheme(
-          primary: Colors.green[200]!,
+          primary:Colors.white,
           //Picker颜色
           secondary: Colors.white,
-          background: Color.fromRGBO(230, 231, 233, 1),
+          background: Colors.white,
           error: Colors.redAccent[700]!,
           brightness: Brightness.light,
           onBackground: Colors.white,

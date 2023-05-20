@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'drawer_button.dart';
+import 'theme/theme_color.dart';
 import '../config.dart';
 
 toSettingPage(BuildContext context) {
@@ -9,34 +10,119 @@ toSettingPage(BuildContext context) {
   ));
 }
 
-class SettingPage extends StatelessWidget {
+class SettingPage extends StatefulWidget {
   SettingPage({Key? key}) : super(key: key);
+
+  @override
+  State<SettingPage> createState() => _SettingPageState();
+}
+
+class _SettingPageState extends State<SettingPage> {
   final ScrollController _scrollController = ScrollController();
+
   @override
   Widget build(BuildContext context) {
-    final double height = MediaQuery.of(context).size.height;
     return Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.background,
-        body:
-        CustomScrollView(physics: const BouncingScrollPhysics(), slivers: [
-          SliverAppBar(
-            centerTitle: false,
-            pinned: true,
-            floating: false,
-            snap: false,
-            primary: true,
-            expandedHeight: height * .02,
-            elevation: 0,
-            backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Color.fromRGBO(245,244,249,1),
+        body: Center(
+          child: Column(
+            children: [
+              Container(
+                height: MediaQuery.of(context).size.height*0.1,
+                color: Color.fromRGBO(73,114,175,1),
+                child: Column(
+                  children: [
+                    Expanded(child: Container()),
+                    Row(
+                      children: [
+                        Expanded(
+                          flex: 1,
+                          child: Text(
+                            '        校园网自动登录',
+                            style:
+                            TextStyle(fontSize: UIConfig.fontSizeTitle * 1.2,color: Colors.white),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        HelpButton(color: Colors.white,),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(8.0, 16.0, 8.0, 0),
+                          child: Container(
+                            padding: EdgeInsets.all(UIConfig.paddingAll),
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                BorderRadius.circular(UIConfig.borderRadiusEntry),
+                                color: Theme.of(context).colorScheme.primary),
+                            child: Column(
+                              children: [
+                                ThemeButton(
+                                  themeData: AppTheme.LightTheme().themeData,
+                                  text: "日间模式",
+                                ),
+                                const Divider(
+                                  color: Colors.black12,
+                                  thickness: 1,
+                                ),
+                                ThemeButton(
+                                  themeData: AppTheme.darkTheme().themeData,
+                                  text: "黑夜模式",
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    SizedBox(height: 10),
+                    Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            padding: EdgeInsets.all(UIConfig.paddingAll),
+                            decoration: BoxDecoration(
+                                borderRadius:
+                                BorderRadius.circular(UIConfig.borderRadiusEntry),
+                                color: Theme.of(context).colorScheme.primary),
+                            child: Column(
+                              children: const [
+                                AboutButton(),
+                                Divider(
+                                  color: Colors.black12,
+                                  thickness: 1,
+                                ),
+                                FeedBackButton(),
+                                Divider(
+                                  color: Colors.black12,
+                                  thickness: 1,
+                                ),
+                                ShareApp(),
+                                Divider(
+                                  color: Colors.black12,
+                                  thickness: 1,
+                                ),
+                                UpdatecheckButton(),
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
-          SliverPadding(
-            padding: EdgeInsets.symmetric(horizontal: UIConfig.fontSizeMin * 0.1),
-            sliver: SliverToBoxAdapter(
-              child: Padding(
-                  padding: EdgeInsets.all(UIConfig.paddingAll),
-                  child: Column()//将原来的ListView中的children放在这里
-            ),
-          ),
-        )]));
+        ),);
   }
 }

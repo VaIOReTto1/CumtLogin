@@ -1,5 +1,4 @@
 
-import 'dart:io';
 import 'package:cumt_login/settings/theme/theme_color.dart';
 import 'package:cumt_login/settings/update/app_upgrade2.dart';
 import 'package:cumt_login/settings/update/update_Alert_Icon.dart';
@@ -26,16 +25,14 @@ class _AboutButtonState extends State<AboutButton> {
           toAboutPage(context);
         },
         child: SizedBox(
-          width: MediaQuery.of(context).size.width*0.7,
-          //height: Platform.isWindows?MediaQuery.of(context).size.height*0.09:MediaQuery.of(context).size.height*0.07,
           child: Padding(
-              padding: EdgeInsets.all(UIConfig.paddingAll*3),
+              padding: EdgeInsets.all(UIConfig.paddingAll*1.2),
               child: Row(
                 children: [
                   Expanded(
-                    child: Text("关于我们", style: TextStyle( fontSize: UIConfig.fontSizeMain * 1.2)),
+                    child: Text("关于我们", style: TextStyle( fontSize: UIConfig.fontSizeMain )),
                   ),
-                  Icon(Icons.keyboard_arrow_right_rounded,size: UIConfig.fontSizeMin * 2.5,),
+                  Icon(Icons.keyboard_arrow_right_rounded,size: UIConfig.fontSizeMin * 2,),
                 ],
               )
           ),
@@ -55,20 +52,18 @@ class _ImageButtonState extends State<ImageButton> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        width: MediaQuery.of(context).size.width*0.7,
-        //height: Platform.isWindows?MediaQuery.of(context).size.height*0.09:MediaQuery.of(context).size.height*0.07,
         child: Container(
           color: Theme.of(context).colorScheme.background,
-          padding: EdgeInsets.all(UIConfig.paddingAll*3),
+          padding: EdgeInsets.all(UIConfig.paddingAll*1.2),
           child: Row(
             children: [
               Expanded(
                 child: Text(widget.text,
                     style: TextStyle(
                         fontSize: UIConfig
-                            .fontSizeMain*1.2)), // 中间文本
+                            .fontSizeMain)), // 中间文本
               ),
-              Icon(Icons.keyboard_arrow_right_rounded, size: UIConfig.fontSizeMin * 2.5,),
+              Icon(Icons.keyboard_arrow_right_rounded, size: UIConfig.fontSizeMin * 2,),
             ],
           ),
         ));
@@ -93,16 +88,15 @@ class _ThemeButtonState extends State<ThemeButton> {
               .setThemeData(widget.themeData);
         },
         child: SizedBox(
-          width: MediaQuery.of(context).size.width*0.7,
           //height: Platform.isWindows?MediaQuery.of(context).size.height*0.09:MediaQuery.of(context).size.height*0.07,
           child: Padding(
-              padding: EdgeInsets.all(UIConfig.paddingAll*3),
+              padding: EdgeInsets.all(UIConfig.paddingAll*1.2),
               child: Row(
                 children: [
                   Expanded(
-                    child: Text(widget.text,style: TextStyle( fontSize: UIConfig .fontSizeMain * 1.2)),
+                    child: Text(widget.text,style: TextStyle( fontSize: UIConfig .fontSizeMain )),
                   ),
-                  Icon(Icons.keyboard_arrow_right_rounded,size: UIConfig.fontSizeMin * 2.5,),
+                  Icon(Icons.keyboard_arrow_right_rounded,size: UIConfig.fontSizeMin * 2,),
                 ],
               )
           ),
@@ -132,20 +126,18 @@ class _UpdatecheckButtonState extends State<UpdatecheckButton> {
           });
         },
         child: SizedBox(
-          width: MediaQuery.of(context).size.width*0.7,
-          //height: Platform.isWindows?MediaQuery.of(context).size.height*0.09:MediaQuery.of(context).size.height*0.07,
           child: Padding(
-              padding: EdgeInsets.all(UIConfig.paddingAll*3),
+              padding: EdgeInsets.all(UIConfig.paddingAll*1.2),
               child: Row(
                 children: [
                   Expanded(
-                    child: Text("软件更新",style: TextStyle( fontSize: UIConfig .fontSizeMain * 1.2)),
+                    child: Text("软件更新",style: TextStyle( fontSize: UIConfig .fontSizeMain )),
                   ),
                   if (Update.isIgnore==true&&Update.isUpDate==true)
                     Expanded(
                       child: UpdateAlertIcon(),
                   ),
-                  Icon(Icons.keyboard_arrow_right_rounded,size: UIConfig.fontSizeMin * 2.5,),
+                  Icon(Icons.keyboard_arrow_right_rounded,size: UIConfig.fontSizeMin * 2,),
                 ],
               )
           ),
@@ -179,20 +171,18 @@ class _FeedBackButtonState extends State<FeedBackButton> {
           );
         },
         child: SizedBox(
-          width: MediaQuery.of(context).size.width*0.7,
-          //height: Platform.isWindows?MediaQuery.of(context).size.height*0.09:MediaQuery.of(context).size.height*0.07,
           child: Padding(
-              padding: EdgeInsets.all(UIConfig.paddingAll * 3),
+              padding: EdgeInsets.all(UIConfig.paddingAll * 1.2),
               child: Row(
                 children: [
                   Expanded(
                     child: Text("反馈与建议",
                         style:
-                        TextStyle(fontSize: UIConfig.fontSizeMain * 1.2)),
+                        TextStyle(fontSize: UIConfig.fontSizeMain )),
                   ),
                   Icon(
                     Icons.keyboard_arrow_right_rounded,
-                    size: UIConfig.fontSizeMin * 2.5,
+                    size: UIConfig.fontSizeMin * 2,
                   ),
                 ],
               )),
@@ -201,7 +191,8 @@ class _FeedBackButtonState extends State<FeedBackButton> {
 }
 
 class HelpButton extends StatefulWidget {
-  const HelpButton({Key? key}) : super(key: key);
+  final Color color;
+  HelpButton({Key? key, required this.color}) : super(key: key);
 
   @override
   State<HelpButton> createState() => _HelpButtonState();
@@ -215,18 +206,44 @@ class _HelpButtonState extends State<HelpButton> {
           toHelpPage(context);
         },
         child: SizedBox(
-          width: MediaQuery.of(context).size.width*0.7,
-          //height: Platform.isWindows?MediaQuery.of(context).size.height*0.09:MediaQuery.of(context).size.height*0.07,
           child: Padding(
-              padding: EdgeInsets.all(UIConfig.paddingAll*3),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Text("帮助", style: TextStyle( fontSize: UIConfig.fontSizeMain * 1.2)),
-                  ),
-                  Icon(Icons.keyboard_arrow_right_rounded,size: UIConfig.fontSizeMin * 2.5,),
-                ],
-              )
+              padding: EdgeInsets.all(UIConfig.paddingAll*1.2),
+              child: Icon(Icons.help_outline_sharp,color:widget.color,size: UIConfig.fontSizeMin * 2,),
+          ),
+        ));
+  }
+}
+
+class ShareApp extends StatefulWidget {
+  const ShareApp({Key? key}) : super(key: key);
+
+  @override
+  State<ShareApp> createState() => _ShareAppState();
+}
+
+class _ShareAppState extends State<ShareApp> {
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+        onTap: () {
+          toHelpPage(context);
+        },
+        child: SizedBox(
+          child: Padding(
+            padding: EdgeInsets.all(UIConfig.paddingAll*1.2),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text("分享App",
+                      style:
+                      TextStyle(fontSize: UIConfig.fontSizeMain )),
+                ),
+                Icon(
+                  Icons.keyboard_arrow_right_rounded,
+                  size: UIConfig.fontSizeMin * 2,
+                ),
+              ],
+            )
           ),
         ));
   }
