@@ -6,6 +6,7 @@ class Prefs {
   static Future<void> init() async{
     prefs = await SharedPreferences.getInstance();
     _initRespond();
+    //_initschoolelection();
   }
   static SharedPreferences? prefs;
   static const String _cumtLoginUsername = "cumtLoginUsername";

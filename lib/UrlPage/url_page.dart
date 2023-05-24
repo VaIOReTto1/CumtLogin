@@ -1,8 +1,8 @@
+import 'package:cumt_login/UrlPage/school_url.dart';
 import 'package:cumt_login/UrlPage/shortcut/ui.dart';
 import 'package:flutter/material.dart';
 
 import '../config.dart';
-import '../settings/backgroundimage/imageselect.dart';
 import '../settings/drawer_button.dart';
 
 toUrlPage(BuildContext context) {
@@ -30,8 +30,8 @@ class _UrlPageState extends State<UrlPage> {
         child: Column(
           children: [
             Container(
-              height: MediaQuery.of(context).size.height*0.1,
-              color: Color.fromRGBO(73,114,175,1),
+              height: MediaQuery.of(context).size.height*0.117,
+              color: Color.fromRGBO(74, 114, 176, 1),
               child: Column(
                 children: [
                   Expanded(child: Container()),
@@ -49,13 +49,23 @@ class _UrlPageState extends State<UrlPage> {
                       HelpButton(color: Colors.white,),
                     ],
                   ),
+                  SizedBox(
+                    height: 10,
+                  )
                 ],
               ),
             ),
             SingleChildScrollView(
               child: Column(
-                children: const [
-                 Shortcut()
+                children: [
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height*0.0205,
+                  ),
+                 Shortcut(),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height*0.0205,
+                  ),
+                  SchoolUrl(),
                 ],
               ),
             ),

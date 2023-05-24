@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'UrlPage/shortcut/prefs.dart';
 import 'main.dart';
 import 'login_util/SchoolDio.dart';
 import 'login_util/prefs.dart';
@@ -12,6 +13,13 @@ class WelComePage extends StatefulWidget {
 
 class _WelComePageState extends State<WelComePage> {
   bool _showDialog = true;
+  List<Map<String, String>>schoolelection=[];
+
+  void firstLoad() async {
+    // 先读取数据
+    schoolelection = await readschoolelection();
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +65,7 @@ class _WelComePageState extends State<WelComePage> {
   @override
   void initState() {
     super.initState();
+    firstLoad();
     Future.delayed(Duration.zero, () {
       if (_showDialog) {
         _showMyDialog();
@@ -69,8 +78,13 @@ class _WelComePageState extends State<WelComePage> {
     return InkWell(
         onTap: () async {
           Prefs.school = school;
+          if (!schoolelection.any((element) => element['schoolname'] == schoolname)) {
+            schoolelection.add({'schoolname':schoolname,'school':school});
+            saveschoolelection(schoolelection);
+          }
+          print(schoolelection);
           await SchoolDio.SchoolUrlDio(Prefs.school);
-          toLoginPage(context);
+          toHomePage(context, 0);
         },
         child: ListTile(
           title: Column(

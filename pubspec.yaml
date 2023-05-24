@@ -26,6 +26,7 @@ dependencies:
   bot_toast: ^4.0.3   #错误弹窗
   firebase_core: ^2.10.0  #firebase 用户监控
   firebase_analytics: ^10.2.1 #用户行为监控
+  flutter_share: ^2.0.0 #实现分享功能
 
 dev_dependencies:
   flutter_test:
@@ -34,5 +35,9 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  fonts:
+    - family: iconfont
+      fonts:
+        - asset: icons/iconfont.ttf
   assets:
     - images/

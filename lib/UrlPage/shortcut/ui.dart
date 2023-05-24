@@ -1,4 +1,5 @@
 import '../../config.dart';
+import '../../icon.dart';
 import '../../utils/utils.dart';
 import 'entry.dart';
 import 'input.dart';
@@ -57,17 +58,25 @@ class _ShortcutState extends State<Shortcut> {
             // 标题
             Container(
                 padding: EdgeInsets.all(UIConfig.paddingAll),
-                child: Text("快捷入口",style: TextStyle(fontSize: UIConfig.fontSizeSubTitle),)
+                child: Row(
+                  children: [
+                    const Icon(MyIcons.rectangle,size: 17,color: Color.fromRGBO(74, 114, 176, 1),),
+                    Text("快捷入口",style: TextStyle(fontSize: UIConfig.fontSizeSubTitle),),
+                  ],
+                )
             ),
-            Wrap(
-              spacing: 10,
-              children: [
-                // 遍历List创建快捷方式
-                for(int i = 0; i < links.length; i++)
-                  _buildEntry(context, links, i),
-                // 添加新的快捷方式
-                _buildAddButton(context),
-              ],
+            Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Wrap(
+                spacing: 10,
+                children: [
+                  // 遍历List创建快捷方式
+                  for(int i = 0; i < links.length; i++)
+                    _buildEntry(context, links, i),
+                  // 添加新的快捷方式
+                  _buildAddButton(context),
+                ],
+              ),
             )
           ],
         )
@@ -81,16 +90,15 @@ class _ShortcutState extends State<Shortcut> {
     required Widget child
   }) {
     return Container(
-      margin: EdgeInsets.all(UIConfig.marginAll),
-      padding: EdgeInsets.all(UIConfig.paddingAll),
+      color: Colors.white,
       width: double.infinity,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(UIConfig.borderRadiusBox),
-          border: Border.all(
-              color: Theme.of(context).colorScheme.primary,
-              width: 2.0
-          )
-      ),
+      // decoration: BoxDecoration(
+      //     borderRadius: BorderRadius.circular(UIConfig.borderRadiusBox),
+      //     border: Border.all(
+      //         color: Theme.of(context).colorScheme.primary,
+      //         width: 2.0
+      //     )
+      // ),
       child: child,
     );
   }
@@ -119,15 +127,14 @@ class _ShortcutState extends State<Shortcut> {
           padding: EdgeInsets.all(UIConfig.paddingAll),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(UIConfig.borderRadiusEntry),
-              color: Theme.of(context).colorScheme.primary
+              color: const Color.fromRGBO(245,244,249,1),
           ),
           child: Wrap(
             spacing: 4,
             crossAxisAlignment: WrapCrossAlignment.center,
             alignment: WrapAlignment.center,
             children: [
-              const Icon(Icons.link,),
-              Text(links[index]["name"]!, style: TextStyle(fontSize: UIConfig.fontSizeMid))
+              if (links != null && links[index] != null&& links[index]["name"] != null) Text(links[index]["name"]!, style: TextStyle(fontSize: UIConfig.fontSizeMid))
             ],
           ),
         ),
