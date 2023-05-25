@@ -29,6 +29,7 @@ class _ShortcutState extends State<Shortcut> {
     {"name" : "科学技术研究院", "url" : "https://dsi.cumt.edu.cn"},
     {"name" : "党委组织部", "url" : "https://zzb.cumt.edu.cn"},
     {"name" : "财务处", "url" : "https://cwb.cumt.edu.cn"},
+    {"name" : "用户自助服务系统", "url" : "http://202.119.196.6:8080/Self/login/"},
   ];
 
   @override

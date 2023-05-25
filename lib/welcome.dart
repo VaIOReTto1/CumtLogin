@@ -4,6 +4,13 @@ import 'main.dart';
 import 'login_util/SchoolDio.dart';
 import 'login_util/prefs.dart';
 
+toWelComePage(BuildContext context) {
+  Navigator.of(context).pushReplacement(MaterialPageRoute(
+    builder: (context) => const WelComePage(),
+    fullscreenDialog: true, // 路由为全屏模式
+  ));
+}
+
 class WelComePage extends StatefulWidget {
   const WelComePage({Key? key}) : super(key: key);
 

@@ -71,23 +71,8 @@ class AppTheme {
   factory AppTheme.LightTheme() {
     return AppTheme(
       ThemeData(
-        drawerTheme: const DrawerThemeData(
-            backgroundColor: Colors.white),
-        appBarTheme: AppBarTheme(
-            toolbarTextStyle: const TextTheme(
-              //更改appbar标题颜色
-              titleLarge: TextStyle(
-                color: Color.fromRGBO(60,60,60, 1),
-              ),
-            ).bodyMedium,
-            titleTextStyle: const TextTheme(
-              titleLarge: TextStyle(
-                color: Color.fromRGBO(60,60,60, 1),
-              ),
-            ).titleLarge),
-
-        cardTheme: CardTheme(
-          color: Colors.green[200]!, // 更改Card的颜色
+        cardTheme: const CardTheme(
+          color: Color.fromRGBO(176, 250, 255, 0.75), // 更改Card的颜色
         ),
 
         dialogBackgroundColor: Colors.grey.shade300,
@@ -100,18 +85,15 @@ class AppTheme {
         outlinedButtonTheme: OutlinedButtonThemeData(
           style: ButtonStyle(
             side: MaterialStateProperty.all(
-                BorderSide(color: Colors.green[200]!)),
+                const BorderSide(color: Color.fromRGBO(59, 114, 217, 1))),
             //更改边框颜色
             foregroundColor:
-                MaterialStateProperty.all(Colors.greenAccent[200]), //更改按钮字体颜色
+                MaterialStateProperty.all(Colors.grey), //更改按钮字体颜色
           ),
         ),
-        elevatedButtonTheme: ElevatedButtonThemeData(
+        elevatedButtonTheme: const ElevatedButtonThemeData(
             style: ButtonStyle(
-                backgroundColor: MaterialStatePropertyAll(Colors.green[200]))),
-
-        scaffoldBackgroundColor: Colors.white,
-        //更改页面顶端颜色
+                backgroundColor: MaterialStatePropertyAll(Color.fromRGBO(59, 114, 217, 1)))),
 
         colorScheme: ColorScheme(
           primary:Colors.white,

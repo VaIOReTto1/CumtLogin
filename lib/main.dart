@@ -118,9 +118,9 @@ class _LoginPageState extends State<LoginPage>
 
   @override
   void dispose() {
+    _controller.dispose();
     super.dispose();
     WidgetsBinding.instance.removeObserver(this);
-    _controller.dispose();
   }
 
   @override
@@ -130,7 +130,7 @@ class _LoginPageState extends State<LoginPage>
       child: Scaffold(
         backgroundColor: isExpanded
             ? const Color.fromRGBO(128, 128, 128, 0.5)
-            : Colors.white,
+            : Theme.of(context).colorScheme.primary,
         body: Center(
           child: Stack(
             children: [
@@ -141,7 +141,7 @@ class _LoginPageState extends State<LoginPage>
                     decoration: BoxDecoration(
                       color: isExpanded
                           ? const Color.fromRGBO(128, 128, 128, 0.5)
-                          : Colors.white,
+                          : Theme.of(context).colorScheme.primary,
                       boxShadow: [
                         BoxShadow(
                           color: Color.fromRGBO(222, 221, 251, 0.5),
@@ -232,7 +232,7 @@ class _LoginPageState extends State<LoginPage>
                   },
                   child: AnimatedContainer(
                     duration: const Duration(milliseconds: 500),
-                    height: MediaQuery.of(context).size.height * 0.268,
+                    height: MediaQuery.of(context).size.height * 0.29,
                     width: MediaQuery.of(context).size.width,
                     color: Colors.white,
                     child: const Login(),
@@ -248,9 +248,9 @@ class _LoginPageState extends State<LoginPage>
           children: [
             Positioned(
               right: MediaQuery.of(context).size.width * 0.43,
-              bottom: MediaQuery.of(context).size.height * 0.20,
+              bottom: MediaQuery.of(context).size.height * 0.22,
               child: FloatingActionButton(
-                backgroundColor: Colors.white,
+                backgroundColor: Colors.transparent,
                 elevation: 0,
                 onPressed: () {
                   setState(() {
@@ -270,7 +270,7 @@ class _LoginPageState extends State<LoginPage>
           ],
         ):
         FloatingActionButton(
-          backgroundColor: Colors.white,
+          backgroundColor: Colors.transparent,
           elevation: 0,
           onPressed: () {
             setState(() {
@@ -404,7 +404,8 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return Container(
+      color: Theme.of(context).colorScheme.primary,
       child: Column(
         children: [
           Column(children: [
@@ -426,6 +427,11 @@ class _LoginState extends State<Login> {
             children: [
               TextButton(
                   onPressed: () => _showLocationMethodPicker(),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                      Color.fromRGBO(234, 232, 253, 1),
+                    ),
+                  ),
                   child: Row(
                     children: [
                       Text("${cumtLoginAccount.cumtLoginMethod?.name}"),
@@ -454,32 +460,40 @@ class _LoginState extends State<Login> {
 
   void _showLocationMethodPicker() {
     Picker(
-        adapter: PickerDataAdapter<dynamic>(pickerData: [
-          CumtLoginMethodExtension.nameList,
-        ], isArray: true),
-        changeToFirst: true,
-        hideHeader: false,
-        onConfirm: (Picker picker, List value) {
-          setState(() {
-            cumtLoginAccount
-                .setCumtLoginMethodByName(picker.getSelectedValues()[0]);
-          });
-        }).showModal(context);
+      adapter: PickerDataAdapter<dynamic>(
+        pickerData: [CumtLoginMethodExtension.nameList],
+        isArray: true,
+      ),
+      changeToFirst: true,
+      hideHeader: false,
+      onConfirm: (Picker picker, List value) {
+        setState(() {
+          cumtLoginAccount.setCumtLoginMethodByName(picker.getSelectedValues()[0]);
+        });
+      },
+      cancelTextStyle: TextStyle(color: Colors.black),
+      confirmTextStyle: TextStyle(color: Colors.black),
+    ).showModal(context);
   }
 
   Widget buildTextField(
       String labelText, TextEditingController textEditingController,
       {obscureText = false, showPopButton = false}) {
-    return SizedBox(
-      width: double.infinity,
-      child: Stack(
-        alignment: Alignment.centerRight,
-        children: [
-          TextField(
+    return Stack(
+      alignment: obscureText?Alignment.center:Alignment.centerRight,
+      children: [
+        Container(
+          width: MediaQuery.of(context).size.width*0.66,
+          height: MediaQuery.of(context).size.height*0.04,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: Color.fromRGBO(234, 232, 253, 1),
+          ),
+          child: TextField(
             controller: textEditingController,
             obscureText: obscureText,
             decoration: InputDecoration(
-              enabledBorder: const OutlineInputBorder(
+              enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.zero,
                 borderSide: BorderSide.none,
               ),
@@ -490,47 +504,47 @@ class _LoginState extends State<Login> {
               ),
             ),
           ),
-          showPopButton
-              ? PopupMenuButton<CumtLoginAccount>(
-                  icon: const Icon(Icons.arrow_drop_down_outlined),
-                  onOpened: () {
-                    FocusScope.of(context).unfocus();
-                  },
-                  onSelected: (account) {
-                    setState(() {
-                      cumtLoginAccount = account.clone();
-                      _usernameController.text = cumtLoginAccount.username!;
-                      _passwordController.text = cumtLoginAccount.password!;
-                    });
-                  },
-                  itemBuilder: (context) {
-                    return CumtLoginAccount.list.map((account) {
-                      return PopupMenuItem<CumtLoginAccount>(
-                        value: account,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(
-                              child: Text(
-                                "${account.username}"
-                                " ${account.cumtLoginMethod?.name}",
-                              ),
+        ),
+        showPopButton
+            ? PopupMenuButton<CumtLoginAccount>(
+                icon: const Icon(Icons.arrow_drop_down_outlined),
+                onOpened: () {
+                  FocusScope.of(context).unfocus();
+                },
+                onSelected: (account) {
+                  setState(() {
+                    cumtLoginAccount = account.clone();
+                    _usernameController.text = cumtLoginAccount.username!;
+                    _passwordController.text = cumtLoginAccount.password!;
+                  });
+                },
+                itemBuilder: (context) {
+                  return CumtLoginAccount.list.map((account) {
+                    return PopupMenuItem<CumtLoginAccount>(
+                      value: account,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              "${account.username}"
+                              " ${account.cumtLoginMethod?.name}",
                             ),
-                            IconButton(
-                                onPressed: () {
-                                  CumtLoginAccount.removeList(account);
-                                  showSnackBar(context, "删除成功");
-                                  Navigator.of(context).pop();
-                                },
-                                icon: const Icon(Icons.close))
-                          ],
-                        ),
-                      );
-                    }).toList();
-                  })
-              : Container(),
-        ],
-      ),
+                          ),
+                          IconButton(
+                              onPressed: () {
+                                CumtLoginAccount.removeList(account);
+                                showSnackBar(context, "删除成功");
+                                Navigator.of(context).pop();
+                              },
+                              icon: const Icon(Icons.close))
+                        ],
+                      ),
+                    );
+                  }).toList();
+                })
+            : Container(),
+      ],
     );
   }
 

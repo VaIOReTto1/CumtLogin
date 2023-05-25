@@ -52,18 +52,18 @@ class HelpPage extends StatelessWidget {
                     children: [
                       Text("Q：当WIFI登录失败时，可能是以下原因",style: TextStyle(fontSize: UIConfig.fontSizeSubMain*1.6,
                         fontWeight: FontWeight.bold,),),
-                      Text("\nAndroid：\n      [WLAN] -> [WLAN助理] -> 关闭[网络选择] [双WLAN加速] [数据加速]\n",style: TextStyle(fontSize: UIConfig.fontSizeSubMain*1.4,)),
-                      Image.network('https://s1.ax1x.com/2023/04/17/p9PJlAP.jpg',),
-                      const Icon(Icons.arrow_downward_rounded,size: 50,),
-                      Image.network('https://s1.ax1x.com/2023/04/17/p9PJJ1g.png'),
+                      Text("\nAndroid：\n      [WLAN] -> [WLAN助理] -> 关闭[网络选择] [双WLAN加速] [数据加速]（根据手机型号不同设置不同）\n      如果不能解决请尝试关掉数据只开WiFi",style: TextStyle(fontSize: UIConfig.fontSizeSubMain*1.4,)),
                       Text("\nIOS：\n      关闭 [询问是否加入网络]\n",style: TextStyle(fontSize: UIConfig.fontSizeSubMain*1.4,)),
-                      const Image(
-                        image: AssetImage('images/iOS.png',),
-                      ),
-                      Text("\n如果还不能解决，请加入qq群：738340698\n",style: TextStyle(fontSize: UIConfig.fontSizeSubMain*1.4,)),
                       Text("Q：快捷入口使用技巧",style: TextStyle(fontSize: UIConfig.fontSizeSubMain*1.6,
                         fontWeight: FontWeight.bold,),),
                       Text("\n      对卡片左滑可以编辑，右滑会删除卡片，增加入口时url必须为带https的完整链接\n",style: TextStyle(fontSize: UIConfig.fontSizeSubMain*1.4,)),
+                      Text("Q：网络速度过慢",style: TextStyle(fontSize: UIConfig.fontSizeSubMain*1.6,
+                        fontWeight: FontWeight.bold,),),
+                      Text("\n      请查看是否选择运营商\n",style: TextStyle(fontSize: UIConfig.fontSizeSubMain*1.4,)),
+                      Text("Q：登录设备超限",style: TextStyle(fontSize: UIConfig.fontSizeSubMain*1.6,
+                        fontWeight: FontWeight.bold,),),
+                      Text("\n      请从快捷入口点击用户自助服务系统撤销所有登录设备\n",style: TextStyle(fontSize: UIConfig.fontSizeSubMain*1.4,)),
+                      Text("如果还不能解决，请加入qq群：738340698\n",style: TextStyle(fontSize: UIConfig.fontSizeSubMain*1.4,fontWeight: FontWeight.bold,)),
                       const SizedBox(
                         height: 200,
                       )

@@ -46,38 +46,6 @@ class _AboutButtonState extends State<AboutButton> {
   }
 }
 
-class ImageButton extends StatefulWidget {
-  final String text;
-
-  const ImageButton({Key? key, required this.text}) : super(key: key);
-
-  @override
-  State<ImageButton> createState() => _ImageButtonState();
-}
-
-class _ImageButtonState extends State<ImageButton> {
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-        child: Container(
-      color: Theme.of(context).colorScheme.background,
-      padding: EdgeInsets.all(UIConfig.paddingAll * 1.2),
-      child: Row(
-        children: [
-          Expanded(
-            child: Text(widget.text,
-                style: TextStyle(fontSize: UIConfig.fontSizeMain)), // 中间文本
-          ),
-          Icon(
-            Icons.keyboard_arrow_right_rounded,
-            size: UIConfig.fontSizeMin * 2,
-          ),
-        ],
-      ),
-    ));
-  }
-}
-
 class ThemeChange extends StatefulWidget {
   const ThemeChange({Key? key}) : super(key: key);
 
@@ -313,7 +281,7 @@ class _ShareAppState extends State<ShareApp> {
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {
-          shareTextToWechatAndQQ('hell');
+          shareTextToWechatAndQQ('欢迎使用校园网自动登录app，下载地址：https://wwya.lanzoub.com/i9H4A0uesqxc(Android)/https://testflight.apple.com/join/lTBgteBv(iOS)');
         },
         child: SizedBox(
           child: Padding(

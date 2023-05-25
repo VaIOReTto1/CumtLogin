@@ -1,4 +1,3 @@
-import 'package:cumt_login/UrlPage/shortcut/input.dart';
 import 'package:cumt_login/UrlPage/shortcut/prefs.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +18,7 @@ class SchoolUrl extends StatefulWidget {
 }
 
 class _SchoolUrlState extends State<SchoolUrl> {
-  List<Map<String, String>> links = [];
+  List<Map<String, String>> schoolelection = [];
 
   @override
   void initState() {
@@ -29,8 +28,7 @@ class _SchoolUrlState extends State<SchoolUrl> {
 
   void firstLoad() async {
     // 先读取数据
-    links = await readschoolelection();
-    setState(() {});
+    schoolelection = await readschoolelection();
   }
 
   @override
@@ -55,8 +53,8 @@ class _SchoolUrlState extends State<SchoolUrl> {
                 spacing: 10,
                 children: [
                   // 遍历List创建快捷方式
-                  for(int i = 1; i < links.length; i++)
-                    _buildEntry(context, links, i),
+                  for(int i = 0; i < schoolelection.length; i++)
+                    _buildEntry(context, schoolelection, i),
                   // 添加新的快捷方式
                   _buildAddButton(context),
                 ],
@@ -113,13 +111,7 @@ class _SchoolUrlState extends State<SchoolUrl> {
   Widget _buildAddButton(BuildContext context) {
     return InkWell(
       onTap: () {
-        toDialog(
-            context: context,
-            list: links,
-            // 把setState作为回调传入
-            // 调用时机在点击添加按钮，add进links之后
-            callback: () { setState(() {}); }
-        );
+       toWelComePage(context);
       },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: UIConfig.marginVertical),
