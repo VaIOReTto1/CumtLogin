@@ -30,11 +30,13 @@ toLoginPage(BuildContext context) {
 
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  //使用firebase统计
   await Firebase.initializeApp();
 
   await Prefs.init();
   runApp((MultiProvider(
     providers: [
+      //用于主题切换
       ChangeNotifierProvider(create: (_) => ThemeProvider()),
     ],
     child: const MyApp(),
@@ -53,6 +55,7 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       builder: (context, child) {
         return MaterialApp(
+          //主题切换
           theme: Provider.of<ThemeProvider>(context).themeData,
           debugShowCheckedModeBanner: false,
           home: child,
@@ -60,7 +63,8 @@ class MyApp extends StatelessWidget {
           navigatorObservers: [BotToastNavigatorObserver()],
         );
       },
-      child: Prefs.school == '' ? WelComePage() : HomePage(),
+      //判断是否选择学校
+      child: Prefs.school == '' ? const WelComePage() : HomePage(),
     );
   }
 }
@@ -78,13 +82,12 @@ class _LoginPageState extends State<LoginPage>
   late AnimationController _controller;
   late Animation<double> _animation;
 
+  //日活统计
   Future<void> logLoginEvent() async {
     await analytics.logEvent(
       name: 'daily user count',
     );
   }
-
-  bool isExpanded = false;
 
   @override
   void initState() {
@@ -92,10 +95,8 @@ class _LoginPageState extends State<LoginPage>
     ThemeProvider;
     logLoginEvent();
     WidgetsBinding.instance.addObserver(this);
-    // checkUpgrade(context);      //打开app后默认检查更新
 
-    //Update.initCheckUpdate(context,auto: true);
-
+    //打开app后默认检查更新
     Update.checkNeedUpdate(context, auto: true).then((_) {
       if (Update.isUpDate == true && Update.isIgnore != true) {
         showDialog(
@@ -106,13 +107,12 @@ class _LoginPageState extends State<LoginPage>
       }
     });
 
-    // 创建动画控制器
+    //登录页圆圈动画
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 2),
+      duration: const Duration(seconds: 2),
     )..repeat(reverse: true);
 
-    // 创建动画
     _animation = Tween<double>(begin: 0.7, end: 0.8).animate(_controller);
   }
 
@@ -128,21 +128,21 @@ class _LoginPageState extends State<LoginPage>
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
       child: Scaffold(
-        backgroundColor: isExpanded
-            ? const Color.fromRGBO(128, 128, 128, 0.5)
-            : Theme.of(context).colorScheme.primary,
+        resizeToAvoidBottomInset: false,
+        //升起登录页时调低色彩
+        backgroundColor: Theme.of(context).colorScheme.primary,
         body: Center(
           child: Stack(
+            alignment: Alignment.center,
             children: [
               Column(
                 children: [
+                  //登录页上部分
                   Container(
                     height: MediaQuery.of(context).size.height * 0.119,
                     decoration: BoxDecoration(
-                      color: isExpanded
-                          ? const Color.fromRGBO(128, 128, 128, 0.5)
-                          : Theme.of(context).colorScheme.primary,
-                      boxShadow: [
+                      color: Theme.of(context).colorScheme.primary,
+                      boxShadow: const [
                         BoxShadow(
                           color: Color.fromRGBO(222, 221, 251, 0.5),
                           spreadRadius: 12,
@@ -177,22 +177,28 @@ class _LoginPageState extends State<LoginPage>
                   ),
                 ],
               ),
+              //登录页中间部分（圆圈动画
               Stack(
                 children: [
+                  //周围圆环动画
                   Center(
                     child: AnimatedBuilder(
                       animation: _animation,
                       builder: (BuildContext context, Widget? child) {
                         return Container(
-                          width: MediaQuery.of(context).size.width*0.61 * _animation.value,
-                          height: MediaQuery.of(context).size.width*0.61 * _animation.value,
+                          width: MediaQuery.of(context).size.width *
+                              0.61 *
+                              _animation.value,
+                          height: MediaQuery.of(context).size.width *
+                              0.61 *
+                              _animation.value,
                           decoration: BoxDecoration(
                             color: Color.fromRGBO(
-                                66, 128, 237,  0.4 - (_animation.value / 5)),
+                                66, 128, 237, 0.4 - (_animation.value / 5)),
                             shape: BoxShape.circle,
                             boxShadow: [
                               BoxShadow(
-                                color: Color.fromRGBO(66, 128, 237, 0.15),
+                                color: const Color.fromRGBO(66, 128, 237, 0.15),
                                 spreadRadius: 10 * _animation.value,
                                 blurRadius: 30 * _animation.value,
                               ),
@@ -202,18 +208,19 @@ class _LoginPageState extends State<LoginPage>
                       },
                     ),
                   ),
+                  //中间圆圈
                   Center(
                     child: IgnorePointer(
                       child: Container(
-                        width: MediaQuery.of(context).size.width*0.422,
-                        height: MediaQuery.of(context).size.width*0.422,
+                        width: MediaQuery.of(context).size.width * 0.422,
+                        height: MediaQuery.of(context).size.width * 0.422,
                         decoration: const BoxDecoration(
                           shape: BoxShape.circle,
                           color: Color.fromRGBO(59, 114, 217, 1),
                         ),
                         child: Icon(
                           MyIcons.link,
-                          size: MediaQuery.of(context).size.width*0.208,
+                          size: MediaQuery.of(context).size.width * 0.208,
                           color: const Color.fromRGBO(255, 255, 255, 1),
                         ),
                       ),
@@ -221,76 +228,53 @@ class _LoginPageState extends State<LoginPage>
                   ),
                 ],
               ),
+              //登录栏
               Positioned(
-                bottom:
-                    isExpanded ? 0 : -MediaQuery.of(context).size.height / 2,
-                child: GestureDetector(
+                bottom: MediaQuery.of(context).size.height * 0.02,
+                child: InkWell(
                   onTap: () {
-                    setState(() {
-                      isExpanded = !isExpanded;
-                    });
+                    _loginpage();
                   },
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 500),
-                    height: MediaQuery.of(context).size.height * 0.29,
-                    width: MediaQuery.of(context).size.width,
-                    color: Colors.white,
-                    child: const Login(),
-                  ),
+                  child: Icon(Icons.keyboard_arrow_up_rounded,
+                      color: Color.fromRGBO(59, 114, 217, 1),
+                      size: 40,
+                      shadows: const <Shadow>[
+                        Shadow(
+                          color: Color.fromRGBO(0, 0, 0, 0.25),
+                          blurRadius: 10.0,
+                        )
+                      ]),
                 ),
               ),
             ],
           ),
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: isExpanded?
-        Stack(
-          children: [
-            Positioned(
-              right: MediaQuery.of(context).size.width * 0.43,
-              bottom: MediaQuery.of(context).size.height * 0.22,
-              child: FloatingActionButton(
-                backgroundColor: Colors.transparent,
-                elevation: 0,
-                onPressed: () {
-                  setState(() {
-                    isExpanded = !isExpanded;
-                  });
-                },
-                child: Icon(
-                  isExpanded
-                      ? Icons.keyboard_arrow_down_rounded
-                      : Icons.keyboard_arrow_up_rounded,
-                  color: Color.fromRGBO(59, 114, 217, 1),
-                  size: 40,
-                  shadows: const <Shadow>[Shadow(color: Color.fromRGBO(0, 0, 0, 0.25), blurRadius: 10.0,)],
-                ),
-              ),
-            ),
-          ],
-        ):
-        FloatingActionButton(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          onPressed: () {
-            setState(() {
-              isExpanded = !isExpanded;
-            });
-          },
-          child: Icon(
-            isExpanded
-                ? Icons.keyboard_arrow_down_rounded
-                : Icons.keyboard_arrow_up_rounded,
-            color: Color.fromRGBO(59, 114, 217, 1),
-            size: 40,
-            shadows: const <Shadow>[Shadow(color: Color.fromRGBO(0, 0, 0, .25), blurRadius: 10.0)],
-          ),
-        ),
       ),
     );
   }
+
+  void _loginpage() {
+    //底部跳出边框
+    showModalBottomSheet(
+        isScrollControlled:true,
+        clipBehavior: Clip.antiAlias,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(15),
+            topRight: Radius.circular(15),
+          ),
+        ),
+        context: context,
+        builder: (context) {
+          return Container(
+            height: MediaQuery.of(context).size.height*0.73,
+            child: Login(),
+          );
+        });
+  }
 }
 
+//跳转HomePage函数
 toHomePage(BuildContext context, int currentPageIndex) {
   Navigator.of(context).pushReplacement(MaterialPageRoute(
     builder: (context) => HomePage(
@@ -301,7 +285,7 @@ toHomePage(BuildContext context, int currentPageIndex) {
 }
 
 class HomePage extends StatefulWidget {
-  int currentPageIndex; // 默认显示第一个子组件
+  int currentPageIndex; // 默认中间子组件
   HomePage({Key? key, this.currentPageIndex = 0}) : super(key: key);
 
   @override
@@ -312,6 +296,7 @@ class _HomePage extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
         body: IndexedStack(
           index: widget.currentPageIndex,
           children: [
@@ -320,7 +305,8 @@ class _HomePage extends State<HomePage> {
             UrlPage(),
           ],
         ),
-        bottomNavigationBar: Container(
+        //下方导引栏
+        bottomNavigationBar: SizedBox(
           height: MediaQuery.of(context).size.height * 0.0898,
           child: BottomAppBar(
             elevation: 0,
@@ -329,7 +315,10 @@ class _HomePage extends State<HomePage> {
               children: [
                 IconButton(
                   icon: Icon(MyIcons.layer,
-                      color: widget.currentPageIndex == 2?Color.fromRGBO(44, 44, 44, 1):Color.fromRGBO(111, 111, 111, 1), size: 32),
+                      color: widget.currentPageIndex == 2
+                          ? const Color.fromRGBO(44, 44, 44, 1)
+                          : const Color.fromRGBO(111, 111, 111, 1),
+                      size: 32),
                   onPressed: () {
                     setState(() {
                       widget.currentPageIndex = 2;
@@ -338,7 +327,10 @@ class _HomePage extends State<HomePage> {
                 ),
                 IconButton(
                   icon: Icon(MyIcons.net,
-                      color: widget.currentPageIndex == 0?Color.fromRGBO(44, 44, 44, 1):Color.fromRGBO(111, 111, 111, 1), size: 32),
+                      color: widget.currentPageIndex == 0
+                          ? const Color.fromRGBO(44, 44, 44, 1)
+                          : const Color.fromRGBO(111, 111, 111, 1),
+                      size: 32),
                   onPressed: () {
                     setState(() {
                       widget.currentPageIndex = 0;
@@ -348,7 +340,9 @@ class _HomePage extends State<HomePage> {
                 IconButton(
                   icon: Icon(
                     Icons.settings,
-                    color: widget.currentPageIndex == 1?Color.fromRGBO(44, 44, 44, 1):Color.fromRGBO(111, 111, 111, 1),
+                    color: widget.currentPageIndex == 1
+                        ? const Color.fromRGBO(44, 44, 44, 1)
+                        : const Color.fromRGBO(111, 111, 111, 1),
                     size: 32,
                   ),
                   onPressed: () {
@@ -364,6 +358,7 @@ class _HomePage extends State<HomePage> {
   }
 }
 
+//登陆栏
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
 
@@ -389,7 +384,6 @@ class _LoginState extends State<Login> {
     }
   }
 
-  @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     // 在resumed的时候自动登录校园网
     if (state == AppLifecycleState.resumed) {
@@ -404,60 +398,79 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Theme.of(context).colorScheme.primary,
-      child: Column(
-        children: [
-          Column(children: [
-            const SizedBox(
-              height: 55,
-            ),
-            buildTextField("账号", _usernameController, showPopButton: true),
-          ]),
-          const SizedBox(height: 16.0),
-          Column(children: [
-            const SizedBox(
-              height: 5,
-            ),
-            buildTextField("密码", _passwordController, obscureText: true),
-          ]),
-          const SizedBox(height: 16.0),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              TextButton(
-                  onPressed: () => _showLocationMethodPicker(),
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                      Color.fromRGBO(234, 232, 253, 1),
+    return Scaffold(
+      body: Container(
+        color: Theme.of(context).colorScheme.primary,
+        child: Column(
+          children: [
+            Column(children: [
+              const SizedBox(
+                height: 55,
+              ),
+              buildTextField("账号", _usernameController, showPopButton: true),
+            ]),
+            const SizedBox(height: 16.0),
+            Column(children: [
+              const SizedBox(
+                height: 5,
+              ),
+              buildTextField(
+                "密码",
+                _passwordController,
+                obscureText: true,
+              ),
+            ]),
+            const SizedBox(height: 16.0),
+            Row(
+              children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width*0.208,
+                ),
+                Text('选择运营商：',style: TextStyle(color: Color.fromRGBO(112, 112, 112, 1),fontSize: 14),),
+                SizedBox(
+                  width: MediaQuery.of(context).size.width*0.048,
+                ),
+                TextButton(
+                    onPressed: () => _showLocationMethodPicker(),
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      minimumSize: MaterialStateProperty.all(Size(MediaQuery.of(context).size.width * 0.355, MediaQuery.of(context).size.height * 0.047)),
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                        const Color.fromRGBO(235, 240, 251, 1),
+                      ),
                     ),
-                  ),
-                  child: Row(
-                    children: [
-                      Text("${cumtLoginAccount.cumtLoginMethod?.name}"),
-                      const Icon(Icons.arrow_drop_down),
-                    ],
-                  )),
-              ElevatedButton(
-                onPressed: () => _handleLogin(context),
-                child:
-                    Text('登录', style: TextStyle(fontSize: UIConfig.fontSizeMain)),
-              ),
-              OutlinedButton(
-                onPressed: () => _handleLogout(context),
-                child:
-                    Text('注销', style: TextStyle(fontSize: UIConfig.fontSizeMain)),
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-        ],
+                    child: Row(
+                      children: [
+                        Text("${cumtLoginAccount.cumtLoginMethod?.name}"),
+                        const Icon(Icons.arrow_drop_down),
+                      ],
+                    )),
+              ],
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            // ElevatedButton(
+            //   onPressed: () => _handleLogin(context),
+            //   child: Text('登录',
+            //       style: TextStyle(fontSize: UIConfig.fontSizeMain)),
+            // ),
+            // OutlinedButton(
+            //   onPressed: () => _handleLogout(context),
+            //   child: Text('注销',
+            //       style: TextStyle(fontSize: UIConfig.fontSizeMain)),
+            // ),
+          ],
+        ),
       ),
     );
   }
 
+  //运营商选择
   void _showLocationMethodPicker() {
     Picker(
       adapter: PickerDataAdapter<dynamic>(
@@ -468,46 +481,102 @@ class _LoginState extends State<Login> {
       hideHeader: false,
       onConfirm: (Picker picker, List value) {
         setState(() {
-          cumtLoginAccount.setCumtLoginMethodByName(picker.getSelectedValues()[0]);
+          cumtLoginAccount
+              .setCumtLoginMethodByName(picker.getSelectedValues()[0]);
         });
       },
-      cancelTextStyle: TextStyle(color: Colors.black),
-      confirmTextStyle: TextStyle(color: Colors.black),
+      cancelTextStyle: const TextStyle(color: Colors.black),
+      confirmTextStyle: const TextStyle(color: Colors.black),
     ).showModal(context);
   }
 
+  //输入框设置
   Widget buildTextField(
       String labelText, TextEditingController textEditingController,
-      {obscureText = false, showPopButton = false}) {
+      {showPopButton = false, obscureText = false}) {
+    bool isobscureText = true;
     return Stack(
-      alignment: obscureText?Alignment.center:Alignment.centerRight,
+      alignment: obscureText ? Alignment.center : Alignment.centerRight,
       children: [
         Container(
-          width: MediaQuery.of(context).size.width*0.66,
-          height: MediaQuery.of(context).size.height*0.04,
+          width: MediaQuery.of(context).size.width * 0.66,
+          height: MediaQuery.of(context).size.height * 0.047,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
-            color: Color.fromRGBO(234, 232, 253, 1),
+            color: const Color.fromRGBO(235, 240, 251, 1),
           ),
-          child: TextField(
-            controller: textEditingController,
-            obscureText: obscureText,
-            decoration: InputDecoration(
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.zero,
-                borderSide: BorderSide.none,
+          child: Row(
+            children: [
+              if (!obscureText)
+                const Padding(
+                  padding: EdgeInsets.only(left: 8.0),
+                  child: Icon(
+                    Icons.circle,
+                    color: Colors.white,
+                  ),
+                ),
+              if (!obscureText)
+                const VerticalDivider(
+                  thickness: 1,
+                  color: Color.fromRGBO(59, 114, 217, 1),
+                  width: 16,
+                ),
+              Expanded(
+                child: TextField(
+                  controller: textEditingController,
+                  obscureText: isobscureText && obscureText,
+                  decoration: InputDecoration(
+                    enabledBorder: const OutlineInputBorder(
+                      borderRadius: BorderRadius.zero,
+                      borderSide: BorderSide.none,
+                    ),
+                    labelText: labelText,
+                    border: const OutlineInputBorder(
+                      borderRadius: BorderRadius.zero,
+                      borderSide: BorderSide.none,
+                    ),
+                    suffixIcon: obscureText
+                        ? InkWell(
+                            onTap: () {
+                              setState(() {
+                                isobscureText = !isobscureText;
+                                print(isobscureText);
+                              });
+                            },
+                            child: Icon(
+                              isobscureText
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                              color: const Color.fromRGBO(59, 114, 217, 1),
+                              size: 19,
+                            ),
+                          )
+                        : null,
+                  ),
+                ),
               ),
-              labelText: labelText,
-              border: const OutlineInputBorder(
-                borderRadius: BorderRadius.zero,
-                borderSide: BorderSide.none,
-              ),
-            ),
+            ],
           ),
         ),
+        //多账号选择
         showPopButton
             ? PopupMenuButton<CumtLoginAccount>(
-                icon: const Icon(Icons.arrow_drop_down_outlined),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(10),
+              bottomRight: Radius.circular(10),
+            ),),
+            elevation: 0,
+            constraints: BoxConstraints(
+              minWidth: MediaQuery.of(context).size.width*0.66-40,
+              maxWidth: MediaQuery.of(context).size.width*0.66-40,
+            ),
+            color: Color.fromRGBO(216, 227, 247, 1),
+            offset: Offset(0, MediaQuery.of(context).size.height * 0.047+4),
+                icon: const Icon(
+                  Icons.arrow_drop_down_sharp,
+                  color: Color.fromRGBO(59, 114, 217, 1),
+                  size: 30,
+                ),
                 onOpened: () {
                   FocusScope.of(context).unfocus();
                 },
@@ -528,7 +597,7 @@ class _LoginState extends State<Login> {
                           Expanded(
                             child: Text(
                               "${account.username}"
-                              " ${account.cumtLoginMethod?.name}",
+                                  " ${account.cumtLoginMethod?.name}",
                             ),
                           ),
                           IconButton(
@@ -537,23 +606,72 @@ class _LoginState extends State<Login> {
                                 showSnackBar(context, "删除成功");
                                 Navigator.of(context).pop();
                               },
-                              icon: const Icon(Icons.close))
+                              icon: const Icon(Icons.close)
+                          )
                         ],
                       ),
                     );
                   }).toList();
-                })
-            : Container(),
+                }
+            )
+            : PopupMenuButton(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(10),
+            bottomRight: Radius.circular(10),
+          ),),
+          elevation: 0,
+          constraints: BoxConstraints(
+            minWidth: MediaQuery.of(context).size.width*0.66-40,
+            maxWidth: MediaQuery.of(context).size.width*0.66-40,
+          ),
+          color: Color.fromRGBO(216, 227, 247, 1),
+          offset: Offset(0, MediaQuery.of(context).size.height * 0.047+4),
+          icon: const Icon(
+            Icons.arrow_drop_down_sharp,
+            color: Color.fromRGBO(59, 114, 217, 1),
+            size: 30,
+          ),
+          onOpened: () {
+            FocusScope.of(context).unfocus();
+          },
+          itemBuilder: (context) {
+            return <PopupMenuEntry<String>>[
+              PopupMenuItem<String>(
+                value: '语文',
+                child: SizedBox(
+                  child: Text('语文'),),
+              ),
+              PopupMenuItem<String>(
+                value: '数学',
+                child: Text('数学'),
+              ),
+              PopupMenuItem<String>(
+                value: '英语',
+                child: Text('英语'),
+              ),
+              PopupMenuItem<String>(
+                value: '生物',
+                child: Text('生物'),
+              ),
+              PopupMenuItem<String>(
+                value: '化学',
+                child: Text('化学'),
+              ),
+            ];
+          },
+        )
       ],
     );
   }
 
+//注销
   void _handleLogout(BuildContext context) {
     CumtLogin.logout(account: cumtLoginAccount).then((value) {
       showSnackBar(context, value);
     });
   }
 
+  //登录
   void _handleLogin(BuildContext context) {
     if (_usernameController.text.trim().isEmpty ||
         _passwordController.text.trim().isEmpty) {

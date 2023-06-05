@@ -1,35 +1,33 @@
 import 'package:flutter/material.dart';
 import 'drawer_button.dart';
-import 'theme/theme_color.dart';
 import '../config.dart';
 
 toSettingPage(BuildContext context) {
   Navigator.of(context).push(MaterialPageRoute(
-    builder: (context) => SettingPage(),
+    builder: (context) => const SettingPage(),
     fullscreenDialog: true, // 路由为全屏模式
   ));
 }
 
 class SettingPage extends StatefulWidget {
-  SettingPage({Key? key}) : super(key: key);
+  const SettingPage({Key? key}) : super(key: key);
 
   @override
   State<SettingPage> createState() => _SettingPageState();
 }
 
 class _SettingPageState extends State<SettingPage> {
-  final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(245,244,249,1),
+      backgroundColor: const Color.fromRGBO(245,244,249,1),
         body: Center(
           child: Column(
             children: [
               Container(
                 height: MediaQuery.of(context).size.height*0.117,
-                color: Color.fromRGBO(74, 114, 176, 1),
+                color: const Color.fromRGBO(74, 114, 176, 1),
                 child: Column(
                   children: [
                     Expanded(child: Container()),
@@ -47,7 +45,7 @@ class _SettingPageState extends State<SettingPage> {
                         HelpButton(color: Colors.white,),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     )
                   ],
@@ -80,7 +78,7 @@ class _SettingPageState extends State<SettingPage> {
                         )
                       ],
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Column(
                       children: [
                         Padding(

@@ -7,31 +7,29 @@ import '../settings/drawer_button.dart';
 
 toUrlPage(BuildContext context) {
   Navigator.of(context).push(MaterialPageRoute(
-    builder: (context) => UrlPage(),
+    builder: (context) => const UrlPage(),
     fullscreenDialog: true, // 路由为全屏模式
   ));
 }
 
 class UrlPage extends StatefulWidget {
-  UrlPage({Key? key}) : super(key: key);
+  const UrlPage({Key? key}) : super(key: key);
 
   @override
   State<UrlPage> createState() => _UrlPageState();
 }
 
 class _UrlPageState extends State<UrlPage> {
-  final ScrollController _scrollController = ScrollController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromRGBO(245,244,249,1),
+      backgroundColor: const Color.fromRGBO(245, 244, 249, 1),
       body: Center(
         child: Column(
           children: [
             Container(
-              height: MediaQuery.of(context).size.height*0.117,
-              color: Color.fromRGBO(74, 114, 176, 1),
+              height: MediaQuery.of(context).size.height * 0.117,
+              color: const Color.fromRGBO(74, 114, 176, 1),
               child: Column(
                 children: [
                   Expanded(child: Container()),
@@ -41,15 +39,18 @@ class _UrlPageState extends State<UrlPage> {
                         flex: 1,
                         child: Text(
                           '        校园网自动登录',
-                          style:
-                          TextStyle(fontSize: UIConfig.fontSizeTitle * 1.2,color: Colors.white),
+                          style: TextStyle(
+                              fontSize: UIConfig.fontSizeTitle * 1.2,
+                              color: Colors.white),
                           textAlign: TextAlign.center,
                         ),
                       ),
-                      HelpButton(color: Colors.white,),
+                      HelpButton(
+                        color: Colors.white,
+                      ),
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   )
                 ],
@@ -59,18 +60,19 @@ class _UrlPageState extends State<UrlPage> {
               child: Column(
                 children: [
                   SizedBox(
-                    height: MediaQuery.of(context).size.height*0.0205,
+                    height: MediaQuery.of(context).size.height * 0.0205,
                   ),
-                 Shortcut(),
+                  const Shortcut(),
                   SizedBox(
-                    height: MediaQuery.of(context).size.height*0.0205,
+                    height: MediaQuery.of(context).size.height * 0.0205,
                   ),
-                  SchoolUrl(),
+                  const SchoolUrl(),
                 ],
               ),
             ),
           ],
         ),
-      ),);
+      ),
+    );
   }
 }

@@ -79,7 +79,7 @@ class AppTheme {
         //更改弹窗颜色
         popupMenuTheme: const PopupMenuThemeData(
           //更改按钮弹窗颜色
-          color: Color.fromRGBO(233,232,252,1),
+          color: Color.fromRGBO(235, 240, 251, 1),
         ),
 
         outlinedButtonTheme: OutlinedButtonThemeData(

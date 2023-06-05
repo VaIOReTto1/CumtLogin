@@ -27,7 +27,7 @@ class _SchoolUrlState extends State<SchoolUrl> {
   }
 
   void firstLoad() async {
-    // 先读取数据
+    // 读取学校数据
     schoolelection = await readschoolelection();
   }
 

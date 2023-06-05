@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'UrlPage/shortcut/prefs.dart';
 import 'main.dart';
@@ -23,7 +26,7 @@ class _WelComePageState extends State<WelComePage> {
   List<Map<String, String>>schoolelection=[];
 
   void firstLoad() async {
-    // 先读取数据
+    // 读取学校数据
     schoolelection = await readschoolelection();
     setState(() {});
   }
@@ -32,12 +35,12 @@ class _WelComePageState extends State<WelComePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('欢迎'),
+        title: const Text('欢迎'),
       ),
       body: Center(
         child: Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             SchoolButton('中国矿业大学南湖校区', 'nanhu'),
@@ -48,12 +51,13 @@ class _WelComePageState extends State<WelComePage> {
     );
   }
 
+  //提示联网弹窗
   void _showMyDialog() {
     showDialog(
       context: context,
       builder: (BuildContext context) => AlertDialog(
-        title: Text("提示"),
-        content: Text("在选择学校前要保证设备处于联网环境"),
+        title: const Text("提示"),
+        content: const Text("在选择学校前要保证设备处于联网环境"),
         actions: <Widget>[
           ElevatedButton(
             onPressed: () {
@@ -62,7 +66,7 @@ class _WelComePageState extends State<WelComePage> {
               });
               Navigator.of(context).pop();
             },
-            child: Text("关闭"),
+            child: const Text("关闭"),
           ),
         ],
       ),
@@ -80,15 +84,19 @@ class _WelComePageState extends State<WelComePage> {
     });
   }
 
-  @override
+  //获得学校数据
   Widget SchoolButton(String schoolname, String school) {
     return InkWell(
         onTap: () async {
           Prefs.school = school;
+          //添加学校
           if (!schoolelection.any((element) => element['schoolname'] == schoolname)) {
             schoolelection.add({'schoolname':schoolname,'school':school});
             saveschoolelection(schoolelection);
           }
+          Dio dio = Dio();
+          Response res1 = await dio.get("http://47.115.228.176:8083/schoollink");
+          Map<String, dynamic> mapData = jsonDecode(res1.toString());
           print(schoolelection);
           await SchoolDio.SchoolUrlDio(Prefs.school);
           toHomePage(context, 0);

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'prefs.dart';
 import 'package:dio/dio.dart';
 
+//获取学校信息
 class SchoolDio{
   static Future<void> SchoolUrlDio(String school) async {
     Dio dio = Dio();
