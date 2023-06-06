@@ -91,7 +91,7 @@ class _ShortcutState extends State<Shortcut> {
     required Widget child
   }) {
     return Container(
-      color: Colors.white,
+      color: Theme.of(context).colorScheme.primary,
       width: double.infinity,
       // decoration: BoxDecoration(
       //     borderRadius: BorderRadius.circular(UIConfig.borderRadiusBox),
@@ -128,7 +128,7 @@ class _ShortcutState extends State<Shortcut> {
           padding: EdgeInsets.all(UIConfig.paddingAll),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(UIConfig.borderRadiusEntry),
-              color: const Color.fromRGBO(245,244,249,1),
+              color: Theme.of(context).canvasColor,
           ),
           child: Wrap(
             spacing: 4,
@@ -161,9 +161,10 @@ class _ShortcutState extends State<Shortcut> {
         padding: EdgeInsets.all(UIConfig.paddingAll),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(UIConfig.borderRadiusEntry),
-            color: Theme.of(context).colorScheme.primary
+            color: Theme.of(context).canvasColor
         ),
         child: Wrap(
+
           children: const [Icon(Icons.add)],
         ),
       ),

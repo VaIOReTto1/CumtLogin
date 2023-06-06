@@ -13,6 +13,7 @@ import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
+import 'UrlPage/welcomeback.dart';
 import 'icon.dart';
 import 'settings/theme/theme_color.dart';
 import 'settings/update/app_upgrade2.dart';
@@ -71,7 +72,7 @@ class MyApp extends StatelessWidget {
         );
       },
       //判断是否选择学校
-      child: Prefs.school == '' ? const WelComePage() : WelComePage(),
+      child: Prefs.school == '' ? const WelComePage() : HomePage(),
     );
   }
 }
@@ -184,55 +185,57 @@ class _LoginPageState extends State<LoginPage>
                 ],
               ),
               //登录页中间部分（圆圈动画
-              Stack(
-                children: [
-                  //周围圆环动画
-                  Center(
-                    child: AnimatedBuilder(
-                      animation: _animation,
-                      builder: (BuildContext context, Widget? child) {
-                        return Container(
-                          width: MediaQuery.of(context).size.width *
-                              0.61 *
-                              _animation.value,
-                          height: MediaQuery.of(context).size.width *
-                              0.61 *
-                              _animation.value,
-                          decoration: BoxDecoration(
-                            color: Color.fromRGBO(
-                                66, 128, 237, 0.4 - (_animation.value / 5)),
-                            shape: BoxShape.circle,
-                            boxShadow: [
-                              BoxShadow(
-                                color: const Color.fromRGBO(66, 128, 237, 0.15),
-                                spreadRadius: 10 * _animation.value,
-                                blurRadius: 30 * _animation.value,
-                              ),
-                            ],
-                          ),
-                        );
-                      },
+              Container(
+                child: Stack(
+                  children: [
+                    //周围圆环动画
+                    Center(
+                      child: AnimatedBuilder(
+                        animation: _animation,
+                        builder: (BuildContext context, Widget? child) {
+                          return Container(
+                            width: MediaQuery.of(context).size.width *
+                                0.61 *
+                                _animation.value,
+                            height: MediaQuery.of(context).size.width *
+                                0.61 *
+                                _animation.value,
+                            decoration: BoxDecoration(
+                              color: Color.fromRGBO(
+                                  66, 128, 237, 0.4 - (_animation.value / 5)),
+                              shape: BoxShape.circle,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: const Color.fromRGBO(66, 128, 237, 0.15),
+                                  spreadRadius: 10 * _animation.value,
+                                  blurRadius: 30 * _animation.value,
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      ),
                     ),
-                  ),
-                  //中间圆圈
-                  Center(
-                    child: IgnorePointer(
-                      child: Container(
-                        width: MediaQuery.of(context).size.width * 0.422,
-                        height: MediaQuery.of(context).size.width * 0.422,
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Color.fromRGBO(59, 114, 217, 1),
-                        ),
-                        child: Icon(
-                          MyIcons.link,
-                          size: MediaQuery.of(context).size.width * 0.208,
-                          color: const Color.fromRGBO(255, 255, 255, 1),
+                    //中间圆圈
+                    Center(
+                      child: IgnorePointer(
+                        child: Container(
+                          width: MediaQuery.of(context).size.width * 0.422,
+                          height: MediaQuery.of(context).size.width * 0.422,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Color.fromRGBO(59, 114, 217, 1),
+                          ),
+                          child: Icon(
+                            MyIcons.link,
+                            size: MediaQuery.of(context).size.width * 0.208,
+                            color: const Color.fromRGBO(255, 255, 255, 1),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               //登录栏
               Positioned(
@@ -529,6 +532,7 @@ class _LoginState extends State<Login> {
                 ),
               Expanded(
                 child: TextField(
+                  style: TextStyle(color: Colors.black),
                   controller: textEditingController,
                   obscureText: isobscureText && obscureText,
                   decoration: InputDecoration(
@@ -537,6 +541,7 @@ class _LoginState extends State<Login> {
                       borderSide: BorderSide.none,
                     ),
                     labelText: labelText,
+                    labelStyle: TextStyle(color: Color.fromRGBO(191, 191, 191, 1)),
                     border: const OutlineInputBorder(
                       borderRadius: BorderRadius.zero,
                       borderSide: BorderSide.none,
@@ -630,7 +635,6 @@ class _LoginState extends State<Login> {
             minWidth: MediaQuery.of(context).size.width*0.66-40,
             maxWidth: MediaQuery.of(context).size.width*0.66-40,
           ),
-          color: Color.fromRGBO(216, 227, 247, 1),
           offset: Offset(0, MediaQuery.of(context).size.height * 0.047+4),
           icon: const Icon(
             Icons.arrow_drop_down_sharp,

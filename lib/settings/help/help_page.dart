@@ -17,7 +17,7 @@ class HelpPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final double height = MediaQuery.of(context).size.height;
     return Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Theme.of(context).cardTheme.color,
         body:
             CustomScrollView(physics: const BouncingScrollPhysics(), slivers: [
           SliverAppBar(
@@ -28,7 +28,7 @@ class HelpPage extends StatelessWidget {
             primary: true,
             expandedHeight: height * .02,
             elevation: 0,
-            backgroundColor: Theme.of(context).colorScheme.background,
+            backgroundColor: Theme.of(context).colorScheme.primary,
             leading: IconButton(
               icon: Icon(
                 Icons.arrow_back_ios_new,

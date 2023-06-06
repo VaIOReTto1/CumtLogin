@@ -21,7 +21,7 @@ class _SettingPageState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(245,244,249,1),
+      backgroundColor: Theme.of(context).cardTheme.color,
         body: Center(
           child: Column(
             children: [

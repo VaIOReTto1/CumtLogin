@@ -72,6 +72,7 @@ class _WelcomePageState extends State<WelcomePage> {
                         color: Colors.white,
                       ),
                       child: TextField(
+                        style: TextStyle(color: Colors.black),
                         onChanged: searchStringChange,
                         decoration: const InputDecoration(
                           contentPadding: EdgeInsets.symmetric(horizontal: 10.0,vertical: 7.0),
@@ -133,9 +134,9 @@ class _SearchResultState extends State<SearchResult> {
       ),
       child: ListView(
         children: const [
-          ListTile(title: Text("test0"),),
-          ListTile(title: Text("test1"),),
-          ListTile(title: Text("test2"),),
+          ListTile(title: Text("test0",style: TextStyle(color: Colors.black),),),
+          ListTile(title: Text("test1",style: TextStyle(color: Colors.black),),),
+          ListTile(title: Text("test2",style: TextStyle(color: Colors.black),),),
           ListTile(title: Text("test3"),),
           ListTile(title: Text("test4"),),
           ListTile(title: Text("test5"),),

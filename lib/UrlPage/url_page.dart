@@ -23,7 +23,7 @@ class _UrlPageState extends State<UrlPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromRGBO(245, 244, 249, 1),
+      backgroundColor: Theme.of(context).cardTheme.color,
       body: Center(
         child: Column(
           children: [
@@ -75,7 +75,7 @@ class _UrlPageState extends State<UrlPage> {
                     SizedBox(
                       height: MediaQuery.of(context).size.height * 0.0205,
                     ),
-                    const SchoolUrl(),
+                    //const SchoolUrl(),
                   ],
                 ),
               ),
