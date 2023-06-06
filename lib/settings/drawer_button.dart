@@ -3,10 +3,13 @@ import 'package:cumt_login/settings/update/app_upgrade2.dart';
 import 'package:cumt_login/settings/update/update_Alert_Icon.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_switch/flutter_switch.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_share/flutter_share.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../config.dart';
+import '../login_util/prefs.dart';
 import 'aboutUs/pages/about_page.dart';
 import 'feedback/feedback.dart';
 import 'help/help_page.dart';
@@ -28,6 +31,7 @@ class _AboutButtonState extends State<AboutButton> {
           toAboutPage(context);
         },
         child: SizedBox(
+          height: MediaQuery.of(context).size.height*0.045,
           child: Padding(
               padding: EdgeInsets.all(UIConfig.paddingAll * 1.2),
               child: Row(
@@ -54,11 +58,15 @@ class ThemeChange extends StatefulWidget {
 }
 
 class _ThemeChangeState extends State<ThemeChange> {
-  bool _switchValue = false;
+
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
+      height: MediaQuery.of(context).size.height*0.045,
       child: Padding(
           padding: EdgeInsets.all(UIConfig.paddingAll * 1.2),
           child: Row(
@@ -67,21 +75,25 @@ class _ThemeChangeState extends State<ThemeChange> {
                 child: Text('深色模式',
                     style: TextStyle(fontSize: UIConfig.fontSizeMain)),
               ),
-              Transform.scale(
-                scale:0.65,
-                child: CupertinoSwitch(
-                  value: _switchValue,
-                  onChanged: (bool val) {
-                    setState(() {
-                      _switchValue = val;
-                      Provider.of<ThemeProvider>(context, listen: false)
-                          .setThemeData(_switchValue?AppTheme.darkTheme().themeData:AppTheme.LightTheme().themeData);
-                    });
-                  },
-                  trackColor: Colors.grey,
-                  activeColor: Color.fromRGBO(74, 114, 176, 1),
-                ),
-              ),
+              FlutterSwitch(
+                padding: 1,
+                toggleSize: 20,
+                inactiveColor: Colors.grey,
+                activeColor: Color.fromRGBO(74, 114, 176, 1),
+                value: Theme.of(context).brightness==Brightness.dark?true:false,
+                width: 40,
+                height: 20,
+                onToggle: (bool val) {
+                  setState(() {
+                    Prefs.theme='false';
+                    print(MediaQuery.of(context).size.height*0.0576);
+                    Provider.of<ThemeProvider>(context, listen: false)
+                        .setThemeData(val
+                            ? AppTheme.darkTheme().themeData
+                            : AppTheme.LightTheme().themeData);
+                  });
+                },
+              )
             ],
           )),
     );
@@ -96,18 +108,16 @@ class PhomeTheme extends StatefulWidget {
 }
 
 class _PhomeThemeState extends State<PhomeTheme> {
-  bool _switchValue = false;
 
-  @override
   void initState() {
     super.initState();
-    // 获取手机系统的亮暗模式设置
   }
 
   @override
   Widget build(BuildContext context) {
     final brightness = MediaQuery.of(context).platformBrightness;
     return SizedBox(
+      height: MediaQuery.of(context).size.height*0.045,
       child: Padding(
           padding: EdgeInsets.all(UIConfig.paddingAll * 1.2),
           child: Row(
@@ -116,28 +126,27 @@ class _PhomeThemeState extends State<PhomeTheme> {
                 child: Text('跟随系统',
                     style: TextStyle(fontSize: UIConfig.fontSizeMain)),
               ),
-              Transform.scale(
-                scale:0.65,
-                child: CupertinoSwitch(
-                  value: _switchValue,
-                  onChanged: (bool val) {
-                    setState(() {
-                      print(brightness);
-                      _switchValue = val;
-                      _switchValue?Provider.of<ThemeProvider>(context, listen: false)
-                          .setThemeData(brightness==Brightness.dark?AppTheme.darkTheme().themeData:AppTheme.LightTheme().themeData):null;
-                    });
-                  },
-                  trackColor: Colors.grey,
-                  activeColor: Color.fromRGBO(74, 114, 176, 1),
-                ),
+              FlutterSwitch(
+                padding: 1,
+                toggleSize: 20,
+                inactiveColor: Colors.grey,
+                activeColor: Color.fromRGBO(74, 114, 176, 1),
+                value: Prefs.theme=='true'?true:false,
+                width: 40,
+                height: 20,
+                onToggle: (bool val) {
+                  setState(() {
+                    print(brightness);
+                    Prefs.theme=val.toString();
+                    print(Prefs.theme);
+                  });
+                },
               ),
             ],
           )),
     );
   }
 }
-
 
 class UpdatecheckButton extends StatefulWidget {
   const UpdatecheckButton({Key? key}) : super(key: key);
@@ -162,6 +171,7 @@ class _UpdatecheckButtonState extends State<UpdatecheckButton> {
           });
         },
         child: SizedBox(
+          height: MediaQuery.of(context).size.height*0.045,
           child: Padding(
               padding: EdgeInsets.all(UIConfig.paddingAll * 1.2),
               child: Row(
@@ -211,6 +221,7 @@ class _FeedBackButtonState extends State<FeedBackButton> {
           );
         },
         child: SizedBox(
+          height: MediaQuery.of(context).size.height*0.045,
           child: Padding(
               padding: EdgeInsets.all(UIConfig.paddingAll * 1.2),
               child: Row(
@@ -230,9 +241,8 @@ class _FeedBackButtonState extends State<FeedBackButton> {
 }
 
 class HelpButton extends StatefulWidget {
-  final Color color;
 
-  HelpButton({Key? key, required this.color}) : super(key: key);
+  HelpButton({Key? key}) : super(key: key);
 
   @override
   State<HelpButton> createState() => _HelpButtonState();
@@ -246,11 +256,12 @@ class _HelpButtonState extends State<HelpButton> {
           toHelpPage(context);
         },
         child: SizedBox(
+          height: MediaQuery.of(context).size.height*0.045,
           child: Padding(
             padding: EdgeInsets.all(UIConfig.paddingAll * 1.2),
             child: Icon(
               Icons.help_outline_sharp,
-              color: widget.color,
+              color: const Color.fromRGBO(59, 114, 217, 1),
               size: UIConfig.fontSizeMin * 2.04,
             ),
           ),
@@ -281,9 +292,11 @@ class _ShareAppState extends State<ShareApp> {
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {
-          shareTextToWechatAndQQ('欢迎使用校园网自动登录app，下载地址：https://wwya.lanzoub.com/i9H4A0uesqxc(Android)/https://testflight.apple.com/join/lTBgteBv(iOS)');
+          shareTextToWechatAndQQ(
+              '欢迎使用校园网自动登录app，下载地址：https://wwya.lanzoub.com/i9H4A0uesqxc(Android)/https://testflight.apple.com/join/lTBgteBv(iOS)');
         },
         child: SizedBox(
+          height: MediaQuery.of(context).size.height*0.045,
           child: Padding(
               padding: EdgeInsets.all(UIConfig.paddingAll * 1.2),
               child: Row(

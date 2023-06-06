@@ -49,6 +49,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData getTheme(){
+      if(Prefs.theme=='true') return MediaQuery.of(context).platformBrightness == Brightness.dark
+          ? AppTheme.darkTheme().themeData
+          : AppTheme.LightTheme().themeData;
+      else return Provider.of<ThemeProvider>(context).themeData;
+    }
     return ScreenUtilInit(
       designSize: const Size(UIConfig.designWidth, UIConfig.designHeight),
       minTextAdapt: true,
@@ -57,6 +63,7 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           //主题切换
           theme: Provider.of<ThemeProvider>(context).themeData,
+          darkTheme: AppTheme.darkTheme().themeData,
           debugShowCheckedModeBanner: false,
           home: child,
           builder: BotToastInit(),
@@ -64,7 +71,7 @@ class MyApp extends StatelessWidget {
         );
       },
       //判断是否选择学校
-      child: Prefs.school == '' ? const WelComePage() : HomePage(),
+      child: Prefs.school == '' ? const WelComePage() : WelComePage(),
     );
   }
 }
@@ -165,8 +172,7 @@ class _LoginPageState extends State<LoginPage>
                                 textAlign: TextAlign.center,
                               ),
                             ),
-                            HelpButton(
-                                color: const Color.fromRGBO(59, 114, 217, 1)),
+                            HelpButton(),
                           ],
                         ),
                         SizedBox(

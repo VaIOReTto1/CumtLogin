@@ -17,6 +17,7 @@ class Prefs {
   static const String _loginurl = "loginurl";
   static const String _logouturl = "logouturl";
   static const String _respondKey = "respond";
+  static const String _theme = "theme";
   static List<Map<String, dynamic>> _respond = [];
 
   static void _initRespond() {
@@ -37,6 +38,7 @@ class Prefs {
   static String get school => _get(_school);
   static String get loginurl => _get(_loginurl);
   static String get logouturl => _get(_logouturl);
+  static String get theme => _get(_theme);
 
   static List<Map<String, dynamic>> get respond {
     return _respond;
@@ -49,6 +51,7 @@ class Prefs {
   static set school(String value) => _set(_school, value);
   static set loginurl(String value) => _set(_loginurl, value);
   static set logouturl(String value) => _set(_logouturl, value);
+  static set theme(String value) => _set(_theme, value);
 
   static set respond(List<Map<String, dynamic>> value) {
     _respond = value;

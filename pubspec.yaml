@@ -27,6 +27,7 @@ dependencies:
   firebase_core: ^2.10.0  #firebase 用户监控
   firebase_analytics: ^10.2.1 #用户行为监控
   flutter_share: ^2.0.0 #实现分享功能
+  flutter_switch: ^0.3.2 #switch模块
 
 dev_dependencies:
   flutter_test:

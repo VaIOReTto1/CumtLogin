@@ -97,8 +97,14 @@ class _WelComePageState extends State<WelComePage> {
           Dio dio = Dio();
           Response res1 = await dio.get("http://47.115.228.176:8083/schoollink");
           Map<String, dynamic> mapData = jsonDecode(res1.toString());
+          for (int i = 0; i < mapData['school'].length; i++) {
+            final school = mapData['school'][i]['name'];
+            if (school == schoolname) {
+              print('$schoolname 学校在列表中的索引位置为 $i');
+            }
+          }
           print(schoolelection);
-          await SchoolDio.SchoolUrlDio(Prefs.school);
+          //await SchoolDio.SchoolUrlDio(Prefs.school);
           toHomePage(context, 0);
         },
         child: ListTile(

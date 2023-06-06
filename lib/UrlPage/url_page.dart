@@ -28,8 +28,18 @@ class _UrlPageState extends State<UrlPage> {
         child: Column(
           children: [
             Container(
-              height: MediaQuery.of(context).size.height * 0.117,
-              color: const Color.fromRGBO(74, 114, 176, 1),
+              height: MediaQuery.of(context).size.height * 0.119,
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.primary,
+                boxShadow: const [
+                  BoxShadow(
+                    color: Color.fromRGBO(222, 221, 251, 0.5),
+                    spreadRadius: 12,
+                    blurRadius: 18,
+                    offset: Offset.zero, // changes position of shadow
+                  ),
+                ],
+              ),
               child: Column(
                 children: [
                   Expanded(child: Container()),
@@ -40,34 +50,34 @@ class _UrlPageState extends State<UrlPage> {
                         child: Text(
                           '        校园网自动登录',
                           style: TextStyle(
-                              fontSize: UIConfig.fontSizeTitle * 1.2,
-                              color: Colors.white),
+                              fontSize: UIConfig.fontSizeTitle * 1.2),
                           textAlign: TextAlign.center,
                         ),
                       ),
-                      HelpButton(
-                        color: Colors.white,
-                      ),
+                      HelpButton(),
                     ],
                   ),
-                  const SizedBox(
-                    height: 10,
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.0105,
                   )
                 ],
               ),
             ),
             SingleChildScrollView(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.0205,
-                  ),
-                  const Shortcut(),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.0205,
-                  ),
-                  const SchoolUrl(),
-                ],
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(0, 24.0, 0, 0),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.0205,
+                    ),
+                    const Shortcut(),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.0205,
+                    ),
+                    const SchoolUrl(),
+                  ],
+                ),
               ),
             ),
           ],

@@ -26,8 +26,18 @@ class _SettingPageState extends State<SettingPage> {
           child: Column(
             children: [
               Container(
-                height: MediaQuery.of(context).size.height*0.117,
-                color: const Color.fromRGBO(74, 114, 176, 1),
+                height: MediaQuery.of(context).size.height * 0.119,
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.primary,
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Color.fromRGBO(222, 221, 251, 0.5),
+                      spreadRadius: 12,
+                      blurRadius: 18,
+                      offset: Offset.zero, // changes position of shadow
+                    ),
+                  ],
+                ),
                 child: Column(
                   children: [
                     Expanded(child: Container()),
@@ -37,16 +47,16 @@ class _SettingPageState extends State<SettingPage> {
                           flex: 1,
                           child: Text(
                             '        校园网自动登录',
-                            style:
-                            TextStyle(fontSize: UIConfig.fontSizeTitle * 1.2,color: Colors.white),
+                            style: TextStyle(
+                                fontSize: UIConfig.fontSizeTitle * 1.2),
                             textAlign: TextAlign.center,
                           ),
                         ),
-                        HelpButton(color: Colors.white,),
+                        HelpButton(),
                       ],
                     ),
-                    const SizedBox(
-                      height: 10,
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.0105,
                     )
                   ],
                 ),
@@ -57,7 +67,7 @@ class _SettingPageState extends State<SettingPage> {
                     Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.fromLTRB(8.0, 16.0, 8.0, 0),
+                          padding: const EdgeInsets.fromLTRB(12.0, 24.0, 12.0, 0),
                           child: Container(
                             padding: EdgeInsets.all(UIConfig.paddingAll),
                             decoration: BoxDecoration(
@@ -78,11 +88,11 @@ class _SettingPageState extends State<SettingPage> {
                         )
                       ],
                     ),
-                    const SizedBox(height: 10),
+                    SizedBox(height: MediaQuery.of(context).size.height*0.009),
                     Column(
                       children: [
                         Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(12.0),
                           child: Container(
                             padding: EdgeInsets.all(UIConfig.paddingAll),
                             decoration: BoxDecoration(
