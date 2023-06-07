@@ -1,3 +1,4 @@
+import 'package:cumt_login/settings/feedback/feedback_page.dart';
 import 'package:cumt_login/settings/theme/theme_color.dart';
 import 'package:cumt_login/settings/update/app_upgrade2.dart';
 import 'package:cumt_login/settings/update/update_Alert_Icon.dart';
@@ -11,7 +12,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../config.dart';
 import '../login_util/prefs.dart';
 import 'aboutUs/pages/about_page.dart';
-import 'feedback/feedback.dart';
 import 'help/help_page.dart';
 
 class AboutButton extends StatefulWidget {
@@ -200,25 +200,21 @@ class FeedBackButton extends StatefulWidget {
   @override
   State<FeedBackButton> createState() => _FeedBackButtonState();
 }
+//
+// AlertDialog(
+// shape: RoundedRectangleBorder(
+// borderRadius:
+// BorderRadius.circular(UIConfig.borderRadiusBox)),
+// backgroundColor: Theme.of(context).colorScheme.background,
+// title: Text('意见反馈'),
+// content: FeedbackForm(),
 
 class _FeedBackButtonState extends State<FeedBackButton> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                shape: RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.circular(UIConfig.borderRadiusBox)),
-                backgroundColor: Theme.of(context).colorScheme.background,
-                title: Text('意见反馈'),
-                content: FeedbackForm(),
-              );
-            },
-          );
+            toFeedBackPage(context);
         },
         child: SizedBox(
           height: MediaQuery.of(context).size.height*0.045,

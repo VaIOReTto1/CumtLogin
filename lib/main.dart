@@ -67,7 +67,7 @@ class MyApp extends StatelessWidget {
           darkTheme: AppTheme.darkTheme().themeData,
           debugShowCheckedModeBanner: false,
           home: child,
-          builder: BotToastInit(),
+          builder: BotToastInit(),      //toast弹窗的初始化
           navigatorObservers: [BotToastNavigatorObserver()],
         );
       },
