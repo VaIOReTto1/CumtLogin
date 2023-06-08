@@ -86,7 +86,7 @@ class _SchoolUrlState extends State<SchoolUrl> {
     return InkWell(
       onTap: () async {
         Prefs.school =  schoolelection[index]['school']!;
-        await SchoolDio.SchoolUrlDio(Prefs.school);
+        await SchoolDio.SchoolUrlDio(index);
       },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: UIConfig.marginVertical),

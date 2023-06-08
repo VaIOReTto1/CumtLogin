@@ -4,7 +4,6 @@ import 'package:cumt_login/config.dart';
 import 'package:cumt_login/settings/drawer_button.dart';
 import 'package:cumt_login/settings/settings.dart';
 import 'package:cumt_login/utils/utils.dart';
-import 'package:cumt_login/welcome.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_picker/Picker.dart';
@@ -50,12 +49,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ThemeData getTheme(){
-      if(Prefs.theme=='true') return MediaQuery.of(context).platformBrightness == Brightness.dark
-          ? AppTheme.darkTheme().themeData
-          : AppTheme.LightTheme().themeData;
-      else return Provider.of<ThemeProvider>(context).themeData;
+    ThemeData getTheme() {
+      if (Prefs.theme == 'true')
+        return MediaQuery.of(context).platformBrightness == Brightness.dark
+            ? AppTheme.darkTheme().themeData
+            : AppTheme.LightTheme().themeData;
+      else
+        return Provider.of<ThemeProvider>(context).themeData;
     }
+
     return ScreenUtilInit(
       designSize: const Size(UIConfig.designWidth, UIConfig.designHeight),
       minTextAdapt: true,
@@ -64,15 +66,16 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           //主题切换
           theme: Provider.of<ThemeProvider>(context).themeData,
-          darkTheme: AppTheme.darkTheme().themeData,
+          //darkTheme: AppTheme.darkTheme().themeData,
           debugShowCheckedModeBanner: false,
           home: child,
-          builder: BotToastInit(),      //toast弹窗的初始化
+          builder: BotToastInit(),
+          //toast弹窗的初始化
           navigatorObservers: [BotToastNavigatorObserver()],
         );
       },
       //判断是否选择学校
-      child: Prefs.school == '' ? const WelComePage() : HomePage(),
+      child: Prefs.school == '' ? const WelcomePage() : WelcomePage(),
     );
   }
 }
@@ -149,10 +152,14 @@ class _LoginPageState extends State<LoginPage>
                   Container(
                     height: MediaQuery.of(context).size.height * 0.119,
                     decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(10.0),
+                        bottomRight: Radius.circular(10.0),
+                      ),
                       color: Theme.of(context).colorScheme.primary,
                       boxShadow: const [
                         BoxShadow(
-                          color: Color.fromRGBO(222, 221, 251, 0.5),
+                          color: Color.fromRGBO(59, 114, 217, 0.1),
                           spreadRadius: 12,
                           blurRadius: 18,
                           offset: Offset.zero, // changes position of shadow
@@ -167,10 +174,11 @@ class _LoginPageState extends State<LoginPage>
                             Expanded(
                               flex: 1,
                               child: Text(
-                                '        校园网自动登录',
+                                '    ${Prefs.school}',
                                 style: TextStyle(
-                                    fontSize: UIConfig.fontSizeTitle * 1.2),
-                                textAlign: TextAlign.center,
+                                  fontSize: UIConfig.fontSizeTitle * 1.2,
+                                  color: Color.fromRGBO(59, 114, 217, 1),
+                                ),
                               ),
                             ),
                             HelpButton(),
@@ -184,70 +192,111 @@ class _LoginPageState extends State<LoginPage>
                   ),
                 ],
               ),
-              //登录页中间部分（圆圈动画
-              Container(
-                child: Stack(
-                  children: [
-                    //周围圆环动画
-                    Center(
-                      child: AnimatedBuilder(
-                        animation: _animation,
-                        builder: (BuildContext context, Widget? child) {
-                          return Container(
-                            width: MediaQuery.of(context).size.width *
-                                0.61 *
-                                _animation.value,
-                            height: MediaQuery.of(context).size.width *
-                                0.61 *
-                                _animation.value,
-                            decoration: BoxDecoration(
-                              color: Color.fromRGBO(
-                                  66, 128, 237, 0.4 - (_animation.value / 5)),
-                              shape: BoxShape.circle,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: const Color.fromRGBO(66, 128, 237, 0.15),
-                                  spreadRadius: 10 * _animation.value,
-                                  blurRadius: 30 * _animation.value,
+              Positioned(
+                  top: MediaQuery.of(context).size.height * 0.19,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      color: Color.fromRGBO(246, 246, 246, 1),
+                    ),
+                    child: Padding(
+                      padding: EdgeInsets.fromLTRB(10, 3, 15, 3),
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.circle_sharp,
+                            color: Color.fromRGBO(59, 114, 217, 1),
+                            size: 7,
+                          ),
+                          SizedBox(
+                            width: 15,
+                          ),
+                          Prefs.status == '1'
+                              ? Text(
+                                  '已连接    ',
+                                  style: TextStyle(
+                                      color: Color.fromRGBO(161, 161, 161, 1),
+                                      fontSize: 12),
+                                )
+                              : Text(
+                                  '未连接    ',
+                                  style: TextStyle(
+                                      color: Color.fromRGBO(161, 161, 161, 1),
+                                      fontSize: 12),
                                 ),
-                              ],
-                            ),
-                          );
-                        },
+                        ],
                       ),
                     ),
-                    //中间圆圈
-                    Center(
-                      child: IgnorePointer(
-                        child: Container(
-                          width: MediaQuery.of(context).size.width * 0.422,
-                          height: MediaQuery.of(context).size.width * 0.422,
-                          decoration: const BoxDecoration(
+                  )),
+              //登录页中间部分（圆圈动画
+              Stack(
+                children: [
+                  //周围圆环动画
+                  Center(
+                    child: AnimatedBuilder(
+                      animation: _animation,
+                      builder: (BuildContext context, Widget? child) {
+                        return Container(
+                          width: MediaQuery.of(context).size.height *
+                              0.29 *
+                              _animation.value,
+                          height: MediaQuery.of(context).size.height *
+                              0.29 *
+                              _animation.value,
+                          decoration: BoxDecoration(
+                            color: Prefs.status == '1'
+                                ? Color.fromRGBO(
+                                    66, 128, 237, 0.4 - (_animation.value / 5))
+                                : Color.fromRGBO(
+                                    234, 234, 234, 1 - (_animation.value / 5)),
                             shape: BoxShape.circle,
-                            color: Color.fromRGBO(59, 114, 217, 1),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Prefs.status == '1'
+                                    ? Color.fromRGBO(66, 128, 237, 0.15)
+                                    : Color.fromRGBO(234, 234, 234, 1),
+                                spreadRadius: 10 * _animation.value,
+                                blurRadius: 30 * _animation.value,
+                              ),
+                            ],
                           ),
-                          child: Icon(
-                            MyIcons.link,
-                            size: MediaQuery.of(context).size.width * 0.208,
-                            color: const Color.fromRGBO(255, 255, 255, 1),
-                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  //中间圆圈
+                  Center(
+                    child: IgnorePointer(
+                      child: Container(
+                        width: MediaQuery.of(context).size.height * 0.2,
+                        height: MediaQuery.of(context).size.height * 0.2,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Prefs.status == '1'
+                              ? Color.fromRGBO(59, 114, 217, 1)
+                              : Color.fromRGBO(161, 161, 161, 1),
+                        ),
+                        child: Icon(
+                          MyIcons.link,
+                          size: MediaQuery.of(context).size.height * 0.096,
+                          color: const Color.fromRGBO(255, 255, 255, 1),
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
               //登录栏
               Positioned(
-                bottom: MediaQuery.of(context).size.height * 0.02,
+                bottom: MediaQuery.of(context).size.height * 0.15,
                 child: InkWell(
                   onTap: () {
                     _loginpage();
                   },
-                  child: Icon(Icons.keyboard_arrow_up_rounded,
+                  child: const Icon(Icons.keyboard_arrow_up_rounded,
                       color: Color.fromRGBO(59, 114, 217, 1),
                       size: 40,
-                      shadows: const <Shadow>[
+                      shadows: <Shadow>[
                         Shadow(
                           color: Color.fromRGBO(0, 0, 0, 0.25),
                           blurRadius: 10.0,
@@ -265,9 +314,9 @@ class _LoginPageState extends State<LoginPage>
   void _loginpage() {
     //底部跳出边框
     showModalBottomSheet(
-        isScrollControlled:true,
+        isScrollControlled: true,
         clipBehavior: Clip.antiAlias,
-        shape: RoundedRectangleBorder(
+        shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(15),
             topRight: Radius.circular(15),
@@ -275,9 +324,9 @@ class _LoginPageState extends State<LoginPage>
         ),
         context: context,
         builder: (context) {
-          return Container(
-            height: MediaQuery.of(context).size.height*0.73,
-            child: Login(),
+          return SizedBox(
+            height: MediaQuery.of(context).size.height * 0.73,
+            child: const Login(),
           );
         });
   }
@@ -306,64 +355,162 @@ class _HomePage extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-        body: IndexedStack(
+      body: Stack(alignment: Alignment.center, children: [
+        IndexedStack(
           index: widget.currentPageIndex,
-          children: [
-            const LoginPage(),
+          children: const [
+            LoginPage(),
             SettingPage(),
             UrlPage(),
           ],
         ),
-        //下方导引栏
-        bottomNavigationBar: SizedBox(
-          height: MediaQuery.of(context).size.height * 0.0898,
-          child: BottomAppBar(
-            elevation: 0,
+        Positioned(
+          bottom: MediaQuery.of(context).size.height * 0.052,
+          child: Container(
+            width: MediaQuery.of(context).size.width * 0.9,
+            height: 60,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(50),
+              color: Theme.of(context).colorScheme.primary,
+              boxShadow: const [
+                BoxShadow(
+                  color: Color.fromRGBO(59, 114, 217, 0.2),
+                  spreadRadius: 4,
+                  blurRadius: 8,
+                  offset: Offset(0,10.0), // changes position of shadow
+                ),
+              ],
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                IconButton(
-                  icon: Icon(MyIcons.layer,
-                      color: widget.currentPageIndex == 2
-                          ? const Color.fromRGBO(44, 44, 44, 1)
-                          : const Color.fromRGBO(111, 111, 111, 1),
-                      size: 32),
-                  onPressed: () {
-                    setState(() {
-                      widget.currentPageIndex = 2;
-                    });
-                  },
+                Stack(
+                  children: [
+                    IconButton(
+                      icon: Icon(MyIcons.layer,
+                          color: widget.currentPageIndex == 2
+                              ? const Color.fromRGBO(44, 44, 44, 1)
+                              : const Color.fromRGBO(111, 111, 111, 1),
+                          size: 32),
+                      onPressed: () {
+                        setState(() {
+                          widget.currentPageIndex = 2;
+                        });
+                      },
+                    ),
+                    Column(
+                      children: [
+                        SizedBox(height: 38,),
+                        Text(
+                          '    常用',
+                          style: TextStyle(
+                            fontSize: 13,
+                            color: widget.currentPageIndex == 0
+                                ? Colors.white
+                                : const Color.fromRGBO(111, 111, 111, 1),
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
                 ),
-                IconButton(
-                  icon: Icon(MyIcons.net,
-                      color: widget.currentPageIndex == 0
-                          ? const Color.fromRGBO(44, 44, 44, 1)
-                          : const Color.fromRGBO(111, 111, 111, 1),
-                      size: 32),
-                  onPressed: () {
-                    setState(() {
-                      widget.currentPageIndex = 0;
-                    });
-                  },
-                ),
-                IconButton(
-                  icon: Icon(
-                    Icons.settings,
-                    color: widget.currentPageIndex == 1
-                        ? const Color.fromRGBO(44, 44, 44, 1)
-                        : const Color.fromRGBO(111, 111, 111, 1),
-                    size: 32,
-                  ),
-                  onPressed: () {
-                    setState(() {
-                      widget.currentPageIndex = 1;
-                    });
-                  },
+                Stack(
+                  children: [
+                    IconButton(
+                      icon: Icon(
+                        Icons.settings,
+                        color: widget.currentPageIndex == 1
+                            ? const Color.fromRGBO(44, 44, 44, 1)
+                            : const Color.fromRGBO(111, 111, 111, 1),
+                        size: 32,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          widget.currentPageIndex = 1;
+                        });
+                      },
+                    ),
+                    Column(
+                      children: [
+                        SizedBox(height: 38,),
+                        Text(
+                          '   设置',
+                          style: TextStyle(
+                            fontSize: 13,
+                            color: widget.currentPageIndex == 0
+                                ? Colors.white
+                                : const Color.fromRGBO(111, 111, 111, 1),
+                          ),
+                        ),
+                      ],
+                    )
+                  ],
                 ),
               ],
             ),
           ),
-        ));
+        ),
+        Positioned(
+          bottom: MediaQuery.of(context).size.height * 0.044,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Container(
+                width: 80,
+                height: 80,
+                decoration: BoxDecoration(
+                  color: widget.currentPageIndex == 0
+                      ? Theme.of(context).colorScheme.primary
+                      : Theme.of(context).cardTheme.color,
+                  shape: BoxShape.circle,
+                ),
+              ),
+              Container(
+                width: 65,
+                height: 65,
+                decoration: const BoxDecoration(
+                  color: Color.fromRGBO(59, 114, 217, 1),
+                  shape: BoxShape.circle,
+                ),
+                child: Column(
+                  children: [
+                    IconButton(
+                      icon: Icon(MyIcons.net,
+                          color: widget.currentPageIndex == 0
+                              ? Colors.white
+                              : const Color.fromRGBO(111, 111, 111, 1),
+                          size: 32),
+                      onPressed: () {
+                        setState(() {
+                          widget.currentPageIndex = 0;
+                        });
+                      },
+                    ),
+                    Expanded(child: Container())
+                  ],
+                ),
+              ),
+              Center(
+                child: Column(
+                  children: [
+                    SizedBox(height: 40,),
+                    Text(
+                      '  登录',
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: widget.currentPageIndex == 0
+                            ? Colors.white
+                            : const Color.fromRGBO(111, 111, 111, 1),
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+      ]),
+    );
   }
 }
 
@@ -381,6 +528,9 @@ class _LoginState extends State<Login> {
   final TextEditingController _passwordController = TextEditingController();
 
   CumtLoginAccount cumtLoginAccount = CumtLoginAccount();
+
+  bool border = true;
+  bool isobscureText = true;
 
   @override
   void initState() {
@@ -433,11 +583,15 @@ class _LoginState extends State<Login> {
             Row(
               children: [
                 SizedBox(
-                  width: MediaQuery.of(context).size.width*0.208,
+                  width: MediaQuery.of(context).size.width * 0.208,
                 ),
-                Text('选择运营商：',style: TextStyle(color: Color.fromRGBO(112, 112, 112, 1),fontSize: 14),),
+                const Text(
+                  '选择运营商：',
+                  style: TextStyle(
+                      color: Color.fromRGBO(112, 112, 112, 1), fontSize: 14),
+                ),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width*0.048,
+                  width: MediaQuery.of(context).size.width * 0.048,
                 ),
                 TextButton(
                     onPressed: () => _showLocationMethodPicker(),
@@ -447,7 +601,9 @@ class _LoginState extends State<Login> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
-                      minimumSize: MaterialStateProperty.all(Size(MediaQuery.of(context).size.width * 0.355, MediaQuery.of(context).size.height * 0.047)),
+                      minimumSize: MaterialStateProperty.all(Size(
+                          MediaQuery.of(context).size.width * 0.355,
+                          MediaQuery.of(context).size.height * 0.047)),
                       backgroundColor: MaterialStateProperty.all<Color>(
                         const Color.fromRGBO(235, 240, 251, 1),
                       ),
@@ -503,7 +659,6 @@ class _LoginState extends State<Login> {
   Widget buildTextField(
       String labelText, TextEditingController textEditingController,
       {showPopButton = false, obscureText = false}) {
-    bool isobscureText = true;
     return Stack(
       alignment: obscureText ? Alignment.center : Alignment.centerRight,
       children: [
@@ -511,7 +666,15 @@ class _LoginState extends State<Login> {
           width: MediaQuery.of(context).size.width * 0.66,
           height: MediaQuery.of(context).size.height * 0.047,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: showPopButton
+                ? border
+                    ? BorderRadius.circular(10)
+                    : const BorderRadius.only(
+                        bottomLeft: Radius.circular(10),
+                        topRight: Radius.circular(10),
+                        topLeft: Radius.circular(10),
+                      )
+                : BorderRadius.circular(10),
             color: const Color.fromRGBO(235, 240, 251, 1),
           ),
           child: Row(
@@ -532,7 +695,7 @@ class _LoginState extends State<Login> {
                 ),
               Expanded(
                 child: TextField(
-                  style: TextStyle(color: Colors.black),
+                  style: const TextStyle(color: Colors.black),
                   controller: textEditingController,
                   obscureText: isobscureText && obscureText,
                   decoration: InputDecoration(
@@ -541,7 +704,8 @@ class _LoginState extends State<Login> {
                       borderSide: BorderSide.none,
                     ),
                     labelText: labelText,
-                    labelStyle: TextStyle(color: Color.fromRGBO(191, 191, 191, 1)),
+                    labelStyle: const TextStyle(
+                        color: Color.fromRGBO(191, 191, 191, 1)),
                     border: const OutlineInputBorder(
                       borderRadius: BorderRadius.zero,
                       borderSide: BorderSide.none,
@@ -551,7 +715,6 @@ class _LoginState extends State<Login> {
                             onTap: () {
                               setState(() {
                                 isobscureText = !isobscureText;
-                                print(isobscureText);
                               });
                             },
                             child: Icon(
@@ -572,27 +735,39 @@ class _LoginState extends State<Login> {
         //多账号选择
         showPopButton
             ? PopupMenuButton<CumtLoginAccount>(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(10),
-              bottomRight: Radius.circular(10),
-            ),),
-            elevation: 0,
-            constraints: BoxConstraints(
-              minWidth: MediaQuery.of(context).size.width*0.66-40,
-              maxWidth: MediaQuery.of(context).size.width*0.66-40,
-            ),
-            color: Color.fromRGBO(216, 227, 247, 1),
-            offset: Offset(0, MediaQuery.of(context).size.height * 0.047+4),
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(10),
+                    bottomRight: Radius.circular(10),
+                  ),
+                ),
+                elevation: 0,
+                constraints: BoxConstraints(
+                  minWidth: MediaQuery.of(context).size.width * 0.66 - 40,
+                  maxWidth: MediaQuery.of(context).size.width * 0.66 - 40,
+                ),
+                color: const Color.fromRGBO(216, 227, 247, 1),
+                offset:
+                    Offset(0, MediaQuery.of(context).size.height * 0.047 + 4),
                 icon: const Icon(
                   Icons.arrow_drop_down_sharp,
                   color: Color.fromRGBO(59, 114, 217, 1),
                   size: 30,
                 ),
                 onOpened: () {
+                  setState(() {
+                    border = !border;
+                  });
                   FocusScope.of(context).unfocus();
+                },
+                onCanceled: () {
+                  setState(() {
+                    !border ? border = !border : null;
+                  });
                 },
                 onSelected: (account) {
                   setState(() {
+                    border = !border;
                     cumtLoginAccount = account.clone();
                     _usernameController.text = cumtLoginAccount.username!;
                     _passwordController.text = cumtLoginAccount.password!;
@@ -608,7 +783,7 @@ class _LoginState extends State<Login> {
                           Expanded(
                             child: Text(
                               "${account.username}"
-                                  " ${account.cumtLoginMethod?.name}",
+                              " ${account.cumtLoginMethod?.name}",
                             ),
                           ),
                           IconButton(
@@ -616,60 +791,15 @@ class _LoginState extends State<Login> {
                                 CumtLoginAccount.removeList(account);
                                 showSnackBar(context, "删除成功");
                                 Navigator.of(context).pop();
+                                border = !border;
                               },
-                              icon: const Icon(Icons.close)
-                          )
+                              icon: const Icon(Icons.close))
                         ],
                       ),
                     );
                   }).toList();
-                }
-            )
-            : PopupMenuButton(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(10),
-            bottomRight: Radius.circular(10),
-          ),),
-          elevation: 0,
-          constraints: BoxConstraints(
-            minWidth: MediaQuery.of(context).size.width*0.66-40,
-            maxWidth: MediaQuery.of(context).size.width*0.66-40,
-          ),
-          offset: Offset(0, MediaQuery.of(context).size.height * 0.047+4),
-          icon: const Icon(
-            Icons.arrow_drop_down_sharp,
-            color: Color.fromRGBO(59, 114, 217, 1),
-            size: 30,
-          ),
-          onOpened: () {
-            FocusScope.of(context).unfocus();
-          },
-          itemBuilder: (context) {
-            return <PopupMenuEntry<String>>[
-              PopupMenuItem<String>(
-                value: '语文',
-                child: SizedBox(
-                  child: Text('语文'),),
-              ),
-              PopupMenuItem<String>(
-                value: '数学',
-                child: Text('数学'),
-              ),
-              PopupMenuItem<String>(
-                value: '英语',
-                child: Text('英语'),
-              ),
-              PopupMenuItem<String>(
-                value: '生物',
-                child: Text('生物'),
-              ),
-              PopupMenuItem<String>(
-                value: '化学',
-                child: Text('化学'),
-              ),
-            ];
-          },
-        )
+                })
+            : Container()
       ],
     );
   }

@@ -35,7 +35,7 @@ class HelpPage extends StatelessWidget {
                 size: UIConfig.fontSizeSubTitle * 2,
                 color: Theme.of(context).brightness == Brightness.dark
                     ? Colors.white
-                    : loginColorGreen1,
+                    : const Color.fromRGBO(59, 114, 217, 1),
               ),
               onPressed: () => Navigator.pop(context),
             ),

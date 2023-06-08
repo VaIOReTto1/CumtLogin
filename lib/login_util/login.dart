@@ -21,6 +21,7 @@ class CumtLogin {
       Response res = await dio.get(url);
       Map<String, dynamic> map =
           jsonDecode(res.toString().substring(1, res.toString().length - 1));
+      Prefs.status='0';
       return map["msg"].toString();
     } catch (e) {
       return '网络错误(X_X)';
@@ -37,23 +38,29 @@ class CumtLogin {
           jsonDecode(res.toString().substring(1, res.toString().length - 1));
       if (map['result'] == "1") {
         CumtLoginAccount.addList(account);
+        Prefs.status='1';
         return '登录成功！';
       } else {
         switch (map["ret_code"]) {
           case "2":
             {
               CumtLoginAccount.addList(account);
+              Prefs.status='1';
               return '您已登录校园网';
             }
           case "1":
             {
               if (map['msg'] ==Prefs.respond[0]['value']) {
+                Prefs.status='0';
                 return Prefs.respond[0]['name'];
               } else if (map['msg'] ==Prefs.respond[1]['value']) {
+                Prefs.status='0';
                 return Prefs.respond[1]['name'];
               } else if (map['msg'] ==Prefs.respond[2]['value']) {
+                Prefs.status='0';
                 return Prefs.respond[2]['name'];
               } else {
+                Prefs.status='1';
                 return '未知错误，但是不影响使用';
               }
             }
@@ -61,6 +68,7 @@ class CumtLogin {
         return "hhhhh";
       }
     } catch (e) {
+      Prefs.status='0';
       return "登录失败，确保您已经连接校园网(CUMT_Stu或CUMT_tec)";
     }
   }

@@ -28,10 +28,14 @@ class _SettingPageState extends State<SettingPage> {
               Container(
                 height: MediaQuery.of(context).size.height * 0.119,
                 decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(10.0),
+                    bottomRight: Radius.circular(10.0),
+                  ),
                   color: Theme.of(context).colorScheme.primary,
                   boxShadow: const [
                     BoxShadow(
-                      color: Color.fromRGBO(222, 221, 251, 0.5),
+                      color: Color.fromRGBO(59, 114, 217, 0.1),
                       spreadRadius: 12,
                       blurRadius: 18,
                       offset: Offset.zero, // changes position of shadow
@@ -46,7 +50,7 @@ class _SettingPageState extends State<SettingPage> {
                         Expanded(
                           flex: 1,
                           child: Text(
-                            '        校园网自动登录',
+                            '       设置',
                             style: TextStyle(
                                 fontSize: UIConfig.fontSizeTitle * 1.2),
                             textAlign: TextAlign.center,

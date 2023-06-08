@@ -1,4 +1,9 @@
+import 'dart:convert';
+import 'package:cumt_login/main.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+
+import '../login_util/SchoolDio.dart';
 
 class WelcomePage extends StatefulWidget {
   const WelcomePage({Key? key}) : super(key: key);
@@ -10,12 +15,26 @@ class WelcomePage extends StatefulWidget {
 class _WelcomePageState extends State<WelcomePage> {
 
   bool flag = false;
+  bool _showDialog = true;
   String searchString = "";
-  void searchStringChange(String v) {
+  List<Map<String, String>>schoolelection=[{'school':'','index':''}];
+
+
+  Future<void> searchStringChange(String v) async {
+    Dio dio = Dio();
+    Response res1 = await dio.get("http://47.115.228.176:8083/schoollink");
+    Map<String, dynamic> mapData = jsonDecode(res1.toString());
     setState(() {
       searchString = v;
       if(searchString != "") {
         flag = true;
+        for (int i = 0; i < mapData['school'].length; i++) {
+          final school = mapData['school'][i]['name'];
+          if (school.contains(searchString)) {
+            schoolelection.add({'school':school,'index':i.toString()});
+          }
+          schoolelection.isEmpty?null:print(schoolelection);
+        }
       }else{
         flag = false;
       }
@@ -24,6 +43,39 @@ class _WelcomePageState extends State<WelcomePage> {
     print(searchString);
   }
 
+  //提示联网弹窗
+  void _showMyDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        backgroundColor: Theme.of(context).colorScheme.background,
+        title: const Text("提示"),
+        content: const Text("在选择学校前要保证设备处于联网环境"),
+        actions: <Widget>[
+          ElevatedButton(
+            onPressed: () {
+              setState(() {
+                _showDialog = false;
+              });
+              Navigator.of(context).pop();
+            },
+            child: const Text("关闭"),
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Future.delayed(Duration.zero, () {
+      if (_showDialog) {
+        _showMyDialog();
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +144,7 @@ class _WelcomePageState extends State<WelcomePage> {
             Column(
               children: [
                 Expanded(
-                  flex: 295,
+                  flex: 150,
                   child: Row(
                     children: [
                       Expanded(flex:1,child: Container()),
@@ -101,7 +153,7 @@ class _WelcomePageState extends State<WelcomePage> {
                     ],
                   ),
                 ),
-                Expanded(flex: 100, child: Container())
+                Expanded(flex: 245, child: Container())
               ],
             )
             )
@@ -110,43 +162,39 @@ class _WelcomePageState extends State<WelcomePage> {
       ),
     );
   }
-}
 
-class SearchResult extends StatefulWidget {
-  const SearchResult({Key? key}) : super(key: key);
-
-  @override
-  State<SearchResult> createState() => _SearchResultState();
-}
-
-class _SearchResultState extends State<SearchResult> {
-  @override
-  Widget build(BuildContext context) {
+  Widget SearchResult(){
     return Container(
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(10.0),
-          bottomRight: Radius.circular(10.0),
-          topLeft: Radius.zero,
-          topRight: Radius.zero,
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(10.0),
+            bottomRight: Radius.circular(10.0),
+            topLeft: Radius.zero,
+            topRight: Radius.zero,
+          ),
+          color: Colors.white,
         ),
-        color: Colors.white,
-      ),
-      child: ListView(
-        children: const [
-          ListTile(title: Text("test0",style: TextStyle(color: Colors.black),),),
-          ListTile(title: Text("test1",style: TextStyle(color: Colors.black),),),
-          ListTile(title: Text("test2",style: TextStyle(color: Colors.black),),),
-          ListTile(title: Text("test3"),),
-          ListTile(title: Text("test4"),),
-          ListTile(title: Text("test5"),),
-          ListTile(title: Text("test6"),),
-          ListTile(title: Text("test7"),),
-          ListTile(title: Text("test8"),),
-          ListTile(title: Text("test9"),),
-        ],
-      ),
+        child: ListView.builder(
+          itemCount: schoolelection.length-1,
+          itemBuilder: (BuildContext context, int index) {
+            return ListTile(
+              onTap: () async {
+                int myInt = int.parse(schoolelection[index+1]['index']!);
+                print(int.parse(schoolelection[index+1]['index']!).runtimeType);
+                await SchoolDio.SchoolUrlDio(myInt);
+                toHomePage(context, 0);
+              },
+              title: Text(schoolelection[index+1]['school']!,style: TextStyle(color: Colors.black),),
+              subtitle: const Divider(
+                color: Colors.black12,
+                thickness: 1,
+              ),
+            );
+          },
+        )
     );
   }
 }
+
+
 

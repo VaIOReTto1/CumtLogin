@@ -101,7 +101,14 @@ class _FeedBackPageState extends State<FeedBackPage> {
                               style: TextStyle(color: Colors.grey),
                               decoration: const InputDecoration(
                                 hintText: '请输入问题的标题',
-                                border: OutlineInputBorder(),
+                                enabledBorder: const OutlineInputBorder(
+                                  borderRadius: BorderRadius.zero,
+                                  borderSide: BorderSide.none,
+                                ),
+                                border: const OutlineInputBorder(
+                                  borderRadius: BorderRadius.zero,
+                                  borderSide: BorderSide.none,
+                                ),
                               ),
                             ),
                           ),
@@ -125,7 +132,14 @@ class _FeedBackPageState extends State<FeedBackPage> {
                               minLines: 1,
                               decoration: const InputDecoration(
                                 hintText: '请描述一下你遇到的场景和问题',
-                                border: OutlineInputBorder(),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.zero,
+                                  borderSide: BorderSide.none,
+                                ),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.zero,
+                                  borderSide: BorderSide.none,
+                                ),
                               ),
                             ),
                           ),

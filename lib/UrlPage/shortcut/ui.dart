@@ -1,3 +1,5 @@
+import 'package:cumt_login/login_util/prefs.dart';
+
 import '../../config.dart';
 import '../../icon.dart';
 import '../../utils/utils.dart';
@@ -18,19 +20,6 @@ class Shortcut extends StatefulWidget {
 
 class _ShortcutState extends State<Shortcut> {
   List<Map<String, String>> links = [];
-  // 默认网址
-  List<Map<String, String>> defaultLinks = [
-    {"name" : "中国矿业大学", "url" : "https://www.cumt.edu.cn"},
-    {"name" : "物理实验中心", "url" : "http://10.103.4.10:8020/"},
-    {"name" : "教务选课1", "url" : "https://jwxk1-cumt-edu-cn.webvpn.cumt.edu.cn:8118/jwglxt/xtgl/login_slogin.html"},
-    {"name" : "教务选课2", "url" : "https://jwxk2-cumt-edu-cn.webvpn.cumt.edu.cn:8118/jwglxt/xtgl/login_slogin.html"},
-    {"name" : "中国矿业大学馆藏数字化平台", "url" : "http://121.248.104.172:8080/"},
-    {"name" : "研究生院", "url" : "https://yjsb.cumt.edu.cn"},
-    {"name" : "科学技术研究院", "url" : "https://dsi.cumt.edu.cn"},
-    {"name" : "党委组织部", "url" : "https://zzb.cumt.edu.cn"},
-    {"name" : "财务处", "url" : "https://cwb.cumt.edu.cn"},
-    {"name" : "用户自助服务系统", "url" : "http://202.119.196.6:8080/Self/login/"},
-  ];
 
   @override
   void initState() {
@@ -44,7 +33,7 @@ class _ShortcutState extends State<Shortcut> {
     setState(() {});
     // 没有数据就传入默认网址
     if(links.isEmpty) {
-      links.addAll(defaultLinks);
+      links.addAll(Prefs.url);
       // 保存
       saveLinks(links);
     }
@@ -61,21 +50,28 @@ class _ShortcutState extends State<Shortcut> {
                 padding: EdgeInsets.all(UIConfig.paddingAll),
                 child: Row(
                   children: [
-                    const Icon(MyIcons.rectangle,size: 17,color: Color.fromRGBO(74, 114, 176, 1),),
+                    const Icon(MyIcons.rectangle,size: 30,color: Color.fromRGBO(74, 114, 176, 1),),
                     Text("快捷入口",style: TextStyle(fontSize: UIConfig.fontSizeSubTitle),),
                   ],
                 )
             ),
             Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: Wrap(
-                spacing: 10,
+              padding: const EdgeInsets.fromLTRB(18, 14, 18, 8),
+              child: Column(
                 children: [
-                  // 遍历List创建快捷方式
-                  for(int i = 0; i < links.length; i++)
-                    _buildEntry(context, links, i),
-                  // 添加新的快捷方式
-                  _buildAddButton(context),
+                  Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: Wrap(
+                      spacing: 10,
+                      children: [
+                        // 遍历List创建快捷方式
+                        for(int i = 0; i < links.length; i++)
+                          _buildEntry(context, links, i),
+                        // 添加新的快捷方式
+                        _buildAddButton(context),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             )
@@ -127,7 +123,7 @@ class _ShortcutState extends State<Shortcut> {
           margin: EdgeInsets.symmetric(vertical: UIConfig.marginVertical),
           padding: EdgeInsets.all(UIConfig.paddingAll),
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(UIConfig.borderRadiusEntry),
+              borderRadius: BorderRadius.circular(30),
               color: Theme.of(context).canvasColor,
           ),
           child: Wrap(
@@ -135,7 +131,7 @@ class _ShortcutState extends State<Shortcut> {
             crossAxisAlignment: WrapCrossAlignment.center,
             alignment: WrapAlignment.center,
             children: [
-              if (links != null && links[index] != null&& links[index]["name"] != null) Text(links[index]["name"]!, style: TextStyle(fontSize: UIConfig.fontSizeMid))
+              if (links != null && links[index] != null&& links[index]["name"] != null) Text(links[index]["name"]!, style: TextStyle(fontSize: 15))
             ],
           ),
         ),
@@ -157,15 +153,20 @@ class _ShortcutState extends State<Shortcut> {
 
       },
       child: Container(
+        width: 75,
         margin: EdgeInsets.symmetric(vertical: UIConfig.marginVertical),
         padding: EdgeInsets.all(UIConfig.paddingAll),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(UIConfig.borderRadiusEntry),
-            color: Theme.of(context).canvasColor
+          borderRadius: BorderRadius.circular(30),
+          color: Theme.of(context).canvasColor,
         ),
         child: Wrap(
-
-          children: const [Icon(Icons.add)],
+          spacing: 4,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          alignment: WrapAlignment.center,
+          children: [
+            Icon(Icons.add)
+          ],
         ),
       ),
     );

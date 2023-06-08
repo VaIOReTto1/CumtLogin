@@ -65,6 +65,7 @@ class _ThemeChangeState extends State<ThemeChange> {
 
   @override
   Widget build(BuildContext context) {
+    var brightness = Theme.of(context).brightness==Brightness.dark;
     return SizedBox(
       height: MediaQuery.of(context).size.height*0.045,
       child: Padding(
@@ -80,13 +81,13 @@ class _ThemeChangeState extends State<ThemeChange> {
                 toggleSize: 20,
                 inactiveColor: Colors.grey,
                 activeColor: Color.fromRGBO(74, 114, 176, 1),
-                value: Theme.of(context).brightness==Brightness.dark?true:false,
+                value: brightness,
                 width: 40,
                 height: 20,
                 onToggle: (bool val) {
                   setState(() {
+                    brightness=val;
                     Prefs.theme='false';
-                    print(MediaQuery.of(context).size.height*0.0576);
                     Provider.of<ThemeProvider>(context, listen: false)
                         .setThemeData(val
                             ? AppTheme.darkTheme().themeData
@@ -111,6 +112,14 @@ class _PhomeThemeState extends State<PhomeTheme> {
 
   void initState() {
     super.initState();
+    change_theme();
+  }
+
+  void change_theme(){
+    Provider.of<ThemeProvider>(context, listen: false)
+        .setThemeData( Prefs.theme=='true'
+        ? AppTheme.darkTheme().themeData
+        : AppTheme.LightTheme().themeData);
   }
 
   @override
@@ -136,9 +145,7 @@ class _PhomeThemeState extends State<PhomeTheme> {
                 height: 20,
                 onToggle: (bool val) {
                   setState(() {
-                    print(brightness);
                     Prefs.theme=val.toString();
-                    print(Prefs.theme);
                   });
                 },
               ),

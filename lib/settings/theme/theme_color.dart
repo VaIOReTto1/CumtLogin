@@ -25,6 +25,11 @@ class AppTheme {
             //更改按钮弹窗颜色
             color: Colors.grey[700]),
 
+        elevatedButtonTheme: const ElevatedButtonThemeData(
+            style: ButtonStyle(
+              foregroundColor: MaterialStatePropertyAll(Colors.white),
+            )),
+
         scaffoldBackgroundColor: ThemeData.dark().cardColor,
         //更改页面顶端颜色
         canvasColor: Colors.black12,
@@ -67,6 +72,11 @@ class AppTheme {
           //更改按钮弹窗颜色
           color: Color.fromRGBO(216, 227, 247, 1),
         ),
+
+        elevatedButtonTheme: const ElevatedButtonThemeData(
+            style: ButtonStyle(
+              foregroundColor: MaterialStatePropertyAll(Colors.black),
+            )),
 
         colorScheme: ColorScheme(
           primary:Colors.white,
