@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:cumt_login/config.dart';
 import 'package:cumt_login/main.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -79,6 +80,8 @@ class _WelcomePageState extends State<WelcomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
+    final double screenHeight = MediaQuery.of(context).size.height;
     return Material(
       child: ColoredBox(
         color:const Color.fromRGBO(56, 111, 211, 1),
@@ -91,7 +94,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 Expanded(flex:80,child:
                 Row(children:[
                   Expanded(flex: 40,child: Container()),
-                  const Expanded(flex:200,child: Text('Welcome\nBack',style: TextStyle(color: Colors.white,fontSize: 40,fontWeight: FontWeight.w400),)),
+                  Expanded(flex:200,child: Text('Welcome\nBack',style: TextStyle(color: Colors.white,fontSize: UIConfig.welcomeTitle ,fontWeight: FontWeight.w400),)),
                   Expanded(flex: 180,child: Container()),
                 ]
                 )
@@ -100,7 +103,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 Expanded(flex:20,child:
                 Row(children:[
                   Expanded(flex: 36,child: Container()),
-                  const Expanded(flex: 41,child: Text('学校',style:TextStyle(color: Colors.white,fontSize: 16,fontWeight:FontWeight.w600 ))),
+                  Expanded(flex: 41,child: Text('学校',style:TextStyle(color: Colors.white,fontSize: UIConfig.welcomeSubtitle,fontWeight:FontWeight.w600 ))),
                   Expanded(flex: 283,child: Container()),])
                 ),
                 Expanded(flex:25,child: Container()),

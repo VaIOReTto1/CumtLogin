@@ -16,6 +16,8 @@ class UIConfig {
   static final double fontSizeMin = ScreenUtil().setSp(40); // 校区&运营商
   static final double fontAlertText = ScreenUtil().setSp(40); // Drawer中提示字体大小
   static final double fontAlertIcon = ScreenUtil().setSp(40); // Drawer中提示Icon大小
+  static final double welcomeSubtitle = ScreenUtil().setSp(70.0); // 欢迎页副标题
+  static final double welcomeTitle = ScreenUtil().setSp(150.0); // 欢迎页标题
 
   // 布局
   static final double marginVertical = ScreenUtil().setHeight(12); // 上下外边距
@@ -29,4 +31,5 @@ class UIConfig {
   static const double borderRadiusButton = 18; // 按钮圆角
   static const double borderRadiusEntry = 10; // 快捷入口圆角
   static const double borderRadiusBox = 20; // 大块功能区圆角
+
 }
