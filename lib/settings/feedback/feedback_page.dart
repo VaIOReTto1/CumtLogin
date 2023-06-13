@@ -38,9 +38,11 @@ class _FeedBackPageState extends State<FeedBackPage> {
               height: MediaQuery.of(context).size.height * 0.119,
               decoration: BoxDecoration(
                 color: Theme.of(context).colorScheme.primary,
-                boxShadow: const [
+                boxShadow: [
                   BoxShadow(
-                    color: Color.fromRGBO(222, 221, 251, 0.5),
+                    color:Theme.of(context).brightness != Brightness.dark
+                        ? const Color.fromRGBO(59, 114, 217, 0.2)
+                        : Colors.black38,
                     spreadRadius: 12,
                     blurRadius: 18,
                     offset: Offset.zero, // changes position of shadow
@@ -202,8 +204,23 @@ class _FeedBackPageState extends State<FeedBackPage> {
                 ),
                 child: InkWell(
                   onTap: () {
-                    showToast('提交成功');
-                    Navigator.pop(context);
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        title: const Text("提示"),
+                        content: const Text("你可以加入内测交流群：738340698\n与我们进行交流和获得解决方法"),
+                        actions: <Widget>[
+                          ElevatedButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                              showToast('提交成功');
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text("关闭"),
+                          ),
+                        ],
+                      ),
+                    );
                   },
                   child: Center(
                     child: Text(

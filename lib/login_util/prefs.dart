@@ -7,7 +7,7 @@ class Prefs {
     prefs = await SharedPreferences.getInstance();
     _initRespond();
   }
-  
+
   static SharedPreferences? prefs;
   static const String _cumtLoginUsername = "cumtLoginUsername";
   static const String _cumtLoginPassword = "cumtLoginPassword";
@@ -19,7 +19,7 @@ class Prefs {
   static const String _status = "status";
 
   static const String _respondKey = "respond";
-  static const String _theme = "theme";
+  static const String _isDark = "theme";
   static List<Map<String, dynamic>> _respond = [];
   static const String _urlKey = "url";
 
@@ -51,8 +51,8 @@ class Prefs {
   static String get school => _get(_school);
   static String get loginurl => _get(_loginurl);
   static String get logouturl => _get(_logouturl);
-  static String get theme => _get(_theme);
-  static String get status => _get(_theme);
+  static String get isDark => _get(_isDark);
+  static String get status => _get(_isDark);
 
   static List<Map<String, dynamic>> get respond {
     return _respond;
@@ -69,7 +69,7 @@ class Prefs {
   static set school(String value) => _set(_school, value);
   static set loginurl(String value) => _set(_loginurl, value);
   static set logouturl(String value) => _set(_logouturl, value);
-  static set theme(String value) => _set(_theme, value);
+  static set isDark(String value) => _set(_isDark, value);
   static set status(String value) => _set(_status, value);
 
   static set respond(List<Map<String, dynamic>> value) {

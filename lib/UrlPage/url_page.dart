@@ -35,9 +35,11 @@ class _UrlPageState extends State<UrlPage> {
                   bottomRight: Radius.circular(10.0),
                 ),
                 color: Theme.of(context).colorScheme.primary,
-                boxShadow: const [
+                boxShadow: [
                   BoxShadow(
-                    color: Color.fromRGBO(59, 114, 217, 0.1),
+                    color: Theme.of(context).brightness != Brightness.dark
+                        ? const Color.fromRGBO(59, 114, 217, 0.2)
+                        : Colors.black38,
                     spreadRadius: 12,
                     blurRadius: 18,
                     offset: Offset.zero, // changes position of shadow

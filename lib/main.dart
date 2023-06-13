@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ThemeData getTheme() {
-      if (Prefs.theme == 'true')
+      if (Prefs.isDark == 'true')
         return MediaQuery.of(context).platformBrightness == Brightness.dark
             ? AppTheme.darkTheme().themeData
             : AppTheme.LightTheme().themeData;
@@ -75,7 +75,7 @@ class MyApp extends StatelessWidget {
         );
       },
       //判断是否选择学校
-      child: Prefs.school == '' ? const WelcomePage() : WelcomePage(),
+      child: Prefs.school == '' ? const WelcomePage() : HomePage(),
     );
   }
 }
@@ -157,9 +157,11 @@ class _LoginPageState extends State<LoginPage>
                         bottomRight: Radius.circular(10.0),
                       ),
                       color: Theme.of(context).colorScheme.primary,
-                      boxShadow: const [
+                      boxShadow: [
                         BoxShadow(
-                          color: Color.fromRGBO(59, 114, 217, 0.1),
+                          color: Theme.of(context).brightness != Brightness.dark
+                              ? const Color.fromRGBO(59, 114, 217, 0.2)
+                              : Colors.black38,
                           spreadRadius: 12,
                           blurRadius: 18,
                           offset: Offset.zero, // changes position of shadow
@@ -372,9 +374,11 @@ class _HomePage extends State<HomePage> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(50),
               color: Theme.of(context).colorScheme.primary,
-              boxShadow: const [
+              boxShadow: [
                 BoxShadow(
-                  color: Color.fromRGBO(59, 114, 217, 0.2),
+                  color: Theme.of(context).brightness != Brightness.dark
+                      ? const Color.fromRGBO(59, 114, 217, 0.2)
+                      : Colors.black38,
                   spreadRadius: 4,
                   blurRadius: 8,
                   offset: Offset(0,10.0), // changes position of shadow

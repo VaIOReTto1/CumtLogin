@@ -14,12 +14,10 @@ class WelcomePage extends StatefulWidget {
 }
 
 class _WelcomePageState extends State<WelcomePage> {
-
   bool flag = false;
   bool _showDialog = true;
   String searchString = "";
   List<Map<String, String>>schoolelection=[{'school':'','index':''}];
-
 
   Future<void> searchStringChange(String v) async {
     Dio dio = Dio();
@@ -28,20 +26,21 @@ class _WelcomePageState extends State<WelcomePage> {
     setState(() {
       searchString = v;
       if(searchString != "") {
+        //重置搜索结果
+        schoolelection.clear();
+        schoolelection=[{'school':'','index':''}];
         flag = true;
+        //输入搜索结果
         for (int i = 0; i < mapData['school'].length; i++) {
           final school = mapData['school'][i]['name'];
-          if (school.contains(searchString)) {
+          if (school.contains(searchString) && !schoolelection.any((element) => element['school']?.contains(school) ?? false)) {
             schoolelection.add({'school':school,'index':i.toString()});
           }
-          schoolelection.isEmpty?null:print(schoolelection);
         }
       }else{
         flag = false;
       }
     });
-    // others
-    print(searchString);
   }
 
   //提示联网弹窗
@@ -128,7 +127,10 @@ class _WelcomePageState extends State<WelcomePage> {
                       ),
                       child: TextField(
                         style: TextStyle(color: Colors.black),
-                        onChanged: searchStringChange,
+                        onChanged: (value) {
+                          // 每输入一个字就会调用该函数
+                         searchStringChange(value);
+                        },
                         decoration: const InputDecoration(
                           contentPadding: EdgeInsets.symmetric(horizontal: 10.0,vertical: 7.0),
                           hintText: "请输入学校",
@@ -166,6 +168,7 @@ class _WelcomePageState extends State<WelcomePage> {
     );
   }
 
+  //展示搜索界面
   Widget SearchResult(){
     return Container(
         decoration: const BoxDecoration(
@@ -178,17 +181,22 @@ class _WelcomePageState extends State<WelcomePage> {
           color: Colors.white,
         ),
         child: ListView.builder(
-          itemCount: schoolelection.length-1,
+          itemCount: schoolelection.length==1?1:schoolelection.length-1,
           itemBuilder: (BuildContext context, int index) {
-            return ListTile(
+            return schoolelection.length!=1?ListTile(
               onTap: () async {
                 int myInt = int.parse(schoolelection[index+1]['index']!);
-                print(int.parse(schoolelection[index+1]['index']!).runtimeType);
                 await SchoolDio.SchoolUrlDio(myInt);
                 toHomePage(context, 0);
               },
               title: Text(schoolelection[index+1]['school']!,style: TextStyle(color: Colors.black),),
               subtitle: const Divider(
+                color: Colors.black12,
+                thickness: 1,
+              ),
+            ):const ListTile(
+              title: Text('没有搜索到该学校，请检查输入学校是否正确\n如果无你所在学校，请添加QQ群：738340698\n与我们进行合作',style: TextStyle(color: Colors.black),),
+              subtitle: Divider(
                 color: Colors.black12,
                 thickness: 1,
               ),

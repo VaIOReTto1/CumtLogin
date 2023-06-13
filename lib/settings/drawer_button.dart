@@ -4,10 +4,12 @@ import 'package:cumt_login/settings/update/app_upgrade2.dart';
 import 'package:cumt_login/settings/update/update_Alert_Icon.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_share/flutter_share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../config.dart';
 import '../login_util/prefs.dart';
@@ -24,6 +26,7 @@ class AboutButton extends StatefulWidget {
 }
 
 class _AboutButtonState extends State<AboutButton> {
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -87,7 +90,7 @@ class _ThemeChangeState extends State<ThemeChange> {
                 onToggle: (bool val) {
                   setState(() {
                     brightness=val;
-                    Prefs.theme='false';
+                    Prefs.isDark='false';
                     Provider.of<ThemeProvider>(context, listen: false)
                         .setThemeData(val
                             ? AppTheme.darkTheme().themeData
@@ -109,22 +112,20 @@ class PhomeTheme extends StatefulWidget {
 }
 
 class _PhomeThemeState extends State<PhomeTheme> {
-
-  void initState() {
-    super.initState();
-    change_theme();
+  void handleBrightnessChange(Brightness brightness) {
+    if (Prefs.isDark=='true') {
+      setState(() {
+        Provider.of<ThemeProvider>(context, listen: false)
+            .setThemeData(brightness==Brightness.dark
+            ? AppTheme.darkTheme().themeData
+            : AppTheme.LightTheme().themeData);
+      });
+    }
   }
-
-  void change_theme(){
-    Provider.of<ThemeProvider>(context, listen: false)
-        .setThemeData( Prefs.theme=='true'
-        ? AppTheme.darkTheme().themeData
-        : AppTheme.LightTheme().themeData);
-  }
-
   @override
   Widget build(BuildContext context) {
     final brightness = MediaQuery.of(context).platformBrightness;
+    WidgetsBinding.instance!.addPostFrameCallback((_) => handleBrightnessChange(brightness));
     return SizedBox(
       height: MediaQuery.of(context).size.height*0.045,
       child: Padding(
@@ -140,13 +141,21 @@ class _PhomeThemeState extends State<PhomeTheme> {
                 toggleSize: 20,
                 inactiveColor: Colors.grey,
                 activeColor: Color.fromRGBO(74, 114, 176, 1),
-                value: Prefs.theme=='true'?true:false,
+                value: Prefs.isDark=='true'?true:false,
                 width: 40,
                 height: 20,
                 onToggle: (bool val) {
                   setState(() {
-                    Prefs.theme=val.toString();
+                    Prefs.isDark=val.toString();
                   });
+                  if (val) {
+                    setState(() {
+                      Provider.of<ThemeProvider>(context, listen: false)
+                          .setThemeData(brightness==Brightness.dark
+                          ? AppTheme.darkTheme().themeData
+                          : AppTheme.LightTheme().themeData);
+                    });
+                  }
                 },
               ),
             ],
@@ -207,14 +216,6 @@ class FeedBackButton extends StatefulWidget {
   @override
   State<FeedBackButton> createState() => _FeedBackButtonState();
 }
-//
-// AlertDialog(
-// shape: RoundedRectangleBorder(
-// borderRadius:
-// BorderRadius.circular(UIConfig.borderRadiusBox)),
-// backgroundColor: Theme.of(context).colorScheme.background,
-// title: Text('意见反馈'),
-// content: FeedbackForm(),
 
 class _FeedBackButtonState extends State<FeedBackButton> {
   @override
@@ -306,6 +307,41 @@ class _ShareAppState extends State<ShareApp> {
                 children: [
                   Expanded(
                     child: Text("分享App",
+                        style: TextStyle(fontSize: UIConfig.fontSizeMain)),
+                  ),
+                  Icon(
+                    Icons.keyboard_arrow_right_rounded,
+                    size: UIConfig.fontSizeMin * 2,
+                  ),
+                ],
+              )),
+        ));
+  }
+}
+
+class QQButtom extends StatefulWidget {
+  const QQButtom({Key? key}) : super(key: key);
+
+  @override
+  State<QQButtom> createState() => _QQButtomState();
+}
+
+class _QQButtomState extends State<QQButtom> {
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+        onTap: () {
+          launchUrl(Uri.parse('https://jq.qq.com/?_wv=1027&k=RPprjgMn'),
+              mode: LaunchMode.externalApplication);
+        },
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height*0.045,
+          child: Padding(
+              padding: EdgeInsets.all(UIConfig.paddingAll * 1.2),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text("加入内测交流群",
                         style: TextStyle(fontSize: UIConfig.fontSizeMain)),
                   ),
                   Icon(
