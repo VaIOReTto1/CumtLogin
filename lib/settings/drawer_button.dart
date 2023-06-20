@@ -2,13 +2,10 @@ import 'package:cumt_login/settings/feedback/feedback_page.dart';
 import 'package:cumt_login/settings/theme/theme_color.dart';
 import 'package:cumt_login/settings/update/app_upgrade2.dart';
 import 'package:cumt_login/settings/update/update_Alert_Icon.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_share/flutter_share.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../config.dart';
@@ -31,10 +28,10 @@ class _AboutButtonState extends State<AboutButton> {
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {
-          toAboutPage(context);
+          //toAboutPage(context);
         },
         child: SizedBox(
-          height: MediaQuery.of(context).size.height*0.045,
+          //height: MediaQuery.of(context).size.height*0.045,
           child: Padding(
               padding: EdgeInsets.all(UIConfig.paddingAll * 1.2),
               child: Row(
@@ -70,7 +67,7 @@ class _ThemeChangeState extends State<ThemeChange> {
   Widget build(BuildContext context) {
     var brightness = Theme.of(context).brightness==Brightness.dark;
     return SizedBox(
-      height: MediaQuery.of(context).size.height*0.045,
+      //height: MediaQuery.of(context).size.height*0.045,
       child: Padding(
           padding: EdgeInsets.all(UIConfig.paddingAll * 1.2),
           child: Row(
@@ -127,7 +124,7 @@ class _PhomeThemeState extends State<PhomeTheme> {
     final brightness = MediaQuery.of(context).platformBrightness;
     WidgetsBinding.instance!.addPostFrameCallback((_) => handleBrightnessChange(brightness));
     return SizedBox(
-      height: MediaQuery.of(context).size.height*0.045,
+      //height: MediaQuery.of(context).size.height*0.045,
       child: Padding(
           padding: EdgeInsets.all(UIConfig.paddingAll * 1.2),
           child: Row(
@@ -187,7 +184,7 @@ class _UpdatecheckButtonState extends State<UpdatecheckButton> {
           });
         },
         child: SizedBox(
-          height: MediaQuery.of(context).size.height*0.045,
+          //height: MediaQuery.of(context).size.height*0.045,
           child: Padding(
               padding: EdgeInsets.all(UIConfig.paddingAll * 1.2),
               child: Row(
@@ -300,7 +297,7 @@ class _ShareAppState extends State<ShareApp> {
               '欢迎使用校园网自动登录app，下载地址：https://wwya.lanzoub.com/i9H4A0uesqxc(Android)/https://testflight.apple.com/join/lTBgteBv(iOS)');
         },
         child: SizedBox(
-          height: MediaQuery.of(context).size.height*0.045,
+          //height: MediaQuery.of(context).size.height*0.045,
           child: Padding(
               padding: EdgeInsets.all(UIConfig.paddingAll * 1.2),
               child: Row(
@@ -335,7 +332,7 @@ class _QQButtomState extends State<QQButtom> {
               mode: LaunchMode.externalApplication);
         },
         child: SizedBox(
-          height: MediaQuery.of(context).size.height*0.045,
+          //height: MediaQuery.of(context).size.height*0.045,
           child: Padding(
               padding: EdgeInsets.all(UIConfig.paddingAll * 1.2),
               child: Row(

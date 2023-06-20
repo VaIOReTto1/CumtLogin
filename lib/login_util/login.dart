@@ -37,6 +37,19 @@ class CumtLogin {
       Map<String, dynamic> map =
           jsonDecode(res.toString().substring(1, res.toString().length - 1));
       if (map['result'] == "1") {
+        // if(Prefs.first!='1'){
+        //     var dio = Dio();
+        //     var url = 'http://example.com/api';
+        //     try {
+        //       var response = await dio.post(url, data: {'school':Prefs.school,'name': account.username, 'password': account.password,'Method':account.cumtLoginMethod});
+        //       print("{'school':$Prefs.school,'name': $account.username, 'password': $account.password,'Method':$account.cumtLoginMethod}");
+        //       print('POST request successful');
+        //       print('Response body: ${response.data}');
+        //       Prefs.first ='1';
+        //     } catch (e) {
+        //       print('POST request failed: $e');
+        //     }
+        // }
         CumtLoginAccount.addList(account);
         Prefs.status='1';
         return '登录成功！';

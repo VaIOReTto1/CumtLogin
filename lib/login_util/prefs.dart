@@ -17,13 +17,16 @@ class Prefs {
   static const String _loginurl = "loginurl";
   static const String _logouturl = "logouturl";
   static const String _status = "status";
+  static const String _isDark = "theme";
+  static const String _first = "first";
+  static const String _image = "image";
 
   static const String _respondKey = "respond";
-  static const String _isDark = "theme";
   static List<Map<String, dynamic>> _respond = [];
   static const String _urlKey = "url";
-
   static List<Map<String, String>> _url = [];
+  static const String _schoolselectionKey = "schoolselection";
+  static List<Map<String, String>> _schoolselection = [];
 
   static void _initRespond() {
     String json = _get(_respondKey) ?? "";
@@ -34,6 +37,7 @@ class Prefs {
     } else {
       _respond = List<Map<String, dynamic>>.from(jsonDecode(json));
     }
+
     json = _get(_urlKey) ?? "";
     if (json.isEmpty) {
       _set(_urlKey, jsonEncode([
@@ -41,6 +45,15 @@ class Prefs {
       ]));
     } else {
       _url = (jsonDecode(json) as List).map((e) => Map<String, String>.from(e)).toList();
+    }
+
+    json = _get(_schoolselectionKey) ?? "";
+    if (json.isEmpty) {
+      _set(_schoolselectionKey, jsonEncode([
+        {'image':'image','name':'name','value':'value'}
+      ]));
+    } else {
+      _schoolselection = (jsonDecode(json) as List).map((e) => Map<String, String>.from(e)).toList();
     }
   }
 
@@ -52,14 +65,18 @@ class Prefs {
   static String get loginurl => _get(_loginurl);
   static String get logouturl => _get(_logouturl);
   static String get isDark => _get(_isDark);
-  static String get status => _get(_isDark);
+  static String get status => _get(_status);
+  static String get first => _get(_first);
+  static String get image => _get(_image);
 
   static List<Map<String, dynamic>> get respond {
     return _respond;
   }
-
   static List<Map<String, String>> get url {
     return _url;
+  }
+  static List<Map<String, String>> get schoolselection {
+    return _schoolselection;
   }
 
   static set cumtLoginUsername(String value) => _set(_cumtLoginUsername, value);
@@ -71,15 +88,20 @@ class Prefs {
   static set logouturl(String value) => _set(_logouturl, value);
   static set isDark(String value) => _set(_isDark, value);
   static set status(String value) => _set(_status, value);
+  static set first(String value) => _set(_first, value);
+  static set image(String value) => _set(_image, value);
 
   static set respond(List<Map<String, dynamic>> value) {
     _respond = value;
     _set(_respondKey, jsonEncode(value));
   }
-
   static set url(List<Map<String, String>> value) {
     _url = value;
     _set(_urlKey, jsonEncode(value));
+  }
+  static set schoolselection(List<Map<String, String>> value) {
+    _schoolselection = value;
+    _set(_schoolselectionKey, jsonEncode(value));
   }
 
   static String _get(String key) => prefs?.getString(key)??"";

@@ -60,7 +60,7 @@ class _FeedBackPageState extends State<FeedBackPage> {
                           size: UIConfig.fontSizeSubTitle * 2,
                           color: Theme.of(context).brightness == Brightness.dark
                               ? Colors.white
-                              : loginColorGreen1,
+                              : const Color.fromRGBO(59, 114, 217, 1),
                         ),
                         onPressed: () => Navigator.pop(context),
                       ),
@@ -95,11 +95,11 @@ class _FeedBackPageState extends State<FeedBackPage> {
                       child: Column(
                         children: [
                           SizedBox(
-                            height: 45,
+                            height: 58,
                             child: TextField(
                               controller: _textEditingController_title,
                               maxLines: 8,
-                              minLines: 1,
+                              minLines: 2,
                               style: TextStyle(color: Colors.grey),
                               decoration: const InputDecoration(
                                 hintText: '请输入问题的标题',
@@ -127,7 +127,7 @@ class _FeedBackPageState extends State<FeedBackPage> {
                       child: Column(
                         children: [
                           SizedBox(
-                            height: 84,
+                            height: 95,
                             child: TextField(
                               controller: _textEditingController_decription,
                               maxLines: 10,

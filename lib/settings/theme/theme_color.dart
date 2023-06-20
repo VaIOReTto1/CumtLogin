@@ -27,8 +27,16 @@ class AppTheme {
 
         elevatedButtonTheme: const ElevatedButtonThemeData(
             style: ButtonStyle(
-              foregroundColor: MaterialStatePropertyAll(Colors.white),
+              backgroundColor: MaterialStatePropertyAll(Color.fromRGBO(235, 240, 251, 1)),
+              foregroundColor: MaterialStatePropertyAll(Colors.black),
             )),
+
+        outlinedButtonTheme: const OutlinedButtonThemeData(
+            style: ButtonStyle(
+              backgroundColor: MaterialStatePropertyAll(Color.fromRGBO(216, 227, 247, 1)),
+              foregroundColor: MaterialStatePropertyAll(Colors.black),
+            )
+        ),
 
         scaffoldBackgroundColor: ThemeData.dark().cardColor,
         //更改页面顶端颜色
@@ -75,8 +83,16 @@ class AppTheme {
 
         elevatedButtonTheme: const ElevatedButtonThemeData(
             style: ButtonStyle(
+              backgroundColor: MaterialStatePropertyAll(Color.fromRGBO(235, 240, 251, 1)),
               foregroundColor: MaterialStatePropertyAll(Colors.black),
             )),
+
+        outlinedButtonTheme: const OutlinedButtonThemeData(
+            style: ButtonStyle(
+              backgroundColor: MaterialStatePropertyAll(Color.fromRGBO(216, 227, 247, 1)),
+              foregroundColor: MaterialStatePropertyAll(Colors.black),
+            )
+        ),
 
         colorScheme: ColorScheme(
           primary:Colors.white,

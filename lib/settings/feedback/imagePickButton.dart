@@ -92,7 +92,7 @@ class _MyWidgetState extends State<MyWidget> {
                   child: Icon(
                     Icons.close,
                     color: Colors.black.withOpacity(0.5),
-                    size: 10,
+                    size: 22,
                   ),
                 ),
               ),

@@ -6,6 +6,13 @@ import 'package:flutter/material.dart';
 
 import '../login_util/SchoolDio.dart';
 
+toWelcomePage(BuildContext context) {
+  Navigator.of(context).pushReplacement(MaterialPageRoute(
+    builder: (context) => const WelcomePage(),
+    fullscreenDialog: true, // 路由为全屏模式
+  ));
+}
+
 class WelcomePage extends StatefulWidget {
   const WelcomePage({Key? key}) : super(key: key);
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../config.dart';
+import '../../icon.dart';
 import '../aboutUs/cpns/single_info_card.dart';
 
 toHelpPage(BuildContext context) {
@@ -59,30 +60,54 @@ class HelpPage extends StatelessWidget {
                   child: ListView(
                     scrollDirection: Axis.vertical,
                     children: [
-                      Text("校园选择",style: TextStyle(fontSize: UIConfig.fontSizeSubMain*1.6,
-                        fontWeight: FontWeight.bold,),),
-                      Text("      在初次登录页面搜索学校名称即可",style: TextStyle(fontSize: UIConfig.fontSizeSubMain*1.4,)),
+                      Row(
+                        children: [
+                          const Icon(MyIcons.rectangle,size: 17,color: Color.fromRGBO(74, 114, 176, 1),),
+                          Text("校园选择",style: TextStyle(fontSize: UIConfig.fontSizeSubMain*1.6,
+                            fontWeight: FontWeight.bold,),),
+                        ],
+                      ),
+                      Text("      在初次登录页面搜索学校名称或者点击账号左边的校徽即可",style: TextStyle(fontSize: UIConfig.fontSizeSubMain*1.4,)),
                       const SizedBox(height: 15,),
 
-
-                      Text("登录失败",style: TextStyle(fontSize: UIConfig.fontSizeSubMain*1.6,
-                        fontWeight: FontWeight.bold,),),
+                      Row(
+                        children: [
+                          const Icon(MyIcons.rectangle,size: 17,color: Color.fromRGBO(74, 114, 176, 1),),
+                          Text("登录失败",style: TextStyle(fontSize: UIConfig.fontSizeSubMain*1.6,
+                            fontWeight: FontWeight.bold,),),
+                        ],
+                      ),
                       Text("Android：\n      [WLAN] -> [WLAN助理] -> 关闭[网络选择] [双WLAN加速] [数据加速]（根据手机型号不同设置不同）\n      如果不能解决请尝试关掉数据只开WiFi",style: TextStyle(fontSize: UIConfig.fontSizeSubMain*1.4,)),
                       Text("IOS：\n      关闭 [询问是否加入网络]",style: TextStyle(fontSize: UIConfig.fontSizeSubMain*1.4,)),
                       const SizedBox(height: 15,),
 
-                      Text("工具使用",style: TextStyle(fontSize: UIConfig.fontSizeSubMain*1.6,
-                        fontWeight: FontWeight.bold,),),
+                      Row(
+                        children: [
+                          const Icon(MyIcons.rectangle,size: 17,color: Color.fromRGBO(74, 114, 176, 1),),
+                          Text("工具使用",style: TextStyle(fontSize: UIConfig.fontSizeSubMain*1.6,
+                            fontWeight: FontWeight.bold,),),
+                        ],
+                      ),
                       Text("      对卡片左滑可以编辑，右滑会删除卡片，增加入口时url必须为带https的完整链接",style: TextStyle(fontSize: UIConfig.fontSizeSubMain*1.4,)),
                       const SizedBox(height: 15,),
 
-                      Text("网速过慢",style: TextStyle(fontSize: UIConfig.fontSizeSubMain*1.6,
-                        fontWeight: FontWeight.bold,),),
+                      Row(
+                        children: [
+                          const Icon(MyIcons.rectangle,size: 17,color: Color.fromRGBO(74, 114, 176, 1),),
+                          Text("网速过慢",style: TextStyle(fontSize: UIConfig.fontSizeSubMain*1.6,
+                            fontWeight: FontWeight.bold,),),
+                        ],
+                      ),
                       Text("      请查看是否选择运营商",style: TextStyle(fontSize: UIConfig.fontSizeSubMain*1.4,)),
                       const SizedBox(height: 15,),
 
-                      Text("设备超限",style: TextStyle(fontSize: UIConfig.fontSizeSubMain*1.6,
-                        fontWeight: FontWeight.bold,),),
+                      Row(
+                        children: [
+                          const Icon(MyIcons.rectangle,size: 17,color: Color.fromRGBO(74, 114, 176, 1),),
+                          Text("设备超限",style: TextStyle(fontSize: UIConfig.fontSizeSubMain*1.6,
+                            fontWeight: FontWeight.bold,),),
+                        ],
+                      ),
                       Text("      请从快捷入口点击用户自助服务系统撤销所有登录设备",style: TextStyle(fontSize: UIConfig.fontSizeSubMain*1.4,)),
                       const SizedBox(height: 15,),
 
