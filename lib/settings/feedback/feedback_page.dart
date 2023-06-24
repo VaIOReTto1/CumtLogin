@@ -2,7 +2,6 @@ import 'package:cumt_login/settings/update/toast.dart';
 
 import '../../config.dart';
 import 'package:flutter/material.dart';
-import '../aboutUs/cpns/single_info_card.dart';
 import '../drawer_button.dart';
 import 'imagePickButton.dart';
 
@@ -87,27 +86,25 @@ class _FeedBackPageState extends State<FeedBackPage> {
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 24.0, 0, 0),
+                    padding: const EdgeInsets.fromLTRB(0, 24, 0, 0),
                     child: Container(
-                      padding: EdgeInsets.all(UIConfig.paddingAll),
+                      padding: EdgeInsets.fromLTRB(UIConfig.paddingAll, UIConfig.paddingAll, UIConfig.paddingAll, 0),
                       decoration: BoxDecoration(
                           color: Theme.of(context).colorScheme.primary),
                       child: Column(
                         children: [
                           SizedBox(
-                            height: 58,
+                            height: 45,
                             child: TextField(
                               controller: _textEditingController_title,
-                              maxLines: 8,
-                              minLines: 2,
-                              style: TextStyle(color: Colors.grey),
+                              style: const TextStyle(color: Colors.grey),
                               decoration: const InputDecoration(
                                 hintText: '请输入问题的标题',
-                                enabledBorder: const OutlineInputBorder(
+                                enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.zero,
                                   borderSide: BorderSide.none,
                                 ),
-                                border: const OutlineInputBorder(
+                                border: OutlineInputBorder(
                                   borderRadius: BorderRadius.zero,
                                   borderSide: BorderSide.none,
                                 ),
@@ -127,7 +124,7 @@ class _FeedBackPageState extends State<FeedBackPage> {
                       child: Column(
                         children: [
                           SizedBox(
-                            height: 95,
+                            height: 87,
                             child: TextField(
                               controller: _textEditingController_decription,
                               maxLines: 10,
@@ -155,14 +152,14 @@ class _FeedBackPageState extends State<FeedBackPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          child: Text(
+                          child: const Text(
                             '    图片(提供问题截图，能帮助我们更快定位并解决问题~)',
                             textAlign: TextAlign.left,
                             style: TextStyle(color: Colors.grey),
                           ),
                         ),
                         Container(
-                          padding: EdgeInsets.symmetric(horizontal: 0),
+                          padding: const EdgeInsets.symmetric(horizontal: 0),
                           width: double.infinity,
                           decoration: BoxDecoration(
                               color: Theme.of(context).colorScheme.primary),
@@ -200,7 +197,7 @@ class _FeedBackPageState extends State<FeedBackPage> {
                 decoration: BoxDecoration(
                   borderRadius:
                       BorderRadius.circular(UIConfig.borderRadiusEntry),
-                  color: Color.fromRGBO(59, 114, 217, 0.9),
+                  color: const Color.fromRGBO(59, 114, 217, 0.9),
                 ),
                 child: InkWell(
                   onTap: () {
@@ -222,7 +219,7 @@ class _FeedBackPageState extends State<FeedBackPage> {
                       ),
                     );
                   },
-                  child: Center(
+                  child: const Center(
                     child: Text(
                       '提交',
                       style: TextStyle(

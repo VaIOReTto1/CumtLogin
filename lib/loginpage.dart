@@ -4,7 +4,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cumt_login/config.dart';
 import 'package:cumt_login/settings/drawer_button.dart';
 import 'package:cumt_login/utils/utils.dart';
-import 'package:cumt_login/welcome.dart';
 import 'package:dio/dio.dart';
 
 import 'package:flutter/material.dart';
@@ -537,6 +536,7 @@ class _LoginState extends State<Login> {
                                 IconButton(
                                     onPressed: () {
                                       Prefs.schoolselection.remove(schoolselection);
+                                      saveschoolselection(Prefs.schoolselection);
                                       showSnackBar(context, "删除成功");
                                       Navigator.of(context).pop();
                                       border = !border;

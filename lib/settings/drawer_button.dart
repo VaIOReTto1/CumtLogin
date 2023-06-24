@@ -222,7 +222,7 @@ class _FeedBackButtonState extends State<FeedBackButton> {
             toFeedBackPage(context);
         },
         child: SizedBox(
-          height: MediaQuery.of(context).size.height*0.045,
+          //height: MediaQuery.of(context).size.height*0.045,
           child: Padding(
               padding: EdgeInsets.all(UIConfig.paddingAll * 1.2),
               child: Row(
@@ -257,7 +257,7 @@ class _HelpButtonState extends State<HelpButton> {
           toHelpPage(context);
         },
         child: SizedBox(
-          height: MediaQuery.of(context).size.height*0.045,
+          //height: MediaQuery.of(context).size.height*0.045,
           child: Padding(
             padding: EdgeInsets.all(UIConfig.paddingAll * 1.2),
             child: Icon(

@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'UrlPage/shortcut/prefs.dart';
 import 'main.dart';
 import 'login_util/prefs.dart';
 

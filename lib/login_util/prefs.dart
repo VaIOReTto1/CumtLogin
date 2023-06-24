@@ -25,10 +25,9 @@ class Prefs {
   static List<Map<String, dynamic>> _respond = [];
   static const String _urlKey = "url";
   static List<Map<String, String>> _url = [];
-  static const String _schoolselectionKey = "schoolselection";
   static List<Map<String, String>> _schoolselection = [];
 
-  static void _initRespond() {
+  static Future<void> _initRespond() async {
     String json = _get(_respondKey) ?? "";
     if (json.isEmpty) {
       _set(_respondKey, jsonEncode([
@@ -47,14 +46,7 @@ class Prefs {
       _url = (jsonDecode(json) as List).map((e) => Map<String, String>.from(e)).toList();
     }
 
-    json = _get(_schoolselectionKey) ?? "";
-    if (json.isEmpty) {
-      _set(_schoolselectionKey, jsonEncode([
-        {'image':'image','name':'name','value':'value'}
-      ]));
-    } else {
-      _schoolselection = (jsonDecode(json) as List).map((e) => Map<String, String>.from(e)).toList();
-    }
+    _schoolselection = await readschoolselection();
   }
 
   static String get cumtLoginUsername => _get(_cumtLoginUsername);
@@ -99,11 +91,35 @@ class Prefs {
     _url = value;
     _set(_urlKey, jsonEncode(value));
   }
-  static set schoolselection(List<Map<String, String>> value) {
-    _schoolselection = value;
-    _set(_schoolselectionKey, jsonEncode(value));
-  }
 
   static String _get(String key) => prefs?.getString(key)??"";
   static _set(String key, String value) => prefs?.setString(key, value);
+}
+
+void saveschoolelection(List<Map<String, String>> schoolelection) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String schoolelectionJson = jsonEncode(schoolelection);
+  await prefs.setString("schoolelection", schoolelectionJson);
+}
+
+Future<List<Map<String, String>>> readschoolelection() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  // 没有数据则初始化为空列表
+  String schoolelectionJson = prefs.getString("schoolelection")  ?? "[]";
+  final schoolelection = jsonDecode(schoolelectionJson);
+  return List<Map<String, String>>.from(schoolelection.map((e) => Map<String, String>.from(e)));
+}
+
+void saveschoolselection(List<Map<String, String>> schoolelection) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String schoolelectionJson = jsonEncode(schoolelection);
+  await prefs.setString("schoolselection", schoolelectionJson);
+}
+
+Future<List<Map<String, String>>> readschoolselection() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  // 没有数据则初始化为空列表
+  String schoolelectionJson = prefs.getString("schoolselection")  ?? "[]";
+  final schoolelection = jsonDecode(schoolelectionJson);
+  return List<Map<String, String>>.from(schoolelection.map((e) => Map<String, String>.from(e)));
 }

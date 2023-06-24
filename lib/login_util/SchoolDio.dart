@@ -18,7 +18,10 @@ class SchoolDio{
     Prefs.image=school['image'];
 
     if (!Prefs.schoolselection.any((element) => element['name']?.contains(Prefs.school) ?? false)) {
+      print(Prefs.schoolselection);
       Prefs.schoolselection.add({'image': Prefs.image,'name':Prefs.school,'value':'0'});
+      saveschoolselection(Prefs.schoolselection);
+      print(Prefs.schoolselection);
       if(Prefs.schoolselection[0]['image'] =='image') Prefs.schoolselection.remove(Prefs.schoolselection[0]);
     }
 

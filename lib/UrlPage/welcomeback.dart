@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 import '../login_util/SchoolDio.dart';
+import '../login_util/prefs.dart';
 
 toWelcomePage(BuildContext context) {
   Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -77,6 +78,7 @@ class _WelcomePageState extends State<WelcomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
     Future.delayed(Duration.zero, () {
       if (_showDialog) {
         _showMyDialog();
