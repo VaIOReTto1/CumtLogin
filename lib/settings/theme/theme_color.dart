@@ -13,6 +13,9 @@ class AppTheme {
           color: Colors.grey[700], // 更改Card的颜色
         ),
 
+        appBarTheme: const AppBarTheme(),
+        textTheme: const TextTheme(),
+
         //更改snakbar颜色
         snackBarTheme: const SnackBarThemeData(
           backgroundColor:Colors.black54,//背景颜色
@@ -66,10 +69,13 @@ class AppTheme {
         cardTheme: const CardTheme(
           color: Color.fromRGBO(245,244,249,1),// 更改Card的颜色
         ),
-        canvasColor: Color.fromRGBO(245,244,249,1),
+        canvasColor: const Color.fromRGBO(245,244,249,1),
+
+        appBarTheme: const AppBarTheme(),
+        textTheme: const TextTheme(),
 
         //更改snackbar颜色
-        snackBarTheme: SnackBarThemeData(
+        snackBarTheme: const SnackBarThemeData(
           backgroundColor:Color.fromRGBO(176, 250, 255, 0.75),//背景颜色
           contentTextStyle: TextStyle(color: Colors.white)//文字颜色
         ),

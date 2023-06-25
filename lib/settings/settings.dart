@@ -22,53 +22,53 @@ class _SettingPageState extends State<SettingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).cardTheme.color,
-        body: Center(
-          child: Column(
-            children: [
-              Container(
-                height: MediaQuery.of(context).size.height * 0.119,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(10.0),
-                    bottomRight: Radius.circular(10.0),
+        body: SingleChildScrollView(
+          child: Center(
+            child: Column(
+              children: [
+                Container(
+                  height: MediaQuery.of(context).size.height * 0.119,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(10.0),
+                      bottomRight: Radius.circular(10.0),
+                    ),
+                    color: Theme.of(context).colorScheme.primary,
+                    boxShadow: [
+                      BoxShadow(
+                        color:Theme.of(context).brightness != Brightness.dark
+                          ? const Color.fromRGBO(59, 114, 217, 0.2)
+                          : Colors.black38,
+                        spreadRadius: 12,
+                        blurRadius: 18,
+                        offset: Offset.zero, // changes position of shadow
+                      ),
+                    ],
                   ),
-                  color: Theme.of(context).colorScheme.primary,
-                  boxShadow: [
-                    BoxShadow(
-                      color:Theme.of(context).brightness != Brightness.dark
-                        ? const Color.fromRGBO(59, 114, 217, 0.2)
-                        : Colors.black38,
-                      spreadRadius: 12,
-                      blurRadius: 18,
-                      offset: Offset.zero, // changes position of shadow
-                    ),
-                  ],
-                ),
-                child: Column(
-                  children: [
-                    Expanded(child: Container()),
-                    Row(
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: Text(
-                            '       设置',
-                            style: TextStyle(
-                                fontSize: UIConfig.fontSizeTitle * 1.2),
-                            textAlign: TextAlign.center,
+                  child: Column(
+                    children: [
+                      Expanded(child: Container()),
+                      Row(
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: Text(
+                              '       设置',
+                              style: TextStyle(
+                                  fontSize: UIConfig.fontSizeTitle * 1.2),
+                              textAlign: TextAlign.center,
+                            ),
                           ),
-                        ),
-                        HelpButton(),
-                      ],
-                    ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.0105,
-                    )
-                  ],
+                          HelpButton(),
+                        ],
+                      ),
+                      SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.0105,
+                      )
+                    ],
+                  ),
                 ),
-              ),
-              SingleChildScrollView(
-                child: Column(
+                Column(
                   children: [
                     Column(
                       children: [
@@ -136,8 +136,9 @@ class _SettingPageState extends State<SettingPage> {
                     ),
                   ],
                 ),
-              ),
-            ],
+                const SizedBox(height: 100,)
+              ],
+            ),
           ),
         ),);
   }
