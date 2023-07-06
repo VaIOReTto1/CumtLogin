@@ -8,7 +8,7 @@ import 'package:dio/dio.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_picker/Picker.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+fluimport 'package:firebase_analytics/firebase_analytics.dart';
 
 import 'UrlPage/welcomeback.dart';
 import 'icon.dart';
