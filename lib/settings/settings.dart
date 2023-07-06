@@ -22,124 +22,131 @@ class _SettingPageState extends State<SettingPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).cardTheme.color,
-        body: SingleChildScrollView(
-          child: Center(
-            child: Column(
-              children: [
-                Container(
-                  height: MediaQuery.of(context).size.height * 0.119,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(10.0),
-                      bottomRight: Radius.circular(10.0),
-                    ),
-                    color: Theme.of(context).colorScheme.primary,
-                    boxShadow: [
-                      BoxShadow(
-                        color:Theme.of(context).brightness != Brightness.dark
-                          ? const Color.fromRGBO(59, 114, 217, 0.2)
-                          : Colors.black38,
-                        spreadRadius: 12,
-                        blurRadius: 18,
-                        offset: Offset.zero, // changes position of shadow
+        body: Column(
+          children: [
+            Container(
+              height: MediaQuery.of(context).size.height * 0.119,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(10.0),
+                  bottomRight: Radius.circular(10.0),
+                ),
+                color: Theme.of(context).colorScheme.primary,
+                boxShadow: [
+                  BoxShadow(
+                    color:Theme.of(context).brightness != Brightness.dark
+                        ? const Color.fromRGBO(59, 114, 217, 0.2)
+                        : Colors.black38,
+                    spreadRadius: 12,
+                    blurRadius: 18,
+                    offset: Offset.zero, // changes position of shadow
+                  ),
+                ],
+              ),
+              child: Column(
+                children: [
+                  Expanded(child: Container()),
+                  Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Text(
+                          '       设置',
+                          style: TextStyle(
+                              fontSize: UIConfig.fontSizeTitle * 1.2),
+                          textAlign: TextAlign.center,
+                        ),
                       ),
+                      HelpButton(),
                     ],
                   ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.0105,
+                  )
+                ],
+              ),
+            ),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Center(
                   child: Column(
                     children: [
-                      Expanded(child: Container()),
-                      Row(
+                      
+                      Column(
                         children: [
-                          Expanded(
-                            flex: 1,
-                            child: Text(
-                              '       设置',
-                              style: TextStyle(
-                                  fontSize: UIConfig.fontSizeTitle * 1.2),
-                              textAlign: TextAlign.center,
-                            ),
+                          Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(12.0, 24.0, 12.0, 0),
+                                child: Container(
+                                  padding: EdgeInsets.all(UIConfig.paddingAll),
+                                  decoration: BoxDecoration(
+                                      borderRadius:
+                                      BorderRadius.circular(UIConfig.borderRadiusEntry),
+                                      color: Theme.of(context).colorScheme.primary),
+                                  child: Column(
+                                    children: const [
+                                      ThemeChange(),
+                                      Divider(
+                                        color: Colors.black12,
+                                        thickness: 1,
+                                      ),
+                                      PhomeTheme()
+                                    ],
+                                  ),
+                                ),
+                              )
+                            ],
                           ),
-                          HelpButton(),
+                          SizedBox(height: MediaQuery.of(context).size.height*0.009),
+                          Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Container(
+                                  padding: EdgeInsets.all(UIConfig.paddingAll),
+                                  decoration: BoxDecoration(
+                                      borderRadius:
+                                      BorderRadius.circular(UIConfig.borderRadiusEntry),
+                                      color: Theme.of(context).colorScheme.primary),
+                                  child: Column(
+                                    children: const [
+                                      AboutButton(),
+                                      Divider(
+                                        color: Colors.black12,
+                                        thickness: 1,
+                                      ),
+                                      FeedBackButton(),
+                                      Divider(
+                                        color: Colors.black12,
+                                        thickness: 1,
+                                      ),
+                                      ShareApp(),
+                                      Divider(
+                                        color: Colors.black12,
+                                        thickness: 1,
+                                      ),
+                                      UpdatecheckButton(),
+                                      Divider(
+                                        color: Colors.black12,
+                                        thickness: 1,
+                                      ),
+                                      QQButtom()
+                                    ],
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
                         ],
                       ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.0105,
-                      )
+                      const SizedBox(height: 100,)
                     ],
                   ),
                 ),
-                Column(
-                  children: [
-                    Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(12.0, 24.0, 12.0, 0),
-                          child: Container(
-                            padding: EdgeInsets.all(UIConfig.paddingAll),
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                BorderRadius.circular(UIConfig.borderRadiusEntry),
-                                color: Theme.of(context).colorScheme.primary),
-                            child: Column(
-                              children: const [
-                                ThemeChange(),
-                                Divider(
-                                  color: Colors.black12,
-                                  thickness: 1,
-                                ),
-                                PhomeTheme()
-                              ],
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                    SizedBox(height: MediaQuery.of(context).size.height*0.009),
-                    Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Container(
-                            padding: EdgeInsets.all(UIConfig.paddingAll),
-                            decoration: BoxDecoration(
-                                borderRadius:
-                                BorderRadius.circular(UIConfig.borderRadiusEntry),
-                                color: Theme.of(context).colorScheme.primary),
-                            child: Column(
-                              children: const [
-                                AboutButton(),
-                                Divider(
-                                  color: Colors.black12,
-                                  thickness: 1,
-                                ),
-                                FeedBackButton(),
-                                Divider(
-                                  color: Colors.black12,
-                                  thickness: 1,
-                                ),
-                                ShareApp(),
-                                Divider(
-                                  color: Colors.black12,
-                                  thickness: 1,
-                                ),
-                                UpdatecheckButton(),
-                                Divider(
-                                  color: Colors.black12,
-                                  thickness: 1,
-                                ),
-                                QQButtom()
-                              ],
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 100,)
-              ],
+              ),
             ),
-          ),
+          ],
         ),);
   }
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../config.dart';
 import '../../icon.dart';
-import '../aboutUs/cpns/single_info_card.dart';
+//import '../aboutUs/cpns/single_info_card.dart';
 
 toHelpPage(BuildContext context) {
   Navigator.of(context).push(MaterialPageRoute(

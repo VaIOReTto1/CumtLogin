@@ -2,11 +2,11 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:cumt_login/UrlPage/url_page.dart';
 import 'package:cumt_login/config.dart';
 import 'package:cumt_login/settings/settings.dart';
+import 'package:cumt_login/settings/update/app_upgrade2.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import 'UrlPage/welcomeback.dart';
@@ -46,7 +46,6 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           //主题切换
           theme: Provider.of<ThemeProvider>(context).themeData,
-          //darkTheme: AppTheme.darkTheme().themeData,
           debugShowCheckedModeBanner: false,
           home: child,
           builder: BotToastInit(),
@@ -80,6 +79,21 @@ class HomePage extends StatefulWidget {
 
 class _HomePage extends State<HomePage> {
   @override
+
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    //打开app后默认检查更新
+    Update.checkNeedUpdate(context, auto: true).then((_) {
+      if (Update.isUpDate == true && Update.isIgnore != true) {
+        showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return UpgradeDialog();
+            });
+      }
+    });
+  }
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,

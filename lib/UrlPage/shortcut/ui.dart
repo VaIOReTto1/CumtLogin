@@ -50,7 +50,7 @@ class _ShortcutState extends State<Shortcut> {
                 padding: EdgeInsets.all(UIConfig.paddingAll),
                 child: Row(
                   children: [
-                    const Icon(MyIcons.rectangle,size: 30,color: Color.fromRGBO(74, 114, 176, 1),),
+                    const Icon(MyIcons.rectangle,size: 30,color: Color.fromRGBO(59, 114, 217, 1),),
                     Text("快捷入口",style: TextStyle(fontSize: UIConfig.fontSizeSubTitle),),
                   ],
                 )

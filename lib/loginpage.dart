@@ -14,7 +14,6 @@ import 'UrlPage/welcomeback.dart';
 import 'icon.dart';
 import 'login_util/SchoolDio.dart';
 import 'settings/theme/theme_color.dart';
-import 'settings/update/app_upgrade2.dart';
 import 'login_util/account.dart';
 import 'login_util/login.dart';
 import 'login_util/methods.dart';
@@ -39,6 +38,9 @@ class _LoginPageState extends State<LoginPage>
   static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   late AnimationController _controller;
   late Animation<double> _animation;
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  CumtLoginAccount cumtLoginAccount = CumtLoginAccount();
 
   //日活统计
   Future<void> logLoginEvent() async {
@@ -53,17 +55,9 @@ class _LoginPageState extends State<LoginPage>
     ThemeProvider;
     logLoginEvent();
     WidgetsBinding.instance.addObserver(this);
-
-    //打开app后默认检查更新
-    Update.checkNeedUpdate(context, auto: true).then((_) {
-      if (Update.isUpDate == true && Update.isIgnore != true) {
-        showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return UpgradeDialog();
-            });
-      }
-    });
+    if (_usernameController.text.isNotEmpty) {
+      _handleLogin(context);
+    }
 
     //登录页圆圈动画
     _controller = AnimationController(
@@ -72,6 +66,22 @@ class _LoginPageState extends State<LoginPage>
     )..repeat(reverse: true);
 
     _animation = Tween<double>(begin: 0.7, end: 0.8).animate(_controller);
+  }
+
+  void _handleLogin(BuildContext context) {
+    if (_usernameController.text.trim().isEmpty ||
+        _passwordController.text.trim().isEmpty) {
+      showSnackBar(context, '账号或密码不能为空');
+      return;
+    }
+    cumtLoginAccount.username = _usernameController.text.trim();
+    cumtLoginAccount.password = _passwordController.text.trim();
+
+    CumtLogin.login(account: cumtLoginAccount).then((value) {
+      setState(() {
+        showSnackBar(context, value);
+      });
+    });
   }
 
   @override

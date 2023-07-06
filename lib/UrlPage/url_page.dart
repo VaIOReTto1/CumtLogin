@@ -1,4 +1,3 @@
-import 'package:cumt_login/UrlPage/school_url.dart';
 import 'package:cumt_login/UrlPage/shortcut/ui.dart';
 import 'package:flutter/material.dart';
 

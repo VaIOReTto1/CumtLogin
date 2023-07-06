@@ -5,7 +5,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 import '../login_util/SchoolDio.dart';
-import '../login_util/prefs.dart';
 
 toWelcomePage(BuildContext context) {
   Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -102,9 +101,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 Expanded(flex:80,child:
                 Row(children:[
                   Expanded(flex: 40,child: Container()),
-                  Expanded(flex:200,child: Text('Welcome\nBack',
-                    overflow: TextOverflow.visible,
-                    style: TextStyle(color: Colors.white,fontSize: UIConfig.welcomeTitle ,fontWeight: FontWeight.w400),)),
+                  Expanded(flex:200,child: Text('Welcome\nBack',overflow: TextOverflow.visible,style: TextStyle(color: Colors.white,fontSize: UIConfig.welcomeTitle ,fontWeight: FontWeight.w400),)),
                   Expanded(flex: 180,child: Container()),
                 ]
                 )
@@ -113,9 +110,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 Expanded(flex:20,child:
                 Row(children:[
                   Expanded(flex: 36,child: Container()),
-                  Expanded(flex: 41,child: Text('学校',
-                      overflow: TextOverflow.visible,
-                      style:TextStyle(color: Colors.white,fontSize: UIConfig.welcomeSubtitle,fontWeight:FontWeight.w600 ))),
+                  Expanded(flex: 41,child: Text('学校',overflow: TextOverflow.visible,style:TextStyle(color: Colors.white,fontSize: UIConfig.welcomeSubtitle,fontWeight:FontWeight.w600 ))),
                   Expanded(flex: 283,child: Container()),])
                 ),
                 Expanded(flex:25,child: Container()),

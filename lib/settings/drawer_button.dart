@@ -10,7 +10,8 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../config.dart';
 import '../login_util/prefs.dart';
-import 'aboutUs/pages/about_page.dart';
+import 'aboutUs/aboutus_page.dart';
+//import 'aboutUs/pages/about_page.dart';
 import 'help/help_page.dart';
 
 class AboutButton extends StatefulWidget {
@@ -28,7 +29,7 @@ class _AboutButtonState extends State<AboutButton> {
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {
-          //toAboutPage(context);
+          toAboutUsPage(context);
         },
         child: SizedBox(
           //height: MediaQuery.of(context).size.height*0.045,
