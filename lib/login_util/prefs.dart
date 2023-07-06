@@ -20,6 +20,8 @@ class Prefs {
   static const String _isDark = "theme";
   static const String _first = "first";
   static const String _image = "image";
+  static const String _s = "0";
+
 
   static const String _respondKey = "respond";
   static List<Map<String, dynamic>> _respond = [];
@@ -60,6 +62,7 @@ class Prefs {
   static String get status => _get(_status);
   static String get first => _get(_first);
   static String get image => _get(_image);
+  static String get s=> _get(_s);
 
   static List<Map<String, dynamic>> get respond {
     return _respond;
@@ -82,6 +85,7 @@ class Prefs {
   static set status(String value) => _set(_status, value);
   static set first(String value) => _set(_first, value);
   static set image(String value) => _set(_image, value);
+  static set s(String value) => _set(_s, value);
 
   static set respond(List<Map<String, dynamic>> value) {
     _respond = value;

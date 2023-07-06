@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
         );
       },
       //判断是否选择学校
-      child: Prefs.school1 == 'school1' ? const WelcomePage() : HomePage(),
+      child: Prefs.school1 == '' ? const WelcomePage() : HomePage(),
     );
   }
 }
