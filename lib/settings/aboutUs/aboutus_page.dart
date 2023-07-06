@@ -367,7 +367,8 @@ class _AboutUsPageState extends State<AboutUsPage> {
                       children: [
                         InkWell(
                           onTap: () {
-                            launchUrl(Uri.parse(qqlink));
+                            launchUrl(Uri.parse(qqlink),
+                                mode: LaunchMode.externalApplication);
                           },
                           child: const Icon(
                             MdiIcons.qqchat,
@@ -379,7 +380,10 @@ class _AboutUsPageState extends State<AboutUsPage> {
                         ),
                         if (showblog != 'false')
                           InkWell(
-                              onTap: () {},
+                              onTap: () {
+                                launchUrl(Uri.parse(showblog),
+                                    mode: LaunchMode.externalApplication);
+                              },
                               child: const Icon(
                                 Icons.location_history,
                                 size: 23,
@@ -389,7 +393,10 @@ class _AboutUsPageState extends State<AboutUsPage> {
                         ),
                         if (showgithub != 'false')
                           InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              launchUrl(Uri.parse(showgithub),
+                                  mode: LaunchMode.externalApplication);
+                            },
                             child: const Icon(
                               MdiIcons.github,
                               size: 23,
