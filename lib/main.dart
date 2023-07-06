@@ -7,7 +7,7 @@ import 'package:cumt_login/settings/update/app_upgrade2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:firebase_core/firebase_core.dart';
+//import 'package:firebase_core/firebase_core.dart';
 
 import 'UrlPage/welcomeback.dart';
 import 'icon.dart';
@@ -20,7 +20,7 @@ import 'login_util/prefs.dart';
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //使用firebase统计
-  await Firebase.initializeApp();
+  //await Firebase.initializeApp();
 
   await Prefs.init();
   runApp((MultiProvider(
@@ -54,7 +54,7 @@ class MyApp extends StatelessWidget {
         );
       },
       //判断是否选择学校
-      child: Prefs.school == '' ? const WelcomePage() : HomePage(),
+      child: Prefs.school1 == 'school1' ? const WelcomePage() : HomePage(),
     );
   }
 }

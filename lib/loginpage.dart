@@ -8,7 +8,7 @@ import 'package:dio/dio.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_picker/Picker.dart';
-fluimport 'package:firebase_analytics/firebase_analytics.dart';
+//import 'package:firebase_analytics/firebase_analytics.dart';
 
 import 'UrlPage/welcomeback.dart';
 import 'icon.dart';
@@ -35,7 +35,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage>
     with WidgetsBindingObserver, SingleTickerProviderStateMixin {
-  static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  //static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   late AnimationController _controller;
   late Animation<double> _animation;
   final TextEditingController _usernameController = TextEditingController();
@@ -43,17 +43,17 @@ class _LoginPageState extends State<LoginPage>
   CumtLoginAccount cumtLoginAccount = CumtLoginAccount();
 
   //日活统计
-  Future<void> logLoginEvent() async {
-    await analytics.logEvent(
-      name: 'daily user count',
-    );
-  }
+  // Future<void> logLoginEvent() async {
+  //   await analytics.logEvent(
+  //     name: 'daily user count',
+  //   );
+  // }
 
   @override
   void initState() {
     super.initState();
     ThemeProvider;
-    logLoginEvent();
+    //logLoginEvent();
     WidgetsBinding.instance.addObserver(this);
     if (_usernameController.text.isNotEmpty) {
       _handleLogin(context);
@@ -133,7 +133,7 @@ class _LoginPageState extends State<LoginPage>
                             Expanded(
                               flex: 1,
                               child: Text(
-                                '    ${Prefs.school}',
+                                '    ${Prefs.school1}',
                                 style: TextStyle(
                                   fontSize: UIConfig.fontSizeTitle * 1.2,
                                   color: const Color.fromRGBO(59, 114, 217, 1),

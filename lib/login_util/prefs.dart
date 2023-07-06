@@ -13,7 +13,7 @@ class Prefs {
   static const String _cumtLoginPassword = "cumtLoginPassword";
   static const String _cumtLoginAccountList = "cumtLoginAccountList";
   static const String _cumtLoginMethod = "cumtLoginMethod";
-  static const String _school = "school";
+  static const String _school1 = "school1";
   static const String _loginurl = "loginurl";
   static const String _logouturl = "logouturl";
   static const String _status = "status";
@@ -53,7 +53,7 @@ class Prefs {
   static String get cumtLoginPassword => _get(_cumtLoginPassword);
   static String get cumtLoginAccountList => _get(_cumtLoginAccountList);
   static String get cumtLoginMethod => _get(_cumtLoginMethod);
-  static String get school => _get(_school);
+  static String get school1 => _get(_school1);
   static String get loginurl => _get(_loginurl);
   static String get logouturl => _get(_logouturl);
   static String get isDark => _get(_isDark);
@@ -75,7 +75,7 @@ class Prefs {
   static set cumtLoginPassword(String value) => _set(_cumtLoginPassword, value);
   static set cumtLoginAccountList(String value) => _set(_cumtLoginAccountList, value);
   static set cumtLoginMethod(String value) => _set(_cumtLoginMethod, value);
-  static set school(String value) => _set(_school, value);
+  static set school1(String value) => _set(_school1, value);
   static set loginurl(String value) => _set(_loginurl, value);
   static set logouturl(String value) => _set(_logouturl, value);
   static set isDark(String value) => _set(_isDark, value);
