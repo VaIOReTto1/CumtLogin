@@ -295,7 +295,7 @@ class _ShareAppState extends State<ShareApp> {
     return InkWell(
         onTap: () {
           shareTextToWechatAndQQ(
-              '欢迎使用校园网自动登录app，下载地址：https://wwya.lanzoub.com/i9H4A0uesqxc(Android)/https://testflight.apple.com/join/lTBgteBv(iOS)');
+              '欢迎使用校园网自动登录app，安卓下载地址：https://wwya.lanzoub.com/iV0ij11iwyda，window下载地址：https://wwya.lanzoub.com/ipiXI11ip0vc');
         },
         child: SizedBox(
           //height: MediaQuery.of(context).size.height*0.045,

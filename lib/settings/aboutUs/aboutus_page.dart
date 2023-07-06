@@ -204,7 +204,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
                             SizedBox(
                               width: MediaQuery.of(context).size.width*0.034,
                             ),
-                            Group("杨雅晴", "21级计科4班", "设计组", "641938243",
+                            Group("杨雅晴", "21级计科1班", "设计组", "641938243",
                                 'https://qm.qq.com/q/2OZ8OzDzFm&personal_qrcode_source=4'),
                             SizedBox(
                               width: MediaQuery.of(context).size.width*0.05,
