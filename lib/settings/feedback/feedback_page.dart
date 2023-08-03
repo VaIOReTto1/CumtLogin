@@ -99,7 +99,7 @@ class _FeedBackPageState extends State<FeedBackPage> {
                               controller: _textEditingController_title,
                               style: const TextStyle(color: Colors.grey),
                               decoration: const InputDecoration(
-                                contentPadding: EdgeInsets.only(bottom: -3),
+                                contentPadding: EdgeInsets.only(left:13,bottom: -3),
                                 hintText: '请输入问题的标题',
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.zero,
