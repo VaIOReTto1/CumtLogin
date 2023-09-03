@@ -61,6 +61,7 @@ class _LoginPageState extends State<LoginPage>
       _handleLogin(context);
     }
 
+
     //登录页圆圈动画
     _controller = AnimationController(
       vsync: this,
@@ -182,13 +183,13 @@ class _LoginPageState extends State<LoginPage>
                               ? const Text(
                             '已连接    ',
                             style: TextStyle(
-                                color: Color.fromRGBO(161, 161, 161, 1),
+                                color: Colors.black54,
                                 fontSize: 12),
                           )
                               : const Text(
                             '未连接    ',
                             style: TextStyle(
-                                color: Color.fromRGBO(161, 161, 161, 1),
+                                color: Colors.black54,
                                 fontSize: 12),
                           ),
                         ],
@@ -203,6 +204,10 @@ class _LoginPageState extends State<LoginPage>
                     child: AnimatedBuilder(
                       animation: _animation,
                       builder: (BuildContext context, Widget? child) {
+                        final color = Prefs.status == '1'
+                            ? Color.fromRGBO(66, 128, 237, 0.4 - (_animation.value / 10))
+                            : Color.fromRGBO(234, 234, 234, 1 - (_animation.value / 10));
+
                         return Container(
                           width: MediaQuery.of(context).size.height *
                               0.29 *
@@ -211,17 +216,10 @@ class _LoginPageState extends State<LoginPage>
                               0.29 *
                               _animation.value,
                           decoration: BoxDecoration(
-                            color: Prefs.status == '1'
-                                ? Color.fromRGBO(
-                                66, 128, 237, 0.4 - (_animation.value / 5))
-                                : Color.fromRGBO(
-                                234, 234, 234, 1 - (_animation.value / 5)),
                             shape: BoxShape.circle,
                             boxShadow: [
                               BoxShadow(
-                                color: Prefs.status == '1'
-                                    ? const Color.fromRGBO(66, 128, 237, 0.15)
-                                    : const Color.fromRGBO(234, 234, 234, 1),
+                                color: color,
                                 spreadRadius: 10 * _animation.value,
                                 blurRadius: 30 * _animation.value,
                               ),
@@ -396,7 +394,7 @@ class _LoginState extends State<Login> {
                     ),
                     child: Row(
                       children: [
-                        Text("${cumtLoginAccount.cumtLoginMethod?.name}"),
+                        Text("${cumtLoginAccount.cumtLoginMethod?.name}",style: const TextStyle(color: Colors.black38),),
                         const Icon(Icons.arrow_drop_down),
                       ],
                     )),
@@ -413,7 +411,7 @@ class _LoginState extends State<Login> {
                   child: Text('登录',
                       style: TextStyle(fontSize: UIConfig.fontSizeMain)),
                 ),
-                OutlinedButton(
+                ElevatedButton(
                   onPressed: () => _handleLogout(context),
                   child: Text('注销',
                       style: TextStyle(fontSize: UIConfig.fontSizeMain)),
@@ -718,4 +716,14 @@ class _LoginState extends State<Login> {
       });
     });
   }
+}
+
+// 定义一个函数，用于降低颜色的亮度
+Color darkenColor(Color color, double factor) {
+  return Color.fromRGBO(
+    (color.red * factor).toInt(),
+    (color.green * factor).toInt(),
+    (color.blue * factor).toInt(),
+    color.opacity,
+  );
 }

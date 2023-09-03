@@ -18,7 +18,7 @@ import 'login_util/prefs.dart';
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //使用firebase统计
- // await Firebase.initializeApp();
+  // await Firebase.initializeApp();
 
   await Prefs.init();
   runApp((MultiProvider(
@@ -107,158 +107,117 @@ class _HomePage extends State<HomePage> {
         Positioned(
           bottom: MediaQuery.of(context).size.height * 0.052,
           child: Container(
-            width: MediaQuery.of(context).size.width * 0.9,
-            height: 60,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(50),
-              color: Theme.of(context).colorScheme.primary,
-              boxShadow: [
-                BoxShadow(
-                  color: Theme.of(context).brightness != Brightness.dark
-                      ? const Color.fromRGBO(59, 114, 217, 0.2)
-                      : Colors.black38,
-                  spreadRadius: 4,
-                  blurRadius: 8,
-                  offset: const Offset(0, 10.0), // changes position of shadow
-                ),
-              ],
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Stack(
-                  children: [
-                    IconButton(
-                      icon: Icon(MyIcons.layer,
-                          color: widget.currentPageIndex == 2
-                              ? const Color.fromRGBO(44, 44, 44, 1)
-                              : const Color.fromRGBO(111, 111, 111, 1),
-                          size: 32),
-                      onPressed: () {
-                        setState(() {
-                          widget.currentPageIndex = 2;
-                        });
-                      },
-                    ),
-                    Column(
-                      children: [
-                        const SizedBox(
-                          height: 38,
-                        ),
-                        Text(
-                          '    常用',
-                          style: TextStyle(
-                            fontSize: 13,
-                            color: widget.currentPageIndex == 0
-                                ? const Color.fromRGBO(44, 44, 44, 1)
-                                : const Color.fromRGBO(111, 111, 111, 1),
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-                Stack(
-                  children: [
-                    IconButton(
-                      icon: Icon(
-                        Icons.settings,
-                        color: widget.currentPageIndex == 1
-                            ? const Color.fromRGBO(44, 44, 44, 1)
-                            : const Color.fromRGBO(111, 111, 111, 1),
-                        size: 32,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          widget.currentPageIndex = 1;
-                        });
-                      },
-                    ),
-                    Column(
-                      children: [
-                        const SizedBox(
-                          height: 38,
-                        ),
-                        Text(
-                          '   设置',
-                          style: TextStyle(
-                            fontSize: 13,
-                            color: widget.currentPageIndex == 0
-                                ? const Color.fromRGBO(44, 44, 44, 1)
-                                : const Color.fromRGBO(111, 111, 111, 1),
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
-        Positioned(
-          bottom: MediaQuery.of(context).size.height * 0.044,
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              Container(
-                width: 80,
-                height: 80,
-                decoration: BoxDecoration(
-                  color: widget.currentPageIndex == 0
-                      ? Theme.of(context).colorScheme.primary
-                      : Theme.of(context).cardTheme.color,
-                  shape: BoxShape.circle,
-                ),
-              ),
-              Center(
-                child: Container(
-                  width: 65,
-                  height: 65,
-                  decoration: const BoxDecoration(
-                    color: Color.fromRGBO(59, 114, 217, 1),
-                    shape: BoxShape.circle,
+              width: MediaQuery.of(context).size.width * 0.9,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+                color: Theme.of(context).colorScheme.primary,
+                boxShadow: [
+                  BoxShadow(
+                    color: Theme.of(context).brightness != Brightness.dark
+                        ? const Color.fromRGBO(59, 114, 217, 0.2)
+                        : Colors.black38,
+                    spreadRadius: 4,
+                    blurRadius: 8,
+                    offset: const Offset(0, 10.0), // changes position of shadow
                   ),
-                  child: Column(
-                    children: [
-                      IconButton(
-                        icon: Icon(MyIcons.net,
-                            color: widget.currentPageIndex == 0
-                                ? Colors.white
-                                : const Color.fromRGBO(111, 111, 111, 1),
-                            size: 32),
-                        onPressed: () {
+                ],
+              ),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.02,
+                    ),
+                    Container(
+                        padding: const EdgeInsets.all(5),
+                        child: InkWell(
+                          onTap: () {
+                            setState(() {
+                              widget.currentPageIndex = 2;
+                            });
+                          },
+                          child: Column(children: [
+                            Icon(
+                              MyIcons.layer,
+                              size: 32,
+                              color: widget.currentPageIndex == 2
+                                  ? const Color.fromRGBO(44, 44, 44, 1)
+                                  : const Color.fromRGBO(111, 111, 111, 1),
+                            ),
+                            const Text(
+                              "常用",
+                              style: TextStyle(
+                                fontSize: 13,
+                                color:Color.fromRGBO(111, 111, 111, 1)
+                              ),
+                            ),
+                          ]),
+                        )),
+                    Container(
+                      height: 75,
+                      width: 75,
+                      decoration: BoxDecoration(
+                          color: const Color.fromRGBO(59, 114, 217, 1),
+                          borderRadius: BorderRadius.circular(100)),
+                      child: InkWell(
+                        onTap: () {
                           setState(() {
                             widget.currentPageIndex = 0;
                           });
                         },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              MyIcons.net,
+                              size: 40,
+                              color: widget.currentPageIndex == 0
+                                  ? Colors.white
+                                  : const Color.fromRGBO(111, 111, 111, 1),
+                            ),
+                            Text(
+                              "登录",
+                              style: TextStyle(
+                                fontSize: 13,
+                                color: widget.currentPageIndex == 0
+                                    ? Colors.white
+                                    : const Color.fromRGBO(111, 111, 111, 1),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
-                      Expanded(child: Container())
-                    ],
-                  ),
-                ),
-              ),
-              Center(
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 40,
                     ),
-                    Text(
-                      '  登录',
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: widget.currentPageIndex == 0
-                            ? Colors.white
-                            : const Color.fromRGBO(111, 111, 111, 1),
-                      ),
+                    Container(
+                        padding: const EdgeInsets.all(5),
+                        child: InkWell(
+                          onTap: () {
+                            setState(() {
+                              widget.currentPageIndex = 1;
+                            });
+                          },
+                          child: Column(children: [
+                            Icon(
+                              Icons.settings,
+                              size: 32,
+                              color: widget.currentPageIndex == 1
+                                  ? const Color.fromRGBO(44, 44, 44, 1)
+                                  : const Color.fromRGBO(111, 111, 111, 1),
+                            ),
+                            const Text(
+                              "设置",
+                              style: TextStyle(
+                                fontSize: 13,
+                                color: Color.fromRGBO(111, 111, 111, 1),
+                              ),
+                            ),
+                          ]),
+                        )),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.02,
                     ),
-                  ],
-                ),
-              )
-            ],
-          ),
-        ),
+                  ])),
+        )
       ]),
     );
   }

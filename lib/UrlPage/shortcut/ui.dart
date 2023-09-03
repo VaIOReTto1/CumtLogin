@@ -115,7 +115,7 @@ class _ShortcutState extends State<Shortcut> {
       index: index,
       child: InkWell(
         onLongPress: () {
-          Clipboard.setData(ClipboardData(text: links[index]["url"]!!));
+          Clipboard.setData(ClipboardData(text: links[index]["url"]));
           showSnackBar(context, "已复制到剪切板");
         },
         onTap: () { _openUrl(links[index]["url"]); },

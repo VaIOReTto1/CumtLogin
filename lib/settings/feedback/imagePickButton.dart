@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'dart:io';
+import 'package:cumt_login/settings/feedback/feedback_page.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:image_picker/image_picker.dart';
@@ -14,15 +16,19 @@ class MyWidget extends StatefulWidget {
 class _MyWidgetState extends State<MyWidget> {
   List<File> images = [];
 
-  void addImage(File image) {
+  Future<void> addImage(File image) async {
+    final bytes = await image.readAsBytes();
+    final encodedImage = base64Encode(bytes); // 将字节流编码为base64字符串
     setState(() {
       images.add(image);
+      FeedBackPage.imageList.add(encodedImage);
     });
   }
 
   void removeImageAtIndex(int index) {
     setState(() {
       images.removeAt(index);
+      FeedBackPage.imageList.removeAt(index);
     });
   }
 

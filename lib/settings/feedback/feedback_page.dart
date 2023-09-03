@@ -1,19 +1,22 @@
 import 'package:cumt_login/settings/update/toast.dart';
+import 'package:dio/dio.dart';
 
 import '../../config.dart';
 import 'package:flutter/material.dart';
+import '../../login_util/prefs.dart';
 import '../drawer_button.dart';
 import 'imagePickButton.dart';
 
 toFeedBackPage(BuildContext context) {
   Navigator.of(context).push(MaterialPageRoute(
-    builder: (context) => const FeedBackPage(),
+    builder: (context) => FeedBackPage(),
     fullscreenDialog: true, // 路由为全屏模式
   ));
 }
 
 class FeedBackPage extends StatefulWidget {
-  const FeedBackPage({Key? key}) : super(key: key);
+  FeedBackPage({Key? key}) : super(key: key);
+  static List<String> imageList = [];
 
   @override
   State<FeedBackPage> createState() => _FeedBackPageState();
@@ -24,7 +27,10 @@ class _FeedBackPageState extends State<FeedBackPage> {
       TextEditingController();
   final TextEditingController _textEditingController_decription =
       TextEditingController();
-  List<String> _imageList = [];
+
+  String title="";
+  String text="";
+  String imageCode="";
 
   @override
   Widget build(BuildContext context) {
@@ -216,7 +222,24 @@ class _FeedBackPageState extends State<FeedBackPage> {
                         content: const Text("你可以加入内测交流群：738340698\n与我们进行交流和获得解决方法"),
                         actions: <Widget>[
                           ElevatedButton(
-                            onPressed: () {
+                            onPressed: () async {
+                              title=_textEditingController_title.text;
+                              text=_textEditingController_decription.text;
+                              var dio = Dio();
+                              var url = "http://47.115.228.176:8080/schoollink/feed";
+                              try {
+                                var response = await dio.put(url, data: {
+                                  'title': title,
+                                  'content': text,
+                                  'imageCode':'1'
+                                });
+                              } catch (e) {
+                                print('PUT request failed: $e');
+                                if (e is DioError) {
+                                  print('DioError: ${e.response?.data}');
+                                }
+                              }
+                              FeedBackPage.imageList.clear();
                               Navigator.of(context).pop();
                               showToast('提交成功');
                               Navigator.of(context).pop();

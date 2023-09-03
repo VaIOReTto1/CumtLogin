@@ -89,7 +89,14 @@ class _WelcomePageState extends State<WelcomePage> {
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
     final double screenHeight = MediaQuery.of(context).size.height;
-    return Material(
+    return GestureDetector(
+        onHorizontalDragUpdate: (details) {
+      // 当用户向左滑动时，触发handleSwipeLeft函数
+      if (details.primaryDelta! < -10) {
+            () => Navigator.pop(context);
+      }
+    },
+    child:Material(
       child: ColoredBox(
         color:const Color.fromRGBO(56, 111, 211, 1),
         child: Column(
@@ -134,6 +141,7 @@ class _WelcomePageState extends State<WelcomePage> {
                         color: Colors.white,
                       ),
                       child: TextField(
+                        cursorColor: Colors.black,
                         style: TextStyle(color: Colors.black),
                         onChanged: (value) {
                           // 每输入一个字就会调用该函数
@@ -173,7 +181,7 @@ class _WelcomePageState extends State<WelcomePage> {
           ],
         ),
       ),
-    );
+    ));
   }
 
   //展示搜索界面
