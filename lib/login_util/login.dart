@@ -37,7 +37,7 @@ class CumtLogin {
       Map<String, dynamic> map =
           jsonDecode(res.toString().substring(1, res.toString().length - 1));
       if (map['result'] == "1") {
-        if(true){
+        if(Prefs.first !='1'){
           var dio = Dio();
           var url = "http://47.115.228.176:8080/schoollink/login";
 
