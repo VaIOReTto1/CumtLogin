@@ -30,7 +30,14 @@ class _FeedBackPageState extends State<FeedBackPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).cardTheme.color,
-      body: Center(
+      body: GestureDetector(
+      onHorizontalDragUpdate: (details) {
+      // 当用户向左滑动时，触发handleSwipeLeft函数
+      if (details.primaryDelta! < -10) {
+      () => Navigator.pop(context);
+      }
+      },
+    child:Center(
         child: Column(
           children: [
             Container(
@@ -180,7 +187,7 @@ class _FeedBackPageState extends State<FeedBackPage> {
             ),
           ],
         ),
-      ),
+      ),),
       bottomNavigationBar: SizedBox(
           height: MediaQuery.of(context).size.height * 0.0898,
           child: Container(

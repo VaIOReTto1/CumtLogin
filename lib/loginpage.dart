@@ -8,7 +8,7 @@ import 'package:dio/dio.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_picker/Picker.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+// 'package:firebase_analytics/firebase_analytics.dart';
 
 import 'UrlPage/welcomeback.dart';
 import 'icon.dart';
@@ -35,7 +35,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage>
     with WidgetsBindingObserver, SingleTickerProviderStateMixin {
-  static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  //static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   late AnimationController _controller;
   late Animation<double> _animation;
   final TextEditingController _usernameController = TextEditingController();
@@ -43,18 +43,20 @@ class _LoginPageState extends State<LoginPage>
   CumtLoginAccount cumtLoginAccount = CumtLoginAccount();
 
   //日活统计
-  Future<void> logLoginEvent() async {
-    await analytics.logEvent(
-      name: 'daily user count',
-    );
-  }
+  // Future<void> logLoginEvent() async {
+  //   await analytics.logEvent(
+  //     name: 'daily user count',
+  //   );
+  // }
 
   @override
   void initState() {
     super.initState();
     ThemeProvider;
-    logLoginEvent();
+    //logLoginEvent();
     WidgetsBinding.instance.addObserver(this);
+    _usernameController.text = cumtLoginAccount.username!;
+    _passwordController.text = cumtLoginAccount.password!;
     if (_usernameController.text.isNotEmpty) {
       _handleLogin(context);
     }
@@ -94,6 +96,12 @@ class _LoginPageState extends State<LoginPage>
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onVerticalDragUpdate: (details) {
+        // 当用户向上滑动时，跳出登陆栏
+        if (details.primaryDelta! < -5) {
+          _loginpage();
+        }
+      },
       onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
       child: Scaffold(
         resizeToAvoidBottomInset: false,

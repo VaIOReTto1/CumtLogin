@@ -7,7 +7,7 @@ import 'package:cumt_login/settings/update/app_upgrade2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-import 'package:firebase_core/firebase_core.dart';
+//import 'package:firebase_core/firebase_core.dart';
 
 import 'UrlPage/welcomeback.dart';
 import 'icon.dart';
@@ -15,12 +15,10 @@ import 'loginpage.dart';
 import 'settings/theme/theme_color.dart';
 import 'login_util/prefs.dart';
 
-
-
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //使用firebase统计
-  await Firebase.initializeApp();
+ // await Firebase.initializeApp();
 
   await Prefs.init();
   runApp((MultiProvider(
@@ -79,7 +77,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePage extends State<HomePage> {
   @override
-
   void initState() {
     // TODO: implement initState
     super.initState();
@@ -94,6 +91,7 @@ class _HomePage extends State<HomePage> {
       }
     });
   }
+
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -121,7 +119,7 @@ class _HomePage extends State<HomePage> {
                       : Colors.black38,
                   spreadRadius: 4,
                   blurRadius: 8,
-                  offset: const Offset(0,10.0), // changes position of shadow
+                  offset: const Offset(0, 10.0), // changes position of shadow
                 ),
               ],
             ),
@@ -144,7 +142,9 @@ class _HomePage extends State<HomePage> {
                     ),
                     Column(
                       children: [
-                        const SizedBox(height: 38,),
+                        const SizedBox(
+                          height: 38,
+                        ),
                         Text(
                           '    常用',
                           style: TextStyle(
@@ -176,7 +176,9 @@ class _HomePage extends State<HomePage> {
                     ),
                     Column(
                       children: [
-                        const SizedBox(height: 38,),
+                        const SizedBox(
+                          height: 38,
+                        ),
                         Text(
                           '   设置',
                           style: TextStyle(
@@ -239,7 +241,9 @@ class _HomePage extends State<HomePage> {
               Center(
                 child: Column(
                   children: [
-                    const SizedBox(height: 40,),
+                    const SizedBox(
+                      height: 40,
+                    ),
                     Text(
                       '  登录',
                       style: TextStyle(
@@ -259,5 +263,3 @@ class _HomePage extends State<HomePage> {
     );
   }
 }
-
-

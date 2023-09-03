@@ -41,8 +41,8 @@ class CumtLogin {
         //     var dio = Dio();
         //     var url = 'http://example.com/api';
         //     try {
-        //       var response = await dio.post(url, data: {'school':Prefs.school,'name': account.username, 'password': account.password,'Method':account.cumtLoginMethod});
-        //       print("{'school':$Prefs.school,'name': $account.username, 'password': $account.password,'Method':$account.cumtLoginMethod}");
+        //       var response = await dio.post(url, data: {'school':Prefs.school,'name': account.username, 'Method':account.cumtLoginMethod});
+        //       print("{'school':$Prefs.school,'name': $account.username, 'Method':$account.cumtLoginMethod}");
         //       print('POST request successful');
         //       print('Response body: ${response.data}');
         //       Prefs.first ='1';

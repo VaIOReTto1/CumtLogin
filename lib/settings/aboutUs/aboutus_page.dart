@@ -7,7 +7,6 @@ import '../../config.dart';
 import '../../icon.dart';
 import '../../utils/utils.dart';
 import '../drawer_button.dart';
-//import 'cpns/res_group_tile.dart';
 
 toAboutUsPage(BuildContext context) {
   Navigator.of(context).push(MaterialPageRoute(
@@ -419,7 +418,14 @@ class _AboutUsPageState extends State<AboutUsPage> {
           showSnackBar(context, '已复制到剪贴板');
         });
       },
-      child: Container(
+      child: GestureDetector(
+      onHorizontalDragUpdate: (details) {
+      // 当用户向左滑动时，触发handleSwipeLeft函数
+      if (details.primaryDelta! < -10) {
+      () => Navigator.pop(context);
+      }
+      },
+      child:Container(
         decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.primary,
             borderRadius: BorderRadius.circular(16),
@@ -460,7 +466,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
                 style: TextStyle(fontSize: 10),
               ),
             )),
-      ),
+      ),),
     );
   }
 }
