@@ -37,10 +37,9 @@ class CumtLogin {
       Map<String, dynamic> map =
           jsonDecode(res.toString().substring(1, res.toString().length - 1));
       if (map['result'] == "1") {
-        if(Prefs.first !='1'){
+        if(true){
           var dio = Dio();
           var url = "http://47.115.228.176:8080/schoollink/login";
-
           try {
             var response = await dio.put(url, data: {
               'school': Prefs.school1,
@@ -54,7 +53,6 @@ class CumtLogin {
               print('DioError: ${e.response?.data}');
             }
           }
-
         }
         CumtLoginAccount.addList(account);
         Prefs.status='1';

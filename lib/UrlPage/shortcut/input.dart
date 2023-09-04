@@ -1,5 +1,5 @@
 import 'package:cumt_login/config.dart';
-import '../../utils/utils.dart';
+import 'package:cumt_login/settings/update/toast.dart';
 import 'prefs.dart';
 import 'package:flutter/material.dart';
 
@@ -132,7 +132,7 @@ class _InputDialogState extends State<InputDialog> {
     return ElevatedButton(
       onPressed: () {
         if(_nameController.text.isEmpty) {
-          showSnackBar(context, "网址标题不能为空");
+          showToast("网址标题不能为空");
         } else {
           Map<String, String> web = {
             "name": _nameController.text.trim(),
@@ -141,7 +141,7 @@ class _InputDialogState extends State<InputDialog> {
           widget.list.add(web);
           saveLinks(widget.list);
           Navigator.of(context).pop();
-          showSnackBar(context, "成功${widget.usage} ${_nameController.text}");
+          showToast("成功${widget.usage} ${_nameController.text}");
           widget.callback();
         }
       },

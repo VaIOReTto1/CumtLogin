@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cumt_login/config.dart';
 import 'package:cumt_login/settings/drawer_button.dart';
-import 'package:cumt_login/utils/utils.dart';
+import 'package:cumt_login/settings/update/toast.dart';
 import 'package:dio/dio.dart';
 
 import 'package:flutter/material.dart';
@@ -74,7 +74,7 @@ class _LoginPageState extends State<LoginPage>
   void _handleLogin(BuildContext context) {
     if (_usernameController.text.trim().isEmpty ||
         _passwordController.text.trim().isEmpty) {
-      showSnackBar(context, '账号或密码不能为空');
+      showToast('账号或密码不能为空');
       return;
     }
     cumtLoginAccount.username = _usernameController.text.trim();
@@ -82,7 +82,7 @@ class _LoginPageState extends State<LoginPage>
 
     CumtLogin.login(account: cumtLoginAccount).then((value) {
       setState(() {
-        showSnackBar(context, value);
+        showToast(value);
       });
     });
   }
@@ -253,7 +253,7 @@ class _LoginPageState extends State<LoginPage>
               ),
               //登录栏
               Positioned(
-                bottom: MediaQuery.of(context).size.height * 0.15,
+                bottom: MediaQuery.of(context).size.height * 0.02,
                 child: InkWell(
                   onTap: () {
                     _loginpage();
@@ -290,7 +290,7 @@ class _LoginPageState extends State<LoginPage>
         context: context,
         builder: (context) {
           return SizedBox(
-            height: MediaQuery.of(context).size.height * 0.73,
+            height: MediaQuery.of(context).size.height * 0.39,
             child: const Login(),
           );
         });
@@ -553,7 +553,7 @@ class _LoginState extends State<Login> {
                                     onPressed: () {
                                       Prefs.schoolselection.remove(schoolselection);
                                       saveschoolselection(Prefs.schoolselection);
-                                      showSnackBar(context, "删除成功");
+                                      showToast("删除成功");
                                       Navigator.of(context).pop();
                                       border = !border;
                                     },
@@ -678,7 +678,7 @@ class _LoginState extends State<Login> {
                       IconButton(
                           onPressed: () {
                             CumtLoginAccount.removeList(account);
-                            showSnackBar(context, "删除成功");
+                            showToast("删除成功");
                             Navigator.of(context).pop();
                             border = !border;
                           },
@@ -696,7 +696,7 @@ class _LoginState extends State<Login> {
 //注销
   void _handleLogout(BuildContext context) {
     CumtLogin.logout(account: cumtLoginAccount).then((value) {
-      showSnackBar(context, value);
+      showToast( value);
     });
   }
 
@@ -704,7 +704,7 @@ class _LoginState extends State<Login> {
   void _handleLogin(BuildContext context) {
     if (_usernameController.text.trim().isEmpty ||
         _passwordController.text.trim().isEmpty) {
-      showSnackBar(context, '账号或密码不能为空');
+      showToast('账号或密码不能为空');
       return;
     }
     cumtLoginAccount.username = _usernameController.text.trim();
@@ -712,18 +712,8 @@ class _LoginState extends State<Login> {
 
     CumtLogin.login(account: cumtLoginAccount).then((value) {
       setState(() {
-        showSnackBar(context, value);
+        showToast(value);
       });
     });
   }
-}
-
-// 定义一个函数，用于降低颜色的亮度
-Color darkenColor(Color color, double factor) {
-  return Color.fromRGBO(
-    (color.red * factor).toInt(),
-    (color.green * factor).toInt(),
-    (color.blue * factor).toInt(),
-    color.opacity,
-  );
 }

@@ -1,5 +1,6 @@
+import 'package:cumt_login/settings/update/toast.dart';
+
 import 'prefs.dart';
-import 'package:cumt_login/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'edit.dart';
 
@@ -28,7 +29,7 @@ class Entry extends StatelessWidget {
         if(direction == DismissDirection.startToEnd) {
           links.remove(web);
           saveLinks(links);
-          showSnackBar(context, "已删除 ${web["name"]}");
+          showToast("已删除 ${web["name"]}");
         }
       },
       // 向左滑编辑时，不清除entry,将播放逆向返回动画

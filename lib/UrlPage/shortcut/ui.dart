@@ -1,8 +1,8 @@
 import 'package:cumt_login/login_util/prefs.dart';
+import 'package:cumt_login/settings/update/toast.dart';
 
 import '../../config.dart';
 import '../../icon.dart';
-import '../../utils/utils.dart';
 import 'entry.dart';
 import 'input.dart';
 import 'prefs.dart';
@@ -115,8 +115,8 @@ class _ShortcutState extends State<Shortcut> {
       index: index,
       child: InkWell(
         onLongPress: () {
-          Clipboard.setData(ClipboardData(text: links[index]["url"]));
-          showSnackBar(context, "已复制到剪切板");
+          Clipboard.setData(ClipboardData(text: links[index]["url"]!));
+          showToast("已复制到剪切板");
         },
         onTap: () { _openUrl(links[index]["url"]); },
         child: Container(

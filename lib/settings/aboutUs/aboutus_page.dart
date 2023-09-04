@@ -1,3 +1,4 @@
+import 'package:cumt_login/settings/update/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/services.dart';
@@ -5,7 +6,6 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:url_launcher/url_launcher.dart';
 import '../../config.dart';
 import '../../icon.dart';
-import '../../utils/utils.dart';
 import '../drawer_button.dart';
 
 toAboutUsPage(BuildContext context) {
@@ -415,7 +415,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
     return InkWell(
       onTap: () {
         Clipboard.setData(ClipboardData(text: qNumber)).then((_) {
-          showSnackBar(context, '已复制到剪贴板');
+          showToast('已复制到剪贴板');
         });
       },
       child: GestureDetector(
