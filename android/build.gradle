@@ -1,20 +1,35 @@
 buildscript {
-    ext.kotlin_version = '1.7.10'
+    ext.kotlin_version = '1.8.0'
     repositories {
         google()
         mavenCentral()
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/jcenter' }
+        maven { url'https://maven.aliyun.com/repository/public/' }
+        maven { url'https://maven.aliyun.com/repository/google/' }
+        maven { url'https://maven.aliyun.com/repository/jcenter/' }
+        maven { url'https://maven.aliyun.com/repository/central/' }
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.2.0'
+        classpath 'com.android.tools.build:gradle:7.2.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.google.gms:google-services:4.3.15'
     }
 }
+
+
 
 allprojects {
     repositories {
         google()
         mavenCentral()
+        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/jcenter' }
+        maven { url'https://maven.aliyun.com/repository/public/' }
+        maven { url'https://maven.aliyun.com/repository/google/' }
+        maven { url'https://maven.aliyun.com/repository/jcenter/' }
+        maven { url'https://maven.aliyun.com/repository/central/' }
     }
 }
 
@@ -29,3 +44,4 @@ subprojects {
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }
+
