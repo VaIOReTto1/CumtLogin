@@ -131,11 +131,12 @@ class _SettingPageState extends State<SettingPage> {
                                         color: Colors.black12,
                                         thickness: 1,
                                       ),
-                                      QQButtom()
+                                      QQButton(),
                                     ],
                                   ),
                                 ),
-                              )
+                              ),
+                              PolicyButton()
                             ],
                           ),
                         ],

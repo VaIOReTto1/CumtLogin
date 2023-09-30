@@ -123,7 +123,7 @@ class _PhomeThemeState extends State<PhomeTheme> {
   @override
   Widget build(BuildContext context) {
     final brightness = MediaQuery.of(context).platformBrightness;
-    WidgetsBinding.instance!.addPostFrameCallback((_) => handleBrightnessChange(brightness));
+    WidgetsBinding.instance.addPostFrameCallback((_) => handleBrightnessChange(brightness));
     return SizedBox(
       //height: MediaQuery.of(context).size.height*0.045,
       child: Padding(
@@ -317,14 +317,14 @@ class _ShareAppState extends State<ShareApp> {
   }
 }
 
-class QQButtom extends StatefulWidget {
-  const QQButtom({Key? key}) : super(key: key);
+class QQButton extends StatefulWidget {
+  const QQButton({Key? key}) : super(key: key);
 
   @override
-  State<QQButtom> createState() => _QQButtomState();
+  State<QQButton> createState() => _QQButtonState();
 }
 
-class _QQButtomState extends State<QQButtom> {
+class _QQButtonState extends State<QQButton> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -348,6 +348,39 @@ class _QQButtomState extends State<QQButtom> {
                   ),
                 ],
               )),
+        ));
+  }
+}
+
+
+class PolicyButton extends StatefulWidget {
+  const PolicyButton({Key? key}) : super(key: key);
+
+  @override
+  State<PolicyButton> createState() => _PolicyButtonState();
+}
+
+class _PolicyButtonState extends State<PolicyButton> {
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+        onTap: () {
+          launchUrl(Uri.parse('http://atcumt.com/'),
+              mode: LaunchMode.externalApplication);
+        },
+        child: SizedBox(
+          //height: MediaQuery.of(context).size.height*0.045,
+          child: Padding(
+              padding: EdgeInsets.all(UIConfig.paddingAll * 1.2),
+              child: Center(
+                child: Text("隐私政策",
+                    style: TextStyle(
+                        fontSize: UIConfig.fontSizeMain,
+                        color: Colors.grey
+                    )
+                ),
+              ),
+          ),
         ));
   }
 }
