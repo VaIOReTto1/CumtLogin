@@ -27,7 +27,7 @@ class _SettingPageState extends State<SettingPage> {
             Container(
               height: MediaQuery.of(context).size.height * 0.119,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(10.0),
                   bottomRight: Radius.circular(10.0),
                 ),
@@ -84,8 +84,8 @@ class _SettingPageState extends State<SettingPage> {
                                       borderRadius:
                                       BorderRadius.circular(UIConfig.borderRadiusEntry),
                                       color: Theme.of(context).colorScheme.primary),
-                                  child: Column(
-                                    children: const [
+                                  child: const Column(
+                                    children: [
                                       ThemeChange(),
                                       Divider(
                                         color: Colors.black12,
@@ -109,8 +109,8 @@ class _SettingPageState extends State<SettingPage> {
                                       borderRadius:
                                       BorderRadius.circular(UIConfig.borderRadiusEntry),
                                       color: Theme.of(context).colorScheme.primary),
-                                  child: Column(
-                                    children: const [
+                                  child: const Column(
+                                    children: [
                                       AboutButton(),
                                       Divider(
                                         color: Colors.black12,
@@ -136,7 +136,7 @@ class _SettingPageState extends State<SettingPage> {
                                   ),
                                 ),
                               ),
-                              PolicyButton()
+                              const PolicyButton()
                             ],
                           ),
                         ],

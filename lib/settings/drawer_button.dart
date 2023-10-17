@@ -81,7 +81,7 @@ class _ThemeChangeState extends State<ThemeChange> {
                 padding: 1,
                 toggleSize: 20,
                 inactiveColor: Colors.grey,
-                activeColor: Color.fromRGBO(74, 114, 176, 1),
+                activeColor: const Color.fromRGBO(74, 114, 176, 1),
                 value: brightness,
                 width: 40,
                 height: 20,

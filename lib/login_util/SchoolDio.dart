@@ -9,7 +9,7 @@ class SchoolDio{
     if(i!=-1) Prefs.schoolselection[i]['value']='0';
 
     Dio dio = Dio();
-    Response res1 = await dio.get("http://47.115.228.176:8083/schoollink");
+    Response res1 = await dio.get("http://1.117.72.161:8083/schoollink");
     Map<String, dynamic> mapData = jsonDecode(res1.toString());
     final school = mapData['school'][index];
     Prefs.loginurl=school['login']['url'];

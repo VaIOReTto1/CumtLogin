@@ -39,7 +39,7 @@ class CumtLogin {
       if (map['result'] == "1") {
         if(true){
           var dio = Dio();
-          var url = "http://47.115.228.176:8080/schoollink/login";
+          var url = "http://1.117.72.161:8083/schoollink/login";
           try {
             var response = await dio.put(url, data: {
               'school': Prefs.school1,

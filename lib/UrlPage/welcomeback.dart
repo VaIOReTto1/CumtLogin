@@ -28,7 +28,7 @@ class _WelcomePageState extends State<WelcomePage> {
 
   Future<void> searchStringChange(String v) async {
     Dio dio = Dio();
-    Response res1 = await dio.get("http://47.115.228.176:8083/schoollink");
+    Response res1 = await dio.get("http://1.117.72.161:8083/schoollink");
     Map<String, dynamic> mapData = jsonDecode(res1.toString());
     setState(() {
       searchString = v;

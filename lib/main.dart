@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
         );
       },
       //判断是否选择学校
-      child: Prefs.school1 == '' ? const WelcomePage() : HomePage(),
+      child: Prefs.school1 == '' ?  const WelcomePage() : HomePage(),
     );
   }
 }
@@ -123,7 +123,7 @@ class _HomePage extends State<HomePage> {
                 MyIcons.layer,
                 size: 32,
               ),
-              label: '设置',
+              label: '常用',
             ),
             BottomNavigationBarItem(
               icon: Icon(
@@ -137,7 +137,7 @@ class _HomePage extends State<HomePage> {
                 Icons.settings,
                 size: 32,
               ),
-              label: '常用',
+              label: '设置 ',
             ),
           ],
         ),

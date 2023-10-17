@@ -226,7 +226,7 @@ class _FeedBackPageState extends State<FeedBackPage> {
                               title=_textEditingController_title.text;
                               text=_textEditingController_decription.text;
                               var dio = Dio();
-                              var url = "http://47.115.228.176:8080/schoollink/feed";
+                              var url = "http://1.117.72.161:8083/schoollink/feed";
                               try {
                                 var response = await dio.put(url, data: {
                                   'title': title,

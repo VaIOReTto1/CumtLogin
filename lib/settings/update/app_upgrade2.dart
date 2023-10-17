@@ -58,7 +58,7 @@ class Update {
     try {
       await Update.getVersion();
       Dio dio = Dio();
-      Response res = await dio.get("http://47.115.228.176:8080/update/check",
+      Response res = await dio.get("http://1.117.72.161:8083/update/check",
           queryParameters: {
             'version': Update.version.toString(),
             'platform': Update.platform
