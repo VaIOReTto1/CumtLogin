@@ -40,7 +40,7 @@ class _FeedBackPageState extends State<FeedBackPage> {
       onHorizontalDragUpdate: (details) {
       // 当用户向左滑动时，触发handleSwipeLeft函数
       if (details.primaryDelta! < -10) {
-      () => Navigator.pop(context);
+      Navigator.pop(context);
       }
       },
     child:Center(

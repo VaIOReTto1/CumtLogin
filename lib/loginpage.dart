@@ -61,7 +61,6 @@ class _LoginPageState extends State<LoginPage>
       _handleLogin(context);
     }
 
-
     //登录页圆圈动画
     _controller = AnimationController(
       vsync: this,
@@ -181,17 +180,15 @@ class _LoginPageState extends State<LoginPage>
                           ),
                           Prefs.status == '1'
                               ? const Text(
-                            '已连接    ',
-                            style: TextStyle(
-                                color: Colors.black54,
-                                fontSize: 12),
-                          )
+                                  '已连接    ',
+                                  style: TextStyle(
+                                      color: Colors.black54, fontSize: 12),
+                                )
                               : const Text(
-                            '未连接    ',
-                            style: TextStyle(
-                                color: Colors.black54,
-                                fontSize: 12),
-                          ),
+                                  '未连接    ',
+                                  style: TextStyle(
+                                      color: Colors.black54, fontSize: 12),
+                                ),
                         ],
                       ),
                     ),
@@ -205,8 +202,10 @@ class _LoginPageState extends State<LoginPage>
                       animation: _animation,
                       builder: (BuildContext context, Widget? child) {
                         final color = Prefs.status == '1'
-                            ? Color.fromRGBO(66, 128, 237, 0.4 - (_animation.value / 10))
-                            : Color.fromRGBO(234, 234, 234, 1 - (_animation.value / 10));
+                            ? Color.fromRGBO(
+                                66, 128, 237, 0.4 - (_animation.value / 10))
+                            : Color.fromRGBO(
+                                234, 234, 234, 1 - (_animation.value / 10));
 
                         return Container(
                           width: MediaQuery.of(context).size.height *
@@ -296,6 +295,7 @@ class _LoginPageState extends State<LoginPage>
         });
   }
 }
+
 //登陆栏
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -314,7 +314,7 @@ class _LoginState extends State<Login> {
   bool border = true;
   bool borders = true;
   bool isobscureText = true;
-  bool imageselect=false;
+  bool imageselect = false;
 
   @override
   void initState() {
@@ -394,7 +394,10 @@ class _LoginState extends State<Login> {
                     ),
                     child: Row(
                       children: [
-                        Text("${cumtLoginAccount.cumtLoginMethod?.name}",style: const TextStyle(color: Colors.black38),),
+                        Text(
+                          "${cumtLoginAccount.cumtLoginMethod?.name}",
+                          style: const TextStyle(color: Colors.black38),
+                        ),
                         const Icon(Icons.arrow_drop_down),
                       ],
                     )),
@@ -457,16 +460,18 @@ class _LoginState extends State<Login> {
           decoration: BoxDecoration(
             borderRadius: showPopButton
                 ? border
-                ? borders?BorderRadius.circular(10):const BorderRadius.only(
-              bottomRight: Radius.circular(10),
-              topRight: Radius.circular(10),
-              topLeft: Radius.circular(10),
-            )
-                : const BorderRadius.only(
-              bottomLeft: Radius.circular(10),
-              topRight: Radius.circular(10),
-              topLeft: Radius.circular(10),
-            )
+                    ? borders
+                        ? BorderRadius.circular(10)
+                        : const BorderRadius.only(
+                            bottomRight: Radius.circular(10),
+                            topRight: Radius.circular(10),
+                            topLeft: Radius.circular(10),
+                          )
+                    : const BorderRadius.only(
+                        bottomLeft: Radius.circular(10),
+                        topRight: Radius.circular(10),
+                        topLeft: Radius.circular(10),
+                      )
                 : BorderRadius.circular(10),
             color: const Color.fromRGBO(235, 240, 251, 1),
           ),
@@ -491,7 +496,7 @@ class _LoginState extends State<Login> {
                   ),
                   color: const Color.fromRGBO(216, 227, 247, 1),
                   offset:
-                  Offset(0, MediaQuery.of(context).size.height * 0.047-7),
+                      Offset(0, MediaQuery.of(context).size.height * 0.047 - 7),
                   child: Padding(
                     padding: const EdgeInsets.only(left: 8.0),
                     child: Container(
@@ -502,9 +507,9 @@ class _LoginState extends State<Login> {
                       child: CachedNetworkImage(
                         imageUrl: Prefs.image,
                         placeholder: (context, url) =>
-                        const CircularProgressIndicator(),
+                            const CircularProgressIndicator(),
                         errorWidget: (context, url, error) =>
-                        const Icon(Icons.error),
+                            const Icon(Icons.error),
                       ),
                     ),
                   ),
@@ -521,10 +526,12 @@ class _LoginState extends State<Login> {
                   },
                   onSelected: (value) async {
                     Dio dio = Dio();
-                    Response res1 = await dio.get("http://47.115.228.176:8083/schoollink");
+                    Response res1 =
+                        await dio.get("http://47.115.228.176:8083/schoollink");
                     Map<String, dynamic> mapData = jsonDecode(res1.toString());
-                    int i = mapData['school'].indexWhere((school) => school['name'] == value);
-                    if(i!=-1) SchoolDio.SchoolUrlDio(i);
+                    int i = mapData['school']
+                        .indexWhere((school) => school['name'] == value);
+                    if (i != -1) SchoolDio.SchoolUrlDio(i);
                   },
                   itemBuilder: (context) {
                     return Prefs.schoolselection.map((schoolselection) {
@@ -534,25 +541,36 @@ class _LoginState extends State<Login> {
                           children: [
                             Row(
                               children: [
-                               Container(
-                                 height: MediaQuery.of(context).size.height * 0.047 - 7,
-                                 decoration: const BoxDecoration(
-                                   shape: BoxShape.circle,
-                                 ),
-                                 child: CachedNetworkImage(
-                                   imageUrl: schoolselection['image']!,
-                                   placeholder: (context, url) =>
-                                   const CircularProgressIndicator(),
-                                   errorWidget: (context, url, error) =>
-                                   const Icon(Icons.error),
-                                 ),
-                               ),
-                               const SizedBox(width: 8),
-                               Expanded(child: Text(schoolselection['name']!,style: TextStyle(color:schoolselection['value']=='1'?Color.fromRGBO(59, 114, 217, 1):Colors.black),)),
+                                Container(
+                                  height: MediaQuery.of(context).size.height *
+                                          0.047 -
+                                      7,
+                                  decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: CachedNetworkImage(
+                                    imageUrl: schoolselection['image']!,
+                                    placeholder: (context, url) =>
+                                        const CircularProgressIndicator(),
+                                    errorWidget: (context, url, error) =>
+                                        const Icon(Icons.error),
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                                Expanded(
+                                    child: Text(
+                                  schoolselection['name']!,
+                                  style: TextStyle(
+                                      color: schoolselection['value'] == '1'
+                                          ? Color.fromRGBO(59, 114, 217, 1)
+                                          : Colors.black),
+                                )),
                                 IconButton(
                                     onPressed: () {
-                                      Prefs.schoolselection.remove(schoolselection);
-                                      saveschoolselection(Prefs.schoolselection);
+                                      Prefs.schoolselection
+                                          .remove(schoolselection);
+                                      saveschoolselection(
+                                          Prefs.schoolselection);
                                       showToast("删除成功");
                                       Navigator.of(context).pop();
                                       border = !border;
@@ -560,16 +578,20 @@ class _LoginState extends State<Login> {
                                     icon: const Icon(Icons.close))
                               ],
                             ),
-                            if(schoolselection==Prefs.schoolselection.last)
-                              const SizedBox(height: 10,),
-                            if(schoolselection==Prefs.schoolselection.last)
+                            if (schoolselection == Prefs.schoolselection.last)
+                              const SizedBox(
+                                height: 10,
+                              ),
+                            if (schoolselection == Prefs.schoolselection.last)
                               InkWell(
-                                onTap: (){
+                                onTap: () {
                                   toWelcomePage(context);
                                 },
                                 child: const Text('添加学校'),
                               ),
-                              const SizedBox(height: 10,),
+                            const SizedBox(
+                              height: 10,
+                            ),
                           ],
                         ),
                       );
@@ -601,19 +623,19 @@ class _LoginState extends State<Login> {
                     ),
                     suffixIcon: obscureText
                         ? InkWell(
-                      onTap: () {
-                        setState(() {
-                          isobscureText = !isobscureText;
-                        });
-                      },
-                      child: Icon(
-                        isobscureText
-                            ? Icons.visibility
-                            : Icons.visibility_off,
-                        color: const Color.fromRGBO(59, 114, 217, 1),
-                        size: 19,
-                      ),
-                    )
+                            onTap: () {
+                              setState(() {
+                                isobscureText = !isobscureText;
+                              });
+                            },
+                            child: Icon(
+                              isobscureText
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                              color: const Color.fromRGBO(59, 114, 217, 1),
+                              size: 19,
+                            ),
+                          )
                         : null,
                   ),
                 ),
@@ -624,70 +646,74 @@ class _LoginState extends State<Login> {
         //多账号选择
         showPopButton
             ? PopupMenuButton<CumtLoginAccount>(
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(10),
-                bottomRight: Radius.circular(10),
-              ),
-            ),
-            elevation: 0,
-            constraints: BoxConstraints(
-              minWidth: MediaQuery.of(context).size.width * 0.66 - MediaQuery.of(context).size.height * 0.047-9,
-              maxWidth: MediaQuery.of(context).size.width * 0.66 - MediaQuery.of(context).size.height * 0.047-9,
-            ),
-            color: const Color.fromRGBO(216, 227, 247, 1),
-            offset:
-            Offset(0, MediaQuery.of(context).size.height * 0.047 + 4),
-            icon: const Icon(
-              Icons.arrow_drop_down_sharp,
-              color: Color.fromRGBO(59, 114, 217, 1),
-              size: 30,
-            ),
-            onOpened: () {
-              setState(() {
-                border = !border;
-              });
-              FocusScope.of(context).unfocus();
-            },
-            onCanceled: () {
-              setState(() {
-                !border ? border = !border : null;
-              });
-            },
-            onSelected: (account) {
-              setState(() {
-                border = !border;
-                cumtLoginAccount = account.clone();
-                _usernameController.text = cumtLoginAccount.username!;
-                _passwordController.text = cumtLoginAccount.password!;
-              });
-            },
-            itemBuilder: (context) {
-              return CumtLoginAccount.list.map((account) {
-                return PopupMenuItem<CumtLoginAccount>(
-                  value: account,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: Text(
-                          "${account.username}"
-                              " ${account.cumtLoginMethod?.name}",
-                        ),
-                      ),
-                      IconButton(
-                          onPressed: () {
-                            CumtLoginAccount.removeList(account);
-                            showToast("删除成功");
-                            Navigator.of(context).pop();
-                            border = !border;
-                          },
-                          icon: const Icon(Icons.close))
-                    ],
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(10),
+                    bottomRight: Radius.circular(10),
                   ),
-                );
-              }).toList();
-            })
+                ),
+                elevation: 0,
+                constraints: BoxConstraints(
+                  minWidth: MediaQuery.of(context).size.width * 0.66 -
+                      MediaQuery.of(context).size.height * 0.047 -
+                      9,
+                  maxWidth: MediaQuery.of(context).size.width * 0.66 -
+                      MediaQuery.of(context).size.height * 0.047 -
+                      9,
+                ),
+                color: const Color.fromRGBO(216, 227, 247, 1),
+                offset:
+                    Offset(0, MediaQuery.of(context).size.height * 0.047 + 4),
+                icon: const Icon(
+                  Icons.arrow_drop_down_sharp,
+                  color: Color.fromRGBO(59, 114, 217, 1),
+                  size: 30,
+                ),
+                onOpened: () {
+                  setState(() {
+                    border = !border;
+                  });
+                  FocusScope.of(context).unfocus();
+                },
+                onCanceled: () {
+                  setState(() {
+                    !border ? border = !border : null;
+                  });
+                },
+                onSelected: (account) {
+                  setState(() {
+                    border = !border;
+                    cumtLoginAccount = account.clone();
+                    _usernameController.text = cumtLoginAccount.username!;
+                    _passwordController.text = cumtLoginAccount.password!;
+                  });
+                },
+                itemBuilder: (context) {
+                  return CumtLoginAccount.list.map((account) {
+                    return PopupMenuItem<CumtLoginAccount>(
+                      value: account,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              "${account.username}"
+                              " ${account.cumtLoginMethod?.name}",
+                            ),
+                          ),
+                          IconButton(
+                              onPressed: () {
+                                CumtLoginAccount.removeList(account);
+                                showToast("删除成功");
+                                Navigator.of(context).pop();
+                                border = !border;
+                              },
+                              icon: const Icon(Icons.close))
+                        ],
+                      ),
+                    );
+                  }).toList();
+                })
             : Container()
       ],
     );
@@ -696,7 +722,7 @@ class _LoginState extends State<Login> {
 //注销
   void _handleLogout(BuildContext context) {
     CumtLogin.logout(account: cumtLoginAccount).then((value) {
-      showToast( value);
+      showToast(value);
     });
   }
 

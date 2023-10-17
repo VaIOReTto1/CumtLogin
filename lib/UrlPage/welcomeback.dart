@@ -24,7 +24,9 @@ class _WelcomePageState extends State<WelcomePage> {
   bool flag = false;
   bool _showDialog = true;
   String searchString = "";
-  List<Map<String, String>>schoolelection=[{'school':'','index':''}];
+  List<Map<String, String>> schoolelection = [
+    {'school': '', 'index': ''}
+  ];
 
   Future<void> searchStringChange(String v) async {
     Dio dio = Dio();
@@ -32,19 +34,23 @@ class _WelcomePageState extends State<WelcomePage> {
     Map<String, dynamic> mapData = jsonDecode(res1.toString());
     setState(() {
       searchString = v;
-      if(searchString != "") {
+      if (searchString != "") {
         //重置搜索结果
         schoolelection.clear();
-        schoolelection=[{'school':'','index':''}];
+        schoolelection = [
+          {'school': '', 'index': ''}
+        ];
         flag = true;
         //输入搜索结果
         for (int i = 0; i < mapData['school'].length; i++) {
           final school = mapData['school'][i]['name'];
-          if (school.contains(searchString) && !schoolelection.any((element) => element['school']?.contains(school) ?? false)) {
-            schoolelection.add({'school':school,'index':i.toString()});
+          if (school.contains(searchString) &&
+              !schoolelection.any(
+                  (element) => element['school']?.contains(school) ?? false)) {
+            schoolelection.add({'school': school, 'index': i.toString()});
           }
         }
-      }else{
+      } else {
         flag = false;
       }
     });
@@ -91,101 +97,126 @@ class _WelcomePageState extends State<WelcomePage> {
     final double screenHeight = MediaQuery.of(context).size.height;
     return GestureDetector(
         onHorizontalDragUpdate: (details) {
-      // 当用户向左滑动时，触发handleSwipeLeft函数
-      if (details.primaryDelta! < -10) {
-            () => Navigator.pop(context);
-      }
-    },
-    child:Material(
-      child: ColoredBox(
-        color:const Color.fromRGBO(56, 111, 211, 1),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(flex: 345,child: Column(
-              children: [
-                Expanded(flex:190,child: Container()),
-                Expanded(flex:80,child:
-                Row(children:[
-                  Expanded(flex: 40,child: Container()),
-                  Expanded(flex:200,child: Text('Welcome\nBack',overflow: TextOverflow.visible,style: TextStyle(color: Colors.white,fontSize: UIConfig.welcomeTitle ,fontWeight: FontWeight.w400),)),
-                  Expanded(flex: 180,child: Container()),
-                ]
-                )
-                ),
-                Expanded(flex:25,child: Container()),
-                Expanded(flex:20,child:
-                Row(children:[
-                  Expanded(flex: 36,child: Container()),
-                  Expanded(flex: 41,child: Text('学校',overflow: TextOverflow.visible,style:TextStyle(color: Colors.white,fontSize: UIConfig.welcomeSubtitle,fontWeight:FontWeight.w600 ))),
-                  Expanded(flex: 283,child: Container()),])
-                ),
-                Expanded(flex:25,child: Container()),
-              ],
-            ),),
-            Expanded(
-              flex: 40,
-              child: Row(
-                children: [
-                  Expanded(flex: 1,child: Container()),
-                  Expanded(
-                    flex: 8,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topLeft: const Radius.circular(10.0),
-                          topRight: const Radius.circular(10.0),
-                          bottomLeft: flag? Radius.zero:const Radius.circular(10.0),
-                          bottomRight: flag? Radius.zero:const Radius.circular(10.0),
-                        ),
-                        color: Colors.white,
-                      ),
-                      child: TextField(
-                        cursorColor: Colors.black,
-                        style: TextStyle(color: Colors.black),
-                        onChanged: (value) {
-                          // 每输入一个字就会调用该函数
-                         searchStringChange(value);
-                        },
-                        decoration: const InputDecoration(
-                          contentPadding: EdgeInsets.symmetric(horizontal: 10.0,vertical: 7.0),
-                          hintText: "请输入学校",
-                          border: InputBorder.none,
-                          suffixIcon: Icon(Icons.search),
-                        ),
-
-                      ),
-                    ),
-                  ),
-                  Expanded(flex: 1,child: Container())
-                ],
-              ),
-            ),
-            Expanded(flex: 395,child:
-            Column(
+          // 当用户向左滑动时，触发handleSwipeLeft函数
+          if (details.primaryDelta! < -10) {
+            Navigator.pop(context);
+          }
+        },
+        child: Material(
+          child: ColoredBox(
+            color: const Color.fromRGBO(56, 111, 211, 1),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Expanded(
-                  flex: 150,
-                  child: Row(
+                  flex: 345,
+                  child: Column(
                     children: [
-                      Expanded(flex:1,child: Container()),
-                      Expanded(flex:8,child: flag? SearchResult() : Container()),
-                      Expanded(flex:1,child: Container()),
+                      Expanded(flex: 190, child: Container()),
+                      Expanded(
+                          flex: 80,
+                          child: Row(children: [
+                            Expanded(flex: 40, child: Container()),
+                            Expanded(
+                                flex: 200,
+                                child: Text(
+                                  'Welcome\nBack',
+                                  overflow: TextOverflow.visible,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: UIConfig.welcomeTitle,
+                                      fontWeight: FontWeight.w400),
+                                )),
+                            Expanded(flex: 180, child: Container()),
+                          ])),
+                      Expanded(flex: 25, child: Container()),
+                      Expanded(
+                          flex: 20,
+                          child: Row(children: [
+                            Expanded(flex: 36, child: Container()),
+                            Expanded(
+                                flex: 41,
+                                child: Text('学校',
+                                    overflow: TextOverflow.visible,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: UIConfig.welcomeSubtitle,
+                                        fontWeight: FontWeight.w600))),
+                            Expanded(flex: 283, child: Container()),
+                          ])),
+                      Expanded(flex: 25, child: Container()),
                     ],
                   ),
                 ),
-                Expanded(flex: 245, child: Container())
+                Expanded(
+                  flex: 40,
+                  child: Row(
+                    children: [
+                      Expanded(flex: 1, child: Container()),
+                      Expanded(
+                        flex: 8,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              topLeft: const Radius.circular(10.0),
+                              topRight: const Radius.circular(10.0),
+                              bottomLeft: flag
+                                  ? Radius.zero
+                                  : const Radius.circular(10.0),
+                              bottomRight: flag
+                                  ? Radius.zero
+                                  : const Radius.circular(10.0),
+                            ),
+                            color: Colors.white,
+                          ),
+                          child: TextField(
+                            cursorColor: Colors.black,
+                            style: TextStyle(color: Colors.black),
+                            onChanged: (value) {
+                              // 每输入一个字就会调用该函数
+                              searchStringChange(value);
+                            },
+                            decoration: const InputDecoration(
+                              contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 10.0, vertical: 7.0),
+                              hintText: "请输入学校",
+                              border: InputBorder.none,
+                              suffixIcon: Icon(Icons.search),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(flex: 1, child: Container())
+                    ],
+                  ),
+                ),
+                Expanded(
+                    flex: 395,
+                    child: Column(
+                      children: [
+                        Expanded(
+                          flex: 150,
+                          child: Row(
+                            children: [
+                              Expanded(flex: 1, child: Container()),
+                              Expanded(
+                                  flex: 8,
+                                  child: flag ? SearchResult() : Container()),
+                              Expanded(flex: 1, child: Container()),
+                            ],
+                          ),
+                        ),
+                        Expanded(flex: 245, child: Container())
+                      ],
+                    ))
               ],
-            )
-            )
-          ],
-        ),
-      ),
-    ));
+            ),
+          ),
+        ));
   }
 
   //展示搜索界面
-  Widget SearchResult(){
+  Widget SearchResult() {
     return Container(
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.only(
@@ -197,31 +228,36 @@ class _WelcomePageState extends State<WelcomePage> {
           color: Colors.white,
         ),
         child: ListView.builder(
-          itemCount: schoolelection.length==1?1:schoolelection.length-1,
+          itemCount: schoolelection.length == 1 ? 1 : schoolelection.length - 1,
           itemBuilder: (BuildContext context, int index) {
-            return schoolelection.length!=1?ListTile(
-              onTap: () async {
-                int myInt = int.parse(schoolelection[index+1]['index']!);
-                await SchoolDio.SchoolUrlDio(myInt);
-                toHomePage(context, 0);
-              },
-              title: Text(schoolelection[index+1]['school']!,style: TextStyle(color: Colors.black),),
-              subtitle: const Divider(
-                color: Colors.black12,
-                thickness: 1,
-              ),
-            ):const ListTile(
-              title: Text('没有搜索到该学校，请检查输入学校是否正确\n如果无你所在学校，请添加QQ群：738340698\n与我们进行合作',style: TextStyle(color: Colors.black),),
-              subtitle: Divider(
-                color: Colors.black12,
-                thickness: 1,
-              ),
-            );
+            return schoolelection.length != 1
+                ? ListTile(
+                    onTap: () async {
+                      int myInt =
+                          int.parse(schoolelection[index + 1]['index']!);
+                      await SchoolDio.SchoolUrlDio(myInt);
+                      toHomePage(context, 0);
+                    },
+                    title: Text(
+                      schoolelection[index + 1]['school']!,
+                      style: TextStyle(color: Colors.black),
+                    ),
+                    subtitle: const Divider(
+                      color: Colors.black12,
+                      thickness: 1,
+                    ),
+                  )
+                : const ListTile(
+                    title: Text(
+                      '没有搜索到该学校，请检查输入学校是否正确\n如果无你所在学校，请添加QQ群：738340698\n与我们进行合作',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                    subtitle: Divider(
+                      color: Colors.black12,
+                      thickness: 1,
+                    ),
+                  );
           },
-        )
-    );
+        ));
   }
 }
-
-
-

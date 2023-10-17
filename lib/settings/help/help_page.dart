@@ -24,8 +24,8 @@ class HelpPage extends StatelessWidget {
         body: GestureDetector(
             onHorizontalDragUpdate: (details) {
               // 当用户向左滑动时，触发handleSwipeLeft函数
-              if (details.primaryDelta! < -10) {
-                () => Navigator.pop(context);
+              if (details.primaryDelta! < 5) {
+                Navigator.pop(context);
               }
             },
             child: CustomScrollView(

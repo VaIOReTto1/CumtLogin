@@ -9,6 +9,8 @@ class AppTheme {
   factory AppTheme.darkTheme() {
     return AppTheme(
       ThemeData(
+        platform: TargetPlatform.iOS,
+
         cardTheme: CardTheme(
           color: Colors.grey[700], // 更改Card的颜色
         ),
@@ -66,6 +68,8 @@ class AppTheme {
   factory AppTheme.LightTheme() {
     return AppTheme(
       ThemeData(
+        platform: TargetPlatform.iOS,
+
         cardTheme: const CardTheme(
           color: Color.fromRGBO(245,244,249,1),// 更改Card的颜色
         ),
