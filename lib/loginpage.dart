@@ -5,12 +5,13 @@ import 'package:cumt_login/config.dart';
 import 'package:cumt_login/settings/drawer_button.dart';
 import 'package:cumt_login/settings/update/toast.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_picker/Picker.dart';
-// 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 
-import 'UrlPage/welcomeback.dart';
+import 'welcomeback.dart';
 import 'icon.dart';
 import 'login_util/SchoolDio.dart';
 import 'settings/theme/theme_color.dart';
@@ -20,7 +21,7 @@ import 'login_util/methods.dart';
 import 'login_util/prefs.dart';
 
 toLoginPage(BuildContext context) {
-  Navigator.of(context).pushReplacement(MaterialPageRoute(
+  Navigator.of(context).pushReplacement(CupertinoPageRoute(
     builder: (context) => const LoginPage(),
     fullscreenDialog: true, // 路由为全屏模式
   ));
@@ -35,25 +36,26 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage>
     with WidgetsBindingObserver, SingleTickerProviderStateMixin {
-  //static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
   late AnimationController _controller;
   late Animation<double> _animation;
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   CumtLoginAccount cumtLoginAccount = CumtLoginAccount();
+  double keyboardHeight = 0.0;
 
   //日活统计
-  // Future<void> logLoginEvent() async {
-  //   await analytics.logEvent(
-  //     name: 'daily user count',
-  //   );
-  // }
+  Future<void> logLoginEvent() async {
+    await analytics.logEvent(
+      name: 'daily user count',
+    );
+  }
 
   @override
   void initState() {
     super.initState();
     ThemeProvider;
-    //logLoginEvent();
+    logLoginEvent();
     WidgetsBinding.instance.addObserver(this);
     _usernameController.text = cumtLoginAccount.username!;
     _passwordController.text = cumtLoginAccount.password!;
@@ -68,6 +70,14 @@ class _LoginPageState extends State<LoginPage>
     )..repeat(reverse: true);
 
     _animation = Tween<double>(begin: 0.7, end: 0.8).animate(_controller);
+  }
+
+  @override
+  void didChangeMetrics() {
+    final bottomInset = WidgetsBinding.instance.window.viewInsets.bottom;
+    setState(() {
+      keyboardHeight = bottomInset;
+    });
   }
 
   void _handleLogin(BuildContext context) {
@@ -275,8 +285,7 @@ class _LoginPageState extends State<LoginPage>
     );
   }
 
-  void _loginpage() {
-    //底部跳出边框
+  void _loginpage() {//底部跳出边框
     showModalBottomSheet(
         isScrollControlled: true,
         clipBehavior: Clip.antiAlias,
@@ -289,7 +298,9 @@ class _LoginPageState extends State<LoginPage>
         context: context,
         builder: (context) {
           return SizedBox(
-            height: MediaQuery.of(context).size.height * 0.39,
+            height: keyboardHeight!=0.0
+                ? MediaQuery.of(context).size.height * 0.7 // 当键盘可见时，增加高度
+                : MediaQuery.of(context).size.height * 0.39,
             child: const Login(),
           );
         });

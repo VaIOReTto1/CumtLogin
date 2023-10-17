@@ -39,6 +39,7 @@ class SchoolDio{
 
     Prefs.url.clear();
     for (var url in school['url']) {
+      print(url);
       Prefs.url.add({
         'name':url['name'],
         'url':url['url'],

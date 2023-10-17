@@ -7,9 +7,9 @@ import 'package:cumt_login/settings/update/app_upgrade2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
-//import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-import 'UrlPage/welcomeback.dart';
+import 'welcomeback.dart';
 import 'icon.dart';
 import 'loginpage.dart';
 import 'settings/theme/theme_color.dart';
@@ -18,7 +18,7 @@ import 'login_util/prefs.dart';
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //使用firebase统计
-  // await Firebase.initializeApp();
+  await Firebase.initializeApp();
 
   await Prefs.init();
   runApp((MultiProvider(
@@ -76,6 +76,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePage extends State<HomePage> {
+
+  Color select_color=const Color.fromRGBO(44, 44, 44, 1);
+  Color unselect_color=const Color.fromRGBO(111, 111, 111, 1);
+
   @override
   void initState() {
     // TODO: implement initState
@@ -115,8 +119,12 @@ class _HomePage extends State<HomePage> {
               _currentPageIndex = index;
             });
           },
-          selectedItemColor: const Color.fromRGBO(44, 44, 44, 1), // 选中时的颜色
-          unselectedItemColor: const Color.fromRGBO(111, 111, 111, 1), // 未选中时的颜色
+          selectedItemColor: Theme.of(context).brightness != Brightness.dark
+              ? select_color
+              : unselect_color,
+          unselectedItemColor: Theme.of(context).brightness != Brightness.dark
+              ? unselect_color
+              : select_color,
           items: const [
             BottomNavigationBarItem(
               icon: Icon(

@@ -2,14 +2,16 @@ import 'dart:convert';
 import 'package:cumt_login/config.dart';
 import 'package:cumt_login/main.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../login_util/SchoolDio.dart';
+import 'login_util/SchoolDio.dart';
 
 toWelcomePage(BuildContext context) {
-  Navigator.of(context).pushReplacement(MaterialPageRoute(
-    builder: (context) => const WelcomePage(),
-    fullscreenDialog: true, // 路由为全屏模式
+  Navigator.of(context).pushReplacement(CupertinoPageRoute(
+    builder: (context) {
+      return const WelcomePage();
+    },
   ));
 }
 
@@ -98,7 +100,7 @@ class _WelcomePageState extends State<WelcomePage> {
     return GestureDetector(
         onHorizontalDragUpdate: (details) {
           // 当用户向左滑动时，触发handleSwipeLeft函数
-          if (details.primaryDelta! < -10) {
+          if (details.primaryDelta! < 200) {
             Navigator.pop(context);
           }
         },
@@ -171,7 +173,7 @@ class _WelcomePageState extends State<WelcomePage> {
                           ),
                           child: TextField(
                             cursorColor: Colors.black,
-                            style: TextStyle(color: Colors.black),
+                            style: const TextStyle(color: Colors.black),
                             onChanged: (value) {
                               // 每输入一个字就会调用该函数
                               searchStringChange(value);

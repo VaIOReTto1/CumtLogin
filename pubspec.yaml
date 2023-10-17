@@ -24,8 +24,8 @@ dependencies:
   provider: ^6.0.5 #状态管理，
   package_info: any   #调取本地的版本信息
   bot_toast: ^4.0.3   #错误弹窗
-  firebase_core: ^2.10.0  #firebase 用户监控
-  firebase_analytics: ^10.2.1 #用户行为监控
+  firebase_core: ^2.17.0  #firebase 用户监控
+  firebase_analytics: ^10.5.1 #用户行为监控
   flutter_share: ^2.0.0 #实现分享功能
   flutter_switch: ^0.3.2 #switch模块
   photo_view: ^0.14.0 #允许用户放大查看图片

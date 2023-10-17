@@ -41,9 +41,7 @@ class Prefs {
 
     json = _get(_urlKey) ?? "";
     if (json.isEmpty) {
-      _set(_urlKey, jsonEncode([
-        {'name':'name','url':'url'}
-      ]));
+      _set(_urlKey, jsonEncode([]));
     } else {
       _url = (jsonDecode(json) as List).map((e) => Map<String, String>.from(e)).toList();
     }

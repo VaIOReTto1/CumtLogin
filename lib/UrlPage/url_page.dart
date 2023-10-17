@@ -29,7 +29,7 @@ class _UrlPageState extends State<UrlPage> {
             Container(
               height: MediaQuery.of(context).size.height * 0.119,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(10.0),
                   bottomRight: Radius.circular(10.0),
                 ),
