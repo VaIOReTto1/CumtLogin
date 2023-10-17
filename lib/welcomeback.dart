@@ -8,11 +8,9 @@ import 'package:flutter/material.dart';
 import 'login_util/SchoolDio.dart';
 
 toWelcomePage(BuildContext context) {
-  Navigator.of(context).pushReplacement(CupertinoPageRoute(
-    builder: (context) {
-      return const WelcomePage();
-    },
-  ));
+  Navigator.of(context).pushReplacement(CupertinoPageRoute(builder: (context) {
+    return const WelcomePage();
+  }));
 }
 
 class WelcomePage extends StatefulWidget {
@@ -95,126 +93,117 @@ class _WelcomePageState extends State<WelcomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final double screenWidth = MediaQuery.of(context).size.width;
-    final double screenHeight = MediaQuery.of(context).size.height;
-    return GestureDetector(
-        onHorizontalDragUpdate: (details) {
-          // 当用户向左滑动时，触发handleSwipeLeft函数
-          if (details.primaryDelta! < 200) {
-            Navigator.pop(context);
-          }
-        },
-        child: Material(
-          child: ColoredBox(
-            color: const Color.fromRGBO(56, 111, 211, 1),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  flex: 345,
-                  child: Column(
-                    children: [
-                      Expanded(flex: 190, child: Container()),
-                      Expanded(
-                          flex: 80,
-                          child: Row(children: [
-                            Expanded(flex: 40, child: Container()),
-                            Expanded(
-                                flex: 200,
-                                child: Text(
-                                  'Welcome\nBack',
-                                  overflow: TextOverflow.visible,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: UIConfig.welcomeTitle,
-                                      fontWeight: FontWeight.w400),
-                                )),
-                            Expanded(flex: 180, child: Container()),
-                          ])),
-                      Expanded(flex: 25, child: Container()),
-                      Expanded(
-                          flex: 20,
-                          child: Row(children: [
-                            Expanded(flex: 36, child: Container()),
-                            Expanded(
-                                flex: 41,
-                                child: Text('学校',
-                                    overflow: TextOverflow.visible,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: UIConfig.welcomeSubtitle,
-                                        fontWeight: FontWeight.w600))),
-                            Expanded(flex: 283, child: Container()),
-                          ])),
-                      Expanded(flex: 25, child: Container()),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  flex: 40,
-                  child: Row(
-                    children: [
-                      Expanded(flex: 1, child: Container()),
-                      Expanded(
-                        flex: 8,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                              topLeft: const Radius.circular(10.0),
-                              topRight: const Radius.circular(10.0),
-                              bottomLeft: flag
-                                  ? Radius.zero
-                                  : const Radius.circular(10.0),
-                              bottomRight: flag
-                                  ? Radius.zero
-                                  : const Radius.circular(10.0),
-                            ),
-                            color: Colors.white,
-                          ),
-                          child: TextField(
-                            cursorColor: Colors.black,
-                            style: const TextStyle(color: Colors.black),
-                            onChanged: (value) {
-                              // 每输入一个字就会调用该函数
-                              searchStringChange(value);
-                            },
-                            decoration: const InputDecoration(
-                              contentPadding: EdgeInsets.symmetric(
-                                  horizontal: 10.0, vertical: 7.0),
-                              hintText: "请输入学校",
-                              border: InputBorder.none,
-                              suffixIcon: Icon(Icons.search),
-                            ),
-                          ),
+    return Material(
+      child: ColoredBox(
+        color: const Color.fromRGBO(56, 111, 211, 1),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              flex: 345,
+              child: Column(
+                children: [
+                  Expanded(flex: 190, child: Container()),
+                  Expanded(
+                      flex: 80,
+                      child: Row(children: [
+                        Expanded(flex: 40, child: Container()),
+                        Expanded(
+                            flex: 200,
+                            child: Text(
+                              'Welcome\nBack',
+                              overflow: TextOverflow.visible,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: UIConfig.welcomeTitle,
+                                  fontWeight: FontWeight.w400),
+                            )),
+                        Expanded(flex: 180, child: Container()),
+                      ])),
+                  Expanded(flex: 25, child: Container()),
+                  Expanded(
+                      flex: 20,
+                      child: Row(children: [
+                        Expanded(flex: 36, child: Container()),
+                        Expanded(
+                            flex: 41,
+                            child: Text('学校',
+                                overflow: TextOverflow.visible,
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: UIConfig.welcomeSubtitle,
+                                    fontWeight: FontWeight.w600))),
+                        Expanded(flex: 283, child: Container()),
+                      ])),
+                  Expanded(flex: 25, child: Container()),
+                ],
+              ),
+            ),
+            Expanded(
+              flex: 40,
+              child: Row(
+                children: [
+                  Expanded(flex: 1, child: Container()),
+                  Expanded(
+                    flex: 8,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topLeft: const Radius.circular(10.0),
+                          topRight: const Radius.circular(10.0),
+                          bottomLeft: flag
+                              ? Radius.zero
+                              : const Radius.circular(10.0),
+                          bottomRight: flag
+                              ? Radius.zero
+                              : const Radius.circular(10.0),
+                        ),
+                        color: Colors.white,
+                      ),
+                      child: TextField(
+                        cursorColor: Colors.black,
+                        style: const TextStyle(color: Colors.black),
+                        onChanged: (value) {
+                          // 每输入一个字就会调用该函数
+                          searchStringChange(value);
+                        },
+                        decoration: const InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: 10.0, vertical: 7.0),
+                          hintText: "请输入学校",
+                          border: InputBorder.none,
+                          suffixIcon: Icon(Icons.search),
                         ),
                       ),
-                      Expanded(flex: 1, child: Container())
-                    ],
+                    ),
                   ),
-                ),
-                Expanded(
-                    flex: 395,
-                    child: Column(
-                      children: [
-                        Expanded(
-                          flex: 150,
-                          child: Row(
-                            children: [
-                              Expanded(flex: 1, child: Container()),
-                              Expanded(
-                                  flex: 8,
-                                  child: flag ? SearchResult() : Container()),
-                              Expanded(flex: 1, child: Container()),
-                            ],
-                          ),
-                        ),
-                        Expanded(flex: 245, child: Container())
-                      ],
-                    ))
-              ],
+                  Expanded(flex: 1, child: Container())
+                ],
+              ),
             ),
-          ),
-        ));
+            Expanded(
+                flex: 395,
+                child: Column(
+                  children: [
+                    Expanded(
+                      flex: 150,
+                      child: Row(
+                        children: [
+                          Expanded(flex: 1, child: Container()),
+                          Expanded(
+                              flex: 8,
+                              child: flag ? SearchResult() : Container()),
+                          Expanded(flex: 1, child: Container()),
+                        ],
+                      ),
+                    ),
+                    Expanded(flex: 245, child: Container())
+                  ],
+                ))
+          ],
+        ),
+      ),
+    );
   }
 
   //展示搜索界面

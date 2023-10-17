@@ -42,7 +42,7 @@ class _LoginPageState extends State<LoginPage>
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   CumtLoginAccount cumtLoginAccount = CumtLoginAccount();
-  double keyboardHeight = 0.0;
+  double keyboardHeight = 0.0;//键盘打开情况
 
   //日活统计
   Future<void> logLoginEvent() async {
@@ -72,6 +72,7 @@ class _LoginPageState extends State<LoginPage>
     _animation = Tween<double>(begin: 0.7, end: 0.8).animate(_controller);
   }
 
+  //监听键盘打开情况
   @override
   void didChangeMetrics() {
     final bottomInset = WidgetsBinding.instance.window.viewInsets.bottom;
@@ -80,6 +81,7 @@ class _LoginPageState extends State<LoginPage>
     });
   }
 
+  //自动登录
   void _handleLogin(BuildContext context) {
     if (_usernameController.text.trim().isEmpty ||
         _passwordController.text.trim().isEmpty) {
@@ -115,7 +117,6 @@ class _LoginPageState extends State<LoginPage>
       onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        //升起登录页时调低色彩
         backgroundColor: Theme.of(context).colorScheme.primary,
         body: Center(
           child: Stack(
@@ -352,87 +353,90 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        color: Theme.of(context).colorScheme.primary,
-        child: Column(
-          children: [
-            Column(children: [
-              const SizedBox(
-                height: 55,
-              ),
-              buildTextField("账号", _usernameController, showPopButton: true),
-            ]),
-            const SizedBox(height: 16.0),
-            Column(children: [
-              const SizedBox(
-                height: 5,
-              ),
-              buildTextField(
-                "密码",
-                _passwordController,
-                obscureText: true,
-              ),
-            ]),
-            const SizedBox(height: 16.0),
-            Row(
-              children: [
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.208,
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+      child: Scaffold(
+        body: Container(
+          color: Theme.of(context).colorScheme.primary,
+          child: Column(
+            children: [
+              Column(children: [
+                const SizedBox(
+                  height: 55,
                 ),
-                const Text(
-                  '选择运营商：',
-                  style: TextStyle(
-                      color: Color.fromRGBO(112, 112, 112, 1), fontSize: 14),
+                buildTextField("账号", _usernameController, showPopButton: true),
+              ]),
+              const SizedBox(height: 16.0),
+              Column(children: [
+                const SizedBox(
+                  height: 5,
                 ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.048,
+                buildTextField(
+                  "密码",
+                  _passwordController,
+                  obscureText: true,
                 ),
-                TextButton(
-                    onPressed: () => _showLocationMethodPicker(),
-                    style: ButtonStyle(
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
+              ]),
+              const SizedBox(height: 16.0),
+              Row(
+                children: [
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.208,
+                  ),
+                  const Text(
+                    '选择运营商：',
+                    style: TextStyle(
+                        color: Color.fromRGBO(112, 112, 112, 1), fontSize: 14),
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.048,
+                  ),
+                  TextButton(
+                      onPressed: () => _showLocationMethodPicker(),
+                      style: ButtonStyle(
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        minimumSize: MaterialStateProperty.all(Size(
+                            MediaQuery.of(context).size.width * 0.355,
+                            MediaQuery.of(context).size.height * 0.047)),
+                        backgroundColor: MaterialStateProperty.all<Color>(
+                          const Color.fromRGBO(235, 240, 251, 1),
                         ),
                       ),
-                      minimumSize: MaterialStateProperty.all(Size(
-                          MediaQuery.of(context).size.width * 0.355,
-                          MediaQuery.of(context).size.height * 0.047)),
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                        const Color.fromRGBO(235, 240, 251, 1),
-                      ),
-                    ),
-                    child: Row(
-                      children: [
-                        Text(
-                          "${cumtLoginAccount.cumtLoginMethod?.name}",
-                          style: const TextStyle(color: Colors.black38),
-                        ),
-                        const Icon(Icons.arrow_drop_down),
-                      ],
-                    )),
-              ],
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton(
-                  onPressed: () => _handleLogin(context),
-                  child: Text('登录',
-                      style: TextStyle(fontSize: UIConfig.fontSizeMain)),
-                ),
-                ElevatedButton(
-                  onPressed: () => _handleLogout(context),
-                  child: Text('注销',
-                      style: TextStyle(fontSize: UIConfig.fontSizeMain)),
-                ),
-              ],
-            )
-          ],
+                      child: Row(
+                        children: [
+                          Text(
+                            "${cumtLoginAccount.cumtLoginMethod?.name}",
+                            style: const TextStyle(color: Colors.black38),
+                          ),
+                          const Icon(Icons.arrow_drop_down),
+                        ],
+                      )),
+                ],
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  ElevatedButton(
+                    onPressed: () => _handleLogin(context),
+                    child: Text('登录',
+                        style: TextStyle(fontSize: UIConfig.fontSizeMain)),
+                  ),
+                  ElevatedButton(
+                    onPressed: () => _handleLogout(context),
+                    child: Text('注销',
+                        style: TextStyle(fontSize: UIConfig.fontSizeMain)),
+                  ),
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -573,7 +577,7 @@ class _LoginState extends State<Login> {
                                   schoolselection['name']!,
                                   style: TextStyle(
                                       color: schoolselection['value'] == '1'
-                                          ? Color.fromRGBO(59, 114, 217, 1)
+                                          ? const Color.fromRGBO(59, 114, 217, 1)
                                           : Colors.black),
                                 )),
                                 IconButton(
