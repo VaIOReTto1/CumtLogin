@@ -131,7 +131,7 @@ class _ShortcutState extends State<Shortcut> {
             crossAxisAlignment: WrapCrossAlignment.center,
             alignment: WrapAlignment.center,
             children: [
-              if (links != null && links[index] != null&& links[index]["name"] != null) Text(links[index]["name"]!, style: TextStyle(fontSize: 15))
+              if (links[index]["name"] != null) Text(links[index]["name"]!, style: const TextStyle(fontSize: 15))
             ],
           ),
         ),
@@ -160,7 +160,7 @@ class _ShortcutState extends State<Shortcut> {
           borderRadius: BorderRadius.circular(30),
           color: Theme.of(context).canvasColor,
         ),
-        child: Wrap(
+        child: const Wrap(
           spacing: 4,
           crossAxisAlignment: WrapCrossAlignment.center,
           alignment: WrapAlignment.center,

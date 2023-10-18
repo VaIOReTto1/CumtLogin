@@ -30,7 +30,7 @@ class Prefs {
   static List<Map<String, String>> _schoolselection = [];
 
   static Future<void> _initRespond() async {
-    String json = _get(_respondKey) ?? "";
+    String json = _get(_respondKey) ;
     if (json.isEmpty) {
       _set(_respondKey, jsonEncode([
         {'value':'value','name':'name','status':'status'}
@@ -39,7 +39,7 @@ class Prefs {
       _respond = List<Map<String, dynamic>>.from(jsonDecode(json));
     }
 
-    json = _get(_urlKey) ?? "";
+    json = _get(_urlKey);
     if (json.isEmpty) {
       _set(_urlKey, jsonEncode([]));
     } else {

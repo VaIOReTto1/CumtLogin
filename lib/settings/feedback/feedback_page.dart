@@ -175,7 +175,7 @@ class _FeedBackPageState extends State<FeedBackPage> {
                           width: double.infinity,
                           decoration: BoxDecoration(
                               color: Theme.of(context).colorScheme.primary),
-                          child: Row(
+                          child: const Row(
                             children: [
                               Expanded(
                                 child: MyWidget(),

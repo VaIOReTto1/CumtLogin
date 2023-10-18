@@ -231,7 +231,7 @@ class _WelcomePageState extends State<WelcomePage> {
                     },
                     title: Text(
                       schoolelection[index + 1]['school']!,
-                      style: TextStyle(color: Colors.black),
+                      style: const TextStyle(color: Colors.black),
                     ),
                     subtitle: const Divider(
                       color: Colors.black12,

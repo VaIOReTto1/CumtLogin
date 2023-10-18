@@ -14,7 +14,7 @@ class UpdateAlertIcon extends StatelessWidget {
           padding: EdgeInsets.symmetric(vertical: UIConfig.fontAlertIcon*0.23, horizontal: 1),
           decoration: BoxDecoration(
             color: Colors.red.shade100,
-            borderRadius: BorderRadius.only(
+            borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(5),
               bottomLeft: Radius.circular(5),
             ),
@@ -22,10 +22,10 @@ class UpdateAlertIcon extends StatelessWidget {
           child: Icon(Icons.keyboard_arrow_up_sharp, color: Colors.red.shade700,size: UIConfig.fontAlertIcon,),
         ),
         Container(
-          padding: EdgeInsets.symmetric(vertical: 0, horizontal: 3),
+          padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 3),
           decoration: BoxDecoration(
             color: Colors.red.shade100,
-            borderRadius: BorderRadius.only(
+            borderRadius: const BorderRadius.only(
               topRight: Radius.circular(5),
               bottomRight: Radius.circular(5),
             ),

@@ -60,6 +60,7 @@ class ThemeChange extends StatefulWidget {
 
 class _ThemeChangeState extends State<ThemeChange> {
 
+  @override
   void initState() {
     super.initState();
   }
@@ -138,7 +139,7 @@ class _PhomeThemeState extends State<PhomeTheme> {
                 padding: 1,
                 toggleSize: 20,
                 inactiveColor: Colors.grey,
-                activeColor: Color.fromRGBO(74, 114, 176, 1),
+                activeColor: const Color.fromRGBO(74, 114, 176, 1),
                 value: Prefs.isDark=='true'?true:false,
                 width: 40,
                 height: 20,
@@ -195,7 +196,7 @@ class _UpdatecheckButtonState extends State<UpdatecheckButton> {
                         style: TextStyle(fontSize: UIConfig.fontSizeMain)),
                   ),
                   if (Update.isIgnore == true && Update.isUpDate == true)
-                    Expanded(
+                    const Expanded(
                       child: UpdateAlertIcon(),
                     ),
                   Icon(

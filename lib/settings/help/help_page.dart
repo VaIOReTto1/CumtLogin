@@ -3,17 +3,15 @@ import 'package:flutter/material.dart';
 
 import '../../config.dart';
 import '../../icon.dart';
-import '../drawer_button.dart';
 
 toHelpPage(BuildContext context) {
   Navigator.of(context).push(CupertinoPageRoute(builder: (context) {
-    return HelpPage();
+    return const HelpPage();
   }));
 }
 
 class HelpPage extends StatelessWidget {
-  HelpPage({Key? key}) : super(key: key);
-  final ScrollController _scrollController = ScrollController();
+  const HelpPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

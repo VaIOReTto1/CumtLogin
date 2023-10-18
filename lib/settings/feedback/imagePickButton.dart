@@ -9,6 +9,8 @@ import '../../config.dart';
 
 
 class MyWidget extends StatefulWidget {
+  const MyWidget({super.key});
+
   @override
   _MyWidgetState createState() => _MyWidgetState();
 }
@@ -69,20 +71,19 @@ class _MyWidgetState extends State<MyWidget> {
         ),
         child: Stack(
           children: [
-            if (imageFile != null)
-              SizedBox(
-                width: 65,
-                height: 65,
-                child: PhotoView(
-                  imageProvider: FileImage(imageFile),
-                  backgroundDecoration: BoxDecoration(
-                    color: Colors.transparent,
-                  ),
-                  loadingBuilder: (context, event) => Center(
-                    child: CircularProgressIndicator(),
-                  ),
+            SizedBox(
+              width: 65,
+              height: 65,
+              child: PhotoView(
+                imageProvider: FileImage(imageFile),
+                backgroundDecoration: const BoxDecoration(
+                  color: Colors.transparent,
+                ),
+                loadingBuilder: (context, event) => const Center(
+                  child: CircularProgressIndicator(),
                 ),
               ),
+            ),
             Positioned(
               top: 0,
               right: 0,
@@ -113,7 +114,7 @@ class _MyWidgetState extends State<MyWidget> {
 class ImagePickerButton extends StatefulWidget {
   final Function(File) onImagePicked;
 
-  ImagePickerButton({required this.onImagePicked});
+  const ImagePickerButton({super.key, required this.onImagePicked});
 
   @override
   _ImagePickerButtonState createState() => _ImagePickerButtonState();
@@ -142,7 +143,7 @@ class _ImagePickerButtonState extends State<ImagePickerButton> {
           borderRadius: BorderRadius.circular(UIConfig.borderRadiusEntry),
           color: Theme.of(context).canvasColor,
         ),
-        child: Wrap(
+        child: const Wrap(
           children: [
             SizedBox(
               width: 37,

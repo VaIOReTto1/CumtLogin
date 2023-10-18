@@ -78,7 +78,7 @@ class CumtLoginAccount{
       String? username, String? password, CumtLoginMethod? loginMethod) async {
     String head =Prefs.loginurl;
     head = head.replaceAll('{username}', username ?? '');
-    head = head.replaceAll('{methods}', loginMethod!.code ?? '');
+    head = head.replaceAll('{methods}', loginMethod!.code);
     head = head.replaceAll('{password}', password ?? '');
     return head;
   }

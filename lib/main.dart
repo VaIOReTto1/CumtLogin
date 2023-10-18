@@ -105,6 +105,7 @@ class _HomePage extends State<HomePage> {
 
   int _currentPageIndex = 1;
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
