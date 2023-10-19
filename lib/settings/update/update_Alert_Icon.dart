@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../config.dart';
+import '../../config/config.dart';
 
 class UpdateAlertIcon extends StatelessWidget {
   const UpdateAlertIcon({Key? key}) : super(key: key);

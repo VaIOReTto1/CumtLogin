@@ -1,7 +1,7 @@
 import 'package:cumt_login/UrlPage/shortcut/ui.dart';
 import 'package:flutter/material.dart';
 
-import '../config.dart';
+import '../config/config.dart';
 import '../settings/drawer_button.dart';
 
 toUrlPage(BuildContext context) {

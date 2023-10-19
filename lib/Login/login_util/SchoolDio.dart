@@ -1,12 +1,16 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
+
 import 'prefs.dart';
 import 'package:dio/dio.dart';
 
+
 //获取学校信息
 class SchoolDio{
-  static Future<void> SchoolUrlDio(int index) async {
+  static Future<void> schoolUrlDio(int index) async {
     int i = Prefs.schoolselection.indexWhere((element) => element['name'] == Prefs.school1);
     if(i!=-1) Prefs.schoolselection[i]['value']='0';
+    print(Prefs.schoolselection[i]['value']);
 
     Dio dio = Dio();
     Response res1 = await dio.get("http://1.117.72.161:8083/schoollink");
@@ -27,6 +31,7 @@ class SchoolDio{
 
     i = Prefs.schoolselection.indexWhere((element) => element['name'] == Prefs.school1);
     if(i!=-1) Prefs.schoolselection[i]['value']='1';
+    print(Prefs.schoolselection[i]['value']);
 
     Prefs.respond.clear();
     for (var response in school['login']['response']) {
@@ -39,7 +44,6 @@ class SchoolDio{
 
     Prefs.url.clear();
     for (var url in school['url']) {
-      print(url);
       Prefs.url.add({
         'name':url['name'],
         'url':url['url'],
@@ -47,3 +51,5 @@ class SchoolDio{
     }
   }
 }
+
+

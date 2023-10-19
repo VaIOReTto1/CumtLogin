@@ -1,11 +1,11 @@
 import 'dart:convert';
-import 'package:cumt_login/config.dart';
+import 'package:cumt_login/config/config.dart';
 import 'package:cumt_login/main.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'login_util/SchoolDio.dart';
+import 'Login/login_util/SchoolDio.dart';
 
 toWelcomePage(BuildContext context) {
   Navigator.of(context).pushReplacement(CupertinoPageRoute(builder: (context) {
@@ -226,7 +226,7 @@ class _WelcomePageState extends State<WelcomePage> {
                     onTap: () async {
                       int myInt =
                           int.parse(schoolelection[index + 1]['index']!);
-                      await SchoolDio.SchoolUrlDio(myInt);
+                      await SchoolDio.schoolUrlDio(myInt);
                       toHomePage(context, 0);
                     },
                     title: Text(

@@ -1,6 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:cumt_login/UrlPage/url_page.dart';
-import 'package:cumt_login/config.dart';
+import 'package:cumt_login/config/config.dart';
 import 'package:cumt_login/settings/settings.dart';
 import 'package:cumt_login/settings/update/app_upgrade2.dart';
 
@@ -9,11 +9,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 
+import 'Login/LoginPage/loginpage.dart';
+import 'Login/login_util/prefs.dart';
 import 'welcomeback.dart';
-import 'icon.dart';
-import 'loginpage.dart';
-import 'settings/theme/theme_color.dart';
-import 'login_util/prefs.dart';
+import 'config/icon.dart';
+import 'config/theme_color.dart';
 
 main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
         );
       },
       //判断是否选择学校
-      child: Prefs.school1 == '' ?  const WelcomePage() : HomePage(),
+      child: Prefs.school1 == '' ? const WelcomePage() : HomePage(),
     );
   }
 }
@@ -76,9 +76,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePage extends State<HomePage> {
-
-  Color select_color=const Color.fromRGBO(44, 44, 44, 1);
-  Color unselect_color=const Color.fromRGBO(111, 111, 111, 1);
+  Color select_color = const Color.fromRGBO(44, 44, 44, 1);
+  Color unselect_color = const Color.fromRGBO(111, 111, 111, 1);
 
   @override
   void initState() {
@@ -109,7 +108,7 @@ class _HomePage extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body:  _pages[_currentPageIndex],
+      body: _pages[_currentPageIndex],
       bottomNavigationBar: SizedBox(
         height: MediaQuery.of(context).size.height * 0.09,
         child: BottomNavigationBar(
@@ -150,6 +149,7 @@ class _HomePage extends State<HomePage> {
             ),
           ],
         ),
-      ),);
+      ),
+    );
   }
 }

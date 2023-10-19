@@ -1,8 +1,8 @@
-import 'package:cumt_login/login_util/prefs.dart';
 import 'package:cumt_login/settings/update/toast.dart';
 
-import '../../config.dart';
-import '../../icon.dart';
+import '../../Login/login_util/prefs.dart';
+import '../../config/config.dart';
+import '../../config/icon.dart';
 import 'entry.dart';
 import 'input.dart';
 import 'prefs.dart';

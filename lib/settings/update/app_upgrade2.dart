@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:io';
 import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:cumt_login/config.dart';
+import 'package:cumt_login/config/config.dart';
 
 import 'toast.dart';
 

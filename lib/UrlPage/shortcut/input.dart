@@ -1,4 +1,4 @@
-import 'package:cumt_login/config.dart';
+import 'package:cumt_login/config/config.dart';
 import 'package:cumt_login/settings/update/toast.dart';
 import 'prefs.dart';
 import 'package:flutter/material.dart';

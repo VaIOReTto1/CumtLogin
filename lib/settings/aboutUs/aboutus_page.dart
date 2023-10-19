@@ -5,9 +5,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/services.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../../config.dart';
-import '../../icon.dart';
+import '../../config/config.dart';
+import '../../config/icon.dart';
 import '../drawer_button.dart';
+import '../settings_appbar.dart';
 
 toAboutUsPage(BuildContext context) {
   Navigator.of(context).push(CupertinoPageRoute(builder: (context) {
@@ -29,64 +30,11 @@ class _AboutUsPageState extends State<AboutUsPage> {
       backgroundColor: Theme.of(context).cardTheme.color,
       body: Column(
         children: [
-          Container(
-            height: MediaQuery.of(context).size.height * 0.119,
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(10.0),
-                bottomRight: Radius.circular(10.0),
-              ),
-              color: Theme.of(context).colorScheme.primary,
-              boxShadow: [
-                BoxShadow(
-                  color: Theme.of(context).brightness != Brightness.dark
-                      ? const Color.fromRGBO(59, 114, 217, 0.2)
-                      : Colors.black38,
-                  spreadRadius: 12,
-                  blurRadius: 18,
-                  offset: Offset.zero, // changes position of shadow
-                ),
-              ],
-            ),
-            child: Align(
-              alignment: Alignment.center, // 将内容在水平方向上居中
-              child: Column(
-                children: [
-                  Expanded(child: Container()),
-                  Row(
-                    children: [
-                      IconButton(
-                        icon: Icon(
-                          Icons.arrow_back_ios_new,
-                          size: UIConfig.fontSizeSubTitle * 2,
-                          color: Theme.of(context).brightness == Brightness.dark
-                              ? Colors.white
-                              : const Color.fromRGBO(59, 114, 217, 1),
-                        ),
-                        onPressed: () => Navigator.pop(context),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Text(
-                          '关于我们',
-                          style:
-                              TextStyle(fontSize: UIConfig.fontSizeTitle * 1.2),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      HelpButton(),
-                    ],
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.0105,
-                  )
-                ],
-              ),
-            ),
-          ),
+          SettingsAppBar(title: "关于我们"),
           Expanded(
             child: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+              physics: const BouncingScrollPhysics(
+                  parent: AlwaysScrollableScrollPhysics()),
               child: Center(
                 child: Column(
                   children: [
@@ -135,8 +83,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
                                     'https://blog.csdn.net/VaIOReTto1?spm=1000.2115.3001.5343',
                                 showgithub: 'https://github.com/VaIOReTto1'),
                             SizedBox(
-                              width:
-                                  MediaQuery.of(context).size.width * 0.034,
+                              width: MediaQuery.of(context).size.width * 0.034,
                             ),
                             Group("许瑞熙", "21级会计3班", "产品组", "2073416698",
                                 'https://qm.qq.com/q/cT6u49cqzK&personal_qrcode_source=4'),
@@ -158,8 +105,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
                                 showblog: 'https://w6rsty.github.io/',
                                 showgithub: 'https://github.com/w6rsty'),
                             SizedBox(
-                              width:
-                                  MediaQuery.of(context).size.width * 0.034,
+                              width: MediaQuery.of(context).size.width * 0.034,
                             ),
                             Group("徐涛", "21级水文2班", "产品组", "1827900292",
                                 'https://qm.qq.com/q/MHZWbQAtmS&personal_qrcode_source=3'),
@@ -182,8 +128,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
                                     'https://www.yuque.com/yuqueyonghuzk6ln0',
                                 showgithub: 'https://github.com/Jyjays'),
                             SizedBox(
-                              width:
-                                  MediaQuery.of(context).size.width * 0.034,
+                              width: MediaQuery.of(context).size.width * 0.034,
                             ),
                             Group("汪子怡", "21级工设3班", "设计组", "1437212831",
                                 'https://qm.qq.com/q/1sscx9pGla&personal_qrcode_source=3'),
@@ -206,8 +151,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
                                 showgithub:
                                     'https://github.com/xiangxinliao43'),
                             SizedBox(
-                              width:
-                                  MediaQuery.of(context).size.width * 0.034,
+                              width: MediaQuery.of(context).size.width * 0.034,
                             ),
                             Group("杨雅晴", "21级计科1班", "设计组", "641938243",
                                 'https://qm.qq.com/q/2OZ8OzDzFm&personal_qrcode_source=4'),
@@ -265,8 +209,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
                             ),
                             QQGroup("839372371", "交流1群"),
                             SizedBox(
-                              width:
-                                  MediaQuery.of(context).size.width * 0.034,
+                              width: MediaQuery.of(context).size.width * 0.034,
                             ),
                             QQGroup("957634136", "交流2群"),
                             SizedBox(
@@ -284,8 +227,7 @@ class _AboutUsPageState extends State<AboutUsPage> {
                             ),
                             QQGroup("238908591", "交流3群"),
                             SizedBox(
-                              width:
-                                  MediaQuery.of(context).size.width * 0.034,
+                              width: MediaQuery.of(context).size.width * 0.034,
                             ),
                             QQGroup("738340698", "内测交流群"),
                             SizedBox(

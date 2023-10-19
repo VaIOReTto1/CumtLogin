@@ -1,5 +1,5 @@
 import 'package:cumt_login/settings/feedback/feedback_page.dart';
-import 'package:cumt_login/settings/theme/theme_color.dart';
+import 'package:cumt_login/config/theme_color.dart';
 import 'package:cumt_login/settings/update/app_upgrade2.dart';
 import 'package:cumt_login/settings/update/update_Alert_Icon.dart';
 import 'package:flutter/material.dart';
@@ -8,10 +8,9 @@ import 'package:provider/provider.dart';
 import 'package:flutter_share/flutter_share.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../config.dart';
-import '../login_util/prefs.dart';
+import '../Login/login_util/prefs.dart';
+import '../config/config.dart';
 import 'aboutUs/aboutus_page.dart';
-//import 'aboutUs/pages/about_page.dart';
 import 'help/help_page.dart';
 
 class AboutButton extends StatefulWidget {

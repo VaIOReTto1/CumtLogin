@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../config.dart';
-import '../../icon.dart';
+import '../../config/config.dart';
+import '../../config/icon.dart';
 
 toHelpPage(BuildContext context) {
   Navigator.of(context).push(CupertinoPageRoute(builder: (context) {
@@ -35,46 +35,43 @@ class HelpPage extends StatelessWidget {
                     ),
                   ],
                 ),
-                child: Align(
-                  alignment: Alignment.center, // 将内容在水平方向上居中
-                  child: Column(
-                    children: [
-                      Expanded(child: Container()),
-                      Row(
-                        children: [
-                          IconButton(
-                            icon: Icon(
-                              Icons.arrow_back_ios_new,
-                              size: UIConfig.fontSizeSubTitle * 2,
-                              color: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? Colors.white
-                                  : const Color.fromRGBO(59, 114, 217, 1),
-                            ),
-                            onPressed: () => Navigator.pop(context),
+                child: Column(
+                  children: [
+                    Expanded(child: Container()),
+                    Row(
+                      children: [
+                        IconButton(
+                          icon: Icon(
+                            Icons.arrow_back_ios_new,
+                            size: UIConfig.fontSizeSubTitle * 2,
+                            color: Theme.of(context).brightness ==
+                                    Brightness.dark
+                                ? Colors.white
+                                : const Color.fromRGBO(59, 114, 217, 1),
                           ),
-                          Expanded(
-                              flex: 7,
-                              child: Center(
-                                child: Text(
-                                  '帮助',
-                                  style: TextStyle(
-                                      fontSize:
-                                          UIConfig.fontSizeTitle * 1.2),
-                                  textAlign: TextAlign.center,
-                                ),
-                              )),
-                          Expanded(
-                            flex: 1,
-                            child: Container(),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height * 0.0105,
-                      )
-                    ],
-                  ),
+                          onPressed: () => Navigator.pop(context),
+                        ),
+                        Expanded(
+                            flex: 7,
+                            child: Center(
+                              child: Text(
+                                '帮助',
+                                style: TextStyle(
+                                    fontSize:
+                                        UIConfig.fontSizeTitle * 1.2),
+                                textAlign: TextAlign.center,
+                              ),
+                            )),
+                        Expanded(
+                          flex: 1,
+                          child: Container(),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.0105,
+                    )
+                  ],
                 ),
               ),
               SingleChildScrollView(
