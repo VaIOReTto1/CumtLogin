@@ -1,4 +1,4 @@
-import 'package:cumt_login/settings/update/toast.dart';
+import 'package:cumt_login/config/toast.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 

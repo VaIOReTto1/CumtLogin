@@ -30,39 +30,36 @@ class SettingsAppBar extends StatelessWidget {
           ),
         ],
       ),
-      child: Align(
-        alignment: Alignment.center, // 将内容在水平方向上居中
-        child: Column(
-          children: [
-            Expanded(child: Container()),
-            Row(
-              children: [
-                IconButton(
-                  icon: Icon(
-                    Icons.arrow_back_ios_new,
-                    size: UIConfig.fontSizeSubTitle * 2,
-                    color: Theme.of(context).brightness == Brightness.dark
-                        ? Colors.white
-                        : const Color.fromRGBO(59, 114, 217, 1),
-                  ),
-                  onPressed: () => Navigator.pop(context),
+      child: Column(
+        children: [
+          Expanded(child: Container()),
+          Row(
+            children: [
+              IconButton(
+                icon: Icon(
+                  Icons.arrow_back_ios_new,
+                  size: UIConfig.fontSizeSubTitle * 2,
+                  color: Theme.of(context).brightness == Brightness.dark
+                      ? Colors.white
+                      : const Color.fromRGBO(59, 114, 217, 1),
                 ),
-                Expanded(
-                  flex: 1,
-                  child: Text(
-                    title,
-                    style: TextStyle(fontSize: UIConfig.fontSizeTitle * 1.2),
-                    textAlign: TextAlign.center,
-                  ),
+                onPressed: () => Navigator.pop(context),
+              ),
+              Expanded(
+                flex: 1,
+                child: Text(
+                  title,
+                  style: TextStyle(fontSize: UIConfig.fontSizeTitle * 1.2),
+                  textAlign: TextAlign.center,
                 ),
-                HelpButton(),
-              ],
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.0105,
-            )
-          ],
-        ),
+              ),
+              HelpButton(),
+            ],
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.0105,
+          )
+        ],
       ),
     );
   }

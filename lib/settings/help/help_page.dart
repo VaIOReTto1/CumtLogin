@@ -23,6 +23,10 @@ class HelpPage extends StatelessWidget {
               Container(
                 height: MediaQuery.of(context).size.height * 0.119,
                 decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.only(
+                    bottomLeft: Radius.circular(10.0),
+                    bottomRight: Radius.circular(10.0),
+                  ),
                   color: Theme.of(context).colorScheme.primary,
                   boxShadow: [
                     BoxShadow(

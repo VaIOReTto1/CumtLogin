@@ -8,7 +8,7 @@ import 'package:package_info/package_info.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:cumt_login/config/config.dart';
 
-import 'toast.dart';
+import '../../config/toast.dart';
 
 class Update {
   // 用户的版本号和设备

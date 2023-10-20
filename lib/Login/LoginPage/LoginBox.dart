@@ -2,13 +2,12 @@ import 'dart:convert';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_picker/Picker.dart';
 
 import '../../config/config.dart';
 import '../../config/theme_color.dart';
-import '../../settings/update/toast.dart';
+import '../../config/toast.dart';
 import '../../welcomeback.dart';
 import '../login_util/SchoolDio.dart';
 import '../login_util/account.dart';

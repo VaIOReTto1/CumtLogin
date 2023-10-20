@@ -1,4 +1,4 @@
-import 'package:cumt_login/settings/update/toast.dart';
+import 'package:cumt_login/config/toast.dart';
 
 import '../../Login/login_util/prefs.dart';
 import '../../config/config.dart';
