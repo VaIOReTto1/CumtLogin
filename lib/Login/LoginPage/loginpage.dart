@@ -152,6 +152,9 @@ class _LoginPageState extends State<LoginPage>
   Widget LoginCircleAnimation(BuildContext context) {
     return Stack(
       children: [
+        Elippse(rotation: 0.00,),
+        Elippse(rotation: 60.0,),
+        Elippse(rotation: 120.0),
         //周围圆环动画
         Center(
           child: AnimatedBuilder(
@@ -184,7 +187,10 @@ class _LoginPageState extends State<LoginPage>
         ),
         //中间圆圈
         Center(
-          child: IgnorePointer(
+          child: InkWell(
+            onTap: () => _handleLogin(context),
+            highlightColor: Colors.transparent,
+            radius: 0,
             child: Container(
               width: MediaQuery.of(context).size.height * 0.2,
               height: MediaQuery.of(context).size.height * 0.2,
@@ -244,6 +250,7 @@ class _LoginPageState extends State<LoginPage>
   Widget LoginAppBar(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height * 0.119,
+      padding: EdgeInsets.fromLTRB(18, MediaQuery.of(context).padding.top, 18, 0),
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(10.0),
@@ -269,7 +276,7 @@ class _LoginPageState extends State<LoginPage>
               Expanded(
                 flex: 1,
                 child: Text(
-                  '    ${Prefs.school1}',
+                  '${Prefs.school1}',
                   style: TextStyle(
                     fontSize: UIConfig.fontSizeTitle * 1.2,
                     color: const Color.fromRGBO(59, 114, 217, 1),
@@ -310,3 +317,76 @@ class _LoginPageState extends State<LoginPage>
   }
 }
 
+class Elippse extends StatefulWidget {
+  double rotation;
+  Elippse({super.key,required this.rotation});
+
+
+  @override
+  State<Elippse> createState() => _ElippseState();
+}
+
+class _ElippseState extends State<Elippse> with SingleTickerProviderStateMixin {
+  late double padding=widget.rotation;
+  @override
+  void initState() {
+    super.initState();
+    // 启动一个循环动画
+    startRotationAnimation();
+  }
+
+
+  void startRotationAnimation() {
+    Future.delayed(const Duration(milliseconds: 100), () {
+      setState(() {
+        widget.rotation=widget.rotation + 5; // 控制旋转速度，可以根据需要调整
+        startRotationAnimation();
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(0, padding/8, 0, padding/2),
+        child: Transform.rotate(
+          angle: widget.rotation* 3.14 / 180.0, // 旋转角度
+          child: CustomPaint(
+            size: Size(MediaQuery.of(context).size.height * 0.7,
+                MediaQuery.of(context).size.height * 0.55),
+            painter: EllipsePainter(),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class EllipsePainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    Paint paint = Paint()
+      ..color = Prefs.status == '1'?Colors.blue.withOpacity(0.4):Colors.grey.withOpacity(0.4)
+      ..style = PaintingStyle.fill;
+
+    double centerX = size.width / 2;
+    double centerY = size.height / 2;
+    double radiusX = size.width / 2;
+    double radiusY = size.height / 2;
+
+    canvas.drawOval(
+      Rect.fromCenter(
+        center: Offset(centerX, centerY),
+        width: radiusX,
+        height: radiusY,
+      ),
+      paint,
+    );
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return false;
+  }
+}

@@ -28,6 +28,7 @@ class _UrlPageState extends State<UrlPage> {
           children: [
             Container(
               height: MediaQuery.of(context).size.height * 0.119,
+              padding: EdgeInsets.fromLTRB(18, MediaQuery.of(context).padding.top, 18, 0),
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(10.0),
@@ -45,26 +46,18 @@ class _UrlPageState extends State<UrlPage> {
                   ),
                 ],
               ),
-              child: Column(
+              child: Row(
                 children: [
-                  Expanded(child: Container()),
-                  Row(
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: Text(
-                          '        常用链接',
-                          style: TextStyle(
-                              fontSize: UIConfig.fontSizeTitle * 1.2),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                      HelpButton(),
-                    ],
+                  Expanded(
+                    flex: 1,
+                    child: Text(
+                      '  常用链接',
+                      style: TextStyle(
+                          fontSize: UIConfig.fontSizeTitle * 1.2),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.0105,
-                  )
+                  HelpButton(),
                 ],
               ),
             ),
