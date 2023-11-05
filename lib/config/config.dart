@@ -32,4 +32,5 @@ class UIConfig {
   static const double borderRadiusEntry = 10; // 快捷入口圆角
   static const double borderRadiusBox = 20; // 大块功能区圆角
 
+  static const double iconSize = 26;
 }

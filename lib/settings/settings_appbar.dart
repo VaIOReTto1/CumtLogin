@@ -12,7 +12,7 @@ class SettingsAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.123,
+      height: MediaQuery.of(context).padding.top+MediaQuery.of(context).size.height*0.08,
       padding: EdgeInsets.fromLTRB(0, MediaQuery.of(context).padding.top, 0, 0),
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.only(

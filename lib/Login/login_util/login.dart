@@ -16,6 +16,7 @@ class CumtLogin {
   /// 注销
   static Future<String> logout({required CumtLoginAccount account}) async {
     try {
+      Prefs.status = '2';
       Dio dio = Dio();
       String url = await account.logoutUrl;
       Response res = await dio.get(url);
@@ -24,6 +25,7 @@ class CumtLogin {
       Prefs.status = '0';
       return map["msg"].toString();
     } catch (e) {
+      Prefs.status = '0';
       return '网络错误(X_X)';
     }
   }
@@ -31,6 +33,7 @@ class CumtLogin {
   /// 登录
   static Future<String> login({required CumtLoginAccount account}) async {
     try {
+      Prefs.status = '2';
       String url = await account.loginUrl(
           account.username, account.password, account.cumtLoginMethod);
       Response res = await dio.get(url);
@@ -48,6 +51,7 @@ class CumtLogin {
           });
           Prefs.first = '1';
         } catch (e) {
+          Prefs.status = '0';
           print('PUT request failed: $e');
           if (e is DioException) {
             print('DioError: ${e.response?.data}');

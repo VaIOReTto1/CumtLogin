@@ -261,10 +261,10 @@ class _HelpButtonState extends State<HelpButton> {
           //height: MediaQuery.of(context).size.height*0.045,
           child: Padding(
             padding: EdgeInsets.all(UIConfig.paddingAll * 1.2),
-            child: Icon(
+            child: const Icon(
               Icons.help_outline_sharp,
-              color: const Color.fromRGBO(59, 114, 217, 1),
-              size: UIConfig.fontSizeMin * 2.04,
+              color: Color.fromRGBO(59, 114, 217, 1),
+              size: UIConfig.iconSize,
             ),
           ),
         ));

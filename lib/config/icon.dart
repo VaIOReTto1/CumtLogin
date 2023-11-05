@@ -21,4 +21,9 @@ class MyIcons{
       fontFamily: "iconfont",
       matchTextDirection: true
   );
+  static const IconData linkoff= IconData(
+      0xe614,
+      fontFamily: "iconfont",
+      matchTextDirection: true
+  );
 }

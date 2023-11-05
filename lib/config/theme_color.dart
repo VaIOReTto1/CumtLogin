@@ -1,5 +1,8 @@
+import 'package:cumt_login/config/icon.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../Login/login_util/prefs.dart';
 
 class AppTheme {
   final ThemeData themeData;
@@ -12,7 +15,7 @@ class AppTheme {
         platform: TargetPlatform.iOS,
 
         cardTheme: CardTheme(
-          color: Colors.grey[700], // 更改Card的颜色
+          color: Colors.grey[900], // 更改Card的颜色
         ),
 
         appBarTheme: const AppBarTheme(),
@@ -20,46 +23,41 @@ class AppTheme {
 
         //更改snakbar颜色
         snackBarTheme: const SnackBarThemeData(
-          backgroundColor:Colors.black54,//背景颜色
-            contentTextStyle: TextStyle(color: Colors.white)//文字颜色
-        ),
+            backgroundColor: Colors.black54, //背景颜色
+            contentTextStyle: TextStyle(color: Colors.white) //文字颜色
+            ),
 
         dialogBackgroundColor: Colors.black12,
         //更改弹窗颜色
         popupMenuTheme: PopupMenuThemeData(
             //更改按钮弹窗颜色
-            color: Colors.grey[700]),
+            color: Colors.grey[850]),
 
-        elevatedButtonTheme: const ElevatedButtonThemeData(
+        elevatedButtonTheme: ElevatedButtonThemeData(
             style: ButtonStyle(
-              backgroundColor: MaterialStatePropertyAll(Color.fromRGBO(235, 240, 251, 1)),
-              foregroundColor: MaterialStatePropertyAll(Colors.black),
-            )),
-
-        outlinedButtonTheme: const OutlinedButtonThemeData(
+          backgroundColor: MaterialStatePropertyAll(Colors.grey[700]),
+          foregroundColor: const MaterialStatePropertyAll(Colors.white),
+        )),
+        outlinedButtonTheme: OutlinedButtonThemeData(
             style: ButtonStyle(
-              backgroundColor: MaterialStatePropertyAll(Color.fromRGBO(216, 227, 247, 1)),
-              foregroundColor: MaterialStatePropertyAll(Colors.black),
-            )
-        ),
+          backgroundColor: MaterialStatePropertyAll(Colors.grey[800]),
+          foregroundColor: const MaterialStatePropertyAll(Colors.white),
+        )),
 
-        scaffoldBackgroundColor: ThemeData.dark().cardColor,
-        //更改页面顶端颜色
-        canvasColor: Colors.black12,
-        //更改绘图颜色
+        scaffoldBackgroundColor: Colors.black,
+        canvasColor: Colors.grey[900],
         colorScheme: ColorScheme(
-          primary: const Color.fromRGBO(50,50,50,1),
-          //Picker颜色
-          secondary: Colors.black87,
+          primary: const Color(0xff25292e),
+          secondary: Colors.grey[700]!,
           error: Colors.redAccent[700]!,
-          background: Colors.white60,
+          background: Colors.black,
           brightness: Brightness.dark,
-          onBackground: Colors.black38,
+          onBackground: Colors.grey[500]!,
           onError: Colors.white,
           onPrimary: Colors.white,
-          onSecondary: Colors.black38,
-          onSurface: Colors.black38,
-          surface: Colors.black12,
+          onSecondary: Colors.grey[500]!,
+          onSurface: Colors.grey[500]!,
+          surface: Colors.grey[900]!,
         ),
       ),
     );
@@ -71,18 +69,18 @@ class AppTheme {
         platform: TargetPlatform.iOS,
 
         cardTheme: const CardTheme(
-          color: Color.fromRGBO(245,244,249,1),// 更改Card的颜色
+          color: Color.fromRGBO(245, 244, 249, 1), // 更改Card的颜色
         ),
-        canvasColor: const Color.fromRGBO(245,244,249,1),
+        canvasColor: const Color.fromRGBO(245, 244, 249, 1),
 
         appBarTheme: const AppBarTheme(),
         textTheme: const TextTheme(),
 
         //更改snackbar颜色
         snackBarTheme: const SnackBarThemeData(
-          backgroundColor:Color.fromRGBO(176, 250, 255, 0.75),//背景颜色
-          contentTextStyle: TextStyle(color: Colors.white)//文字颜色
-        ),
+            backgroundColor: Color.fromRGBO(176, 250, 255, 0.75), //背景颜色
+            contentTextStyle: TextStyle(color: Colors.white) //文字颜色
+            ),
 
         dialogBackgroundColor: Colors.grey.shade300,
         //更改弹窗颜色
@@ -93,19 +91,20 @@ class AppTheme {
 
         elevatedButtonTheme: const ElevatedButtonThemeData(
             style: ButtonStyle(
-              backgroundColor: MaterialStatePropertyAll(Color.fromRGBO(235, 240, 251, 1)),
-              foregroundColor: MaterialStatePropertyAll(Colors.black),
-            )),
+          backgroundColor:
+              MaterialStatePropertyAll(Color.fromRGBO(235, 240, 251, 1)),
+          foregroundColor: MaterialStatePropertyAll(Colors.black),
+        )),
 
         outlinedButtonTheme: const OutlinedButtonThemeData(
             style: ButtonStyle(
-              backgroundColor: MaterialStatePropertyAll(Color.fromRGBO(216, 227, 247, 1)),
-              foregroundColor: MaterialStatePropertyAll(Colors.black),
-            )
-        ),
+          backgroundColor:
+              MaterialStatePropertyAll(Color.fromRGBO(216, 227, 247, 1)),
+          foregroundColor: MaterialStatePropertyAll(Colors.black),
+        )),
 
         colorScheme: ColorScheme(
-          primary:Colors.white,
+          primary: Colors.white,
           //Picker颜色
           secondary: Colors.white,
           background: Colors.white,
