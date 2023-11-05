@@ -26,7 +26,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE instance, _In_opt_ HINSTANCE prev,
 
   FlutterWindow window(project);
   Win32Window::Point origin(10, 10);
-  Win32Window::Size size(450, 780);
+  Win32Window::Size size(360, 780);
   if (!window.Create(L"CumtLogin", origin, size)) {
     return EXIT_FAILURE;
   }

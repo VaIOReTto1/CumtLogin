@@ -57,6 +57,8 @@ class MyApp extends StatelessWidget {
   }
 }
 
+
+
 //跳转HomePage函数
 toHomePage(BuildContext context, int currentPageIndex) {
   Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -78,6 +80,7 @@ class HomePage extends StatefulWidget {
 class _HomePage extends State<HomePage> {
   Color select_color = const Color.fromRGBO(44, 44, 44, 1);
   Color unselect_color = const Color.fromRGBO(111, 111, 111, 1);
+  Color black_select_color = const Color.fromRGBO(244, 240, 244, 1);
 
   @override
   void initState() {
@@ -108,7 +111,10 @@ class _HomePage extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: _pages[_currentPageIndex],
+      body: IndexedStack( //使用IndexedStack作为body
+        index: _currentPageIndex, //当前显示的子组件索引
+        children: _pages, //子组件列表
+      ),
       bottomNavigationBar: SizedBox(
         height: MediaQuery.of(context).size.height * 0.09,
         child: BottomNavigationBar(
@@ -121,10 +127,10 @@ class _HomePage extends State<HomePage> {
           },
           selectedItemColor: Theme.of(context).brightness != Brightness.dark
               ? select_color
-              : unselect_color,
+              : black_select_color ,
           unselectedItemColor: Theme.of(context).brightness != Brightness.dark
               ? unselect_color
-              : select_color,
+              : unselect_color,
           items: const [
             BottomNavigationBarItem(
               icon: Icon(

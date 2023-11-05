@@ -4,6 +4,7 @@ import 'package:cumt_login/config/toast.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
 import '../../config/icon.dart';
@@ -30,8 +31,6 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage>
     with WidgetsBindingObserver, SingleTickerProviderStateMixin {
   static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-  late AnimationController _controller;
-  late Animation<double> _animation;
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   CumtLoginAccount cumtLoginAccount = CumtLoginAccount();
@@ -48,21 +47,13 @@ class _LoginPageState extends State<LoginPage>
   void initState() {
     super.initState();
     ThemeProvider;
-    logLoginEvent();
+    //logLoginEvent();
     WidgetsBinding.instance.addObserver(this);
     _usernameController.text = cumtLoginAccount.username!;
     _passwordController.text = cumtLoginAccount.password!;
     if (_usernameController.text.isNotEmpty) {
       _handleLogin(context);
     }
-
-    //登录页圆圈动画
-    _controller = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 2),
-    )..repeat(reverse: true);
-
-    _animation = Tween<double>(begin: 0.7, end: 0.8).animate(_controller);
   }
 
   //监听键盘打开情况
@@ -85,15 +76,12 @@ class _LoginPageState extends State<LoginPage>
     cumtLoginAccount.password = _passwordController.text.trim();
 
     CumtLogin.login(account: cumtLoginAccount).then((value) {
-      setState(() {
-        showToast(value);
-      });
+      showToast(value);
     });
   }
 
   @override
   void dispose() {
-    _controller.dispose();
     super.dispose();
     WidgetsBinding.instance.removeObserver(this);
   }
@@ -131,10 +119,12 @@ class _LoginPageState extends State<LoginPage>
                   onTap: () {
                     _loginpage();
                   },
-                  child: const Icon(Icons.keyboard_arrow_up_rounded,
-                      color: Color.fromRGBO(59, 114, 217, 1),
-                      size: 40,
-                      shadows: <Shadow>[
+                  child: Icon(Icons.keyboard_arrow_up_rounded,
+                      color: Provider.of<ThemeProvider>(context).themeData == AppTheme.LightTheme().themeData
+                          ? const Color.fromRGBO(59, 114, 217, 1)
+                          : const Color(0xff234482),
+                      size: UIConfig.iconSize * 2,
+                      shadows: const <Shadow>[
                         Shadow(
                           color: Color.fromRGBO(0, 0, 0, 0.25),
                           blurRadius: 10.0,
@@ -152,53 +142,34 @@ class _LoginPageState extends State<LoginPage>
   Widget LoginCircleAnimation(BuildContext context) {
     return Stack(
       children: [
-        //周围圆环动画
-        Center(
-          child: AnimatedBuilder(
-            animation: _animation,
-            builder: (BuildContext context, Widget? child) {
-              final color = Prefs.status == '1'
-                  ? Color.fromRGBO(66, 128, 237, 0.4 - (_animation.value / 10))
-                  : Color.fromRGBO(234, 234, 234, 1 - (_animation.value / 10));
-
-              return Container(
-                width: MediaQuery.of(context).size.height *
-                    0.29 *
-                    _animation.value,
-                height: MediaQuery.of(context).size.height *
-                    0.29 *
-                    _animation.value,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: color,
-                      spreadRadius: 10 * _animation.value,
-                      blurRadius: 30 * _animation.value,
-                    ),
-                  ],
-                ),
-              );
-            },
-          ),
+        Elippse(
+          rotation: 0.00,
         ),
+        Elippse(
+          rotation: 60.0,
+        ),
+        Elippse(rotation: 120.0),
         //中间圆圈
         Center(
-          child: IgnorePointer(
+          child: InkWell(
+            onTap: () => _handleLogin(context),
+            highlightColor: Colors.transparent,
+            radius: 0,
             child: Container(
               width: MediaQuery.of(context).size.height * 0.2,
               height: MediaQuery.of(context).size.height * 0.2,
               decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Prefs.status == '1'
-                    ? const Color.fromRGBO(59, 114, 217, 1)
-                    : const Color.fromRGBO(161, 161, 161, 1),
-              ),
-              child: Icon(
-                MyIcons.link,
-                size: MediaQuery.of(context).size.height * 0.096,
-                color: const Color.fromRGBO(255, 255, 255, 1),
-              ),
+                  shape: BoxShape.circle,
+                  color: Prefs.status == '1'
+                      ? Provider.of<ThemeProvider>(context).themeData== AppTheme.LightTheme().themeData
+                      ? const Color.fromRGBO(59, 114, 217, 1)
+                      : const Color(0xff234482)
+                      : const Color(0xff808a97)),
+              child:Icon(
+                Prefs.status == '1'?MyIcons.link:MyIcons.linkoff,
+                      size: MediaQuery.of(context).size.height * 0.096,
+                      color: const Color.fromRGBO(255, 255, 255, 1),
+                    )
             ),
           ),
         ),
@@ -226,15 +197,10 @@ class _LoginPageState extends State<LoginPage>
                 const SizedBox(
                   width: 15,
                 ),
-                Prefs.status == '1'
-                    ? const Text(
-                        '已连接    ',
-                        style: TextStyle(color: Colors.black54, fontSize: 12),
-                      )
-                    : const Text(
-                        '未连接    ',
-                        style: TextStyle(color: Colors.black54, fontSize: 12),
-                      ),
+                 Text(
+                    Prefs.status == '1'?"已连接":Prefs.status == '0'?"未连接" : "连接中",
+                    style: const TextStyle(color: Colors.black54, fontSize: 12),
+                  )
               ],
             ),
           ),
@@ -243,7 +209,10 @@ class _LoginPageState extends State<LoginPage>
 
   Widget LoginAppBar(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.119,
+      height: MediaQuery.of(context).padding.top +
+          MediaQuery.of(context).size.height * 0.08,
+      padding:
+          EdgeInsets.fromLTRB(18, MediaQuery.of(context).padding.top, 18, 0),
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(10.0),
@@ -269,7 +238,7 @@ class _LoginPageState extends State<LoginPage>
               Expanded(
                 flex: 1,
                 child: Text(
-                  '    ${Prefs.school1}',
+                  Prefs.school1,
                   style: TextStyle(
                     fontSize: UIConfig.fontSizeTitle * 1.2,
                     color: const Color.fromRGBO(59, 114, 217, 1),
@@ -302,11 +271,96 @@ class _LoginPageState extends State<LoginPage>
         builder: (context) {
           return SizedBox(
             height: keyboardHeight != 0.0
-                ? MediaQuery.of(context).size.height * 0.7 // 当键盘可见时，增加高度
-                : MediaQuery.of(context).size.height * 0.39,
+                ? MediaQuery.of(context).size.height * 0.76 // 当键盘可见时，增加高度
+                : MediaQuery.of(context).size.height * 0.42,
             child: const LoginBox(),
           );
         });
   }
 }
 
+class Elippse extends StatefulWidget {
+  double rotation;
+
+  Elippse({super.key, required this.rotation});
+
+  @override
+  State<Elippse> createState() => _ElippseState();
+}
+
+class _ElippseState extends State<Elippse> with SingleTickerProviderStateMixin {
+  late double padding = widget.rotation;
+  bool _isAnimating = true;
+
+  @override
+  void initState() {
+    super.initState();
+    // 启动一个循环动画
+    _isAnimating = true;
+    startRotationAnimation();
+  }
+
+  void startRotationAnimation() {
+    Future.delayed(Duration(milliseconds: Prefs.status == '2' ? 10 : 100), () {
+      if (_isAnimating) {
+        setState(() {
+          widget.rotation = widget.rotation + 5;
+          startRotationAnimation();
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _isAnimating = false;
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(0, padding / 8, 0, padding / 2),
+        child: Transform.rotate(
+          angle: widget.rotation * 3.14 / 180.0, // 旋转角度
+          child: CustomPaint(
+            size: Size(MediaQuery.of(context).size.height * 0.7,
+                MediaQuery.of(context).size.height * 0.55),
+            painter: EllipsePainter(),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class EllipsePainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    Paint paint = Paint()
+      ..color = Prefs.status == '1'
+          ? const Color(0xff234482).withOpacity(0.4)
+          : const Color(0xff808a97).withOpacity(0.4)
+      ..style = PaintingStyle.fill;
+
+    double centerX = size.width / 2;
+    double centerY = size.height / 2;
+    double radiusX = size.width / 2;
+    double radiusY = size.height / 2;
+
+    canvas.drawOval(
+      Rect.fromCenter(
+        center: Offset(centerX, centerY),
+        width: radiusX,
+        height: radiusY,
+      ),
+      paint,
+    );
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return false;
+  }
+}

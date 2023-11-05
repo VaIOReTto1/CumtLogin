@@ -24,7 +24,8 @@ class _SettingPageState extends State<SettingPage> {
       body: Column(
         children: [
           Container(
-            height: MediaQuery.of(context).size.height * 0.119,
+            height: MediaQuery.of(context).padding.top+MediaQuery.of(context).size.height*0.08,
+            padding: EdgeInsets.fromLTRB(54, MediaQuery.of(context).padding.top, 18, 0),
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.only(
                 bottomLeft: Radius.circular(10.0),
@@ -50,7 +51,7 @@ class _SettingPageState extends State<SettingPage> {
                     Expanded(
                       flex: 1,
                       child: Text(
-                        '       设置',
+                        '设置',
                         style:
                             TextStyle(fontSize: UIConfig.fontSizeTitle * 1.2),
                         textAlign: TextAlign.center,
