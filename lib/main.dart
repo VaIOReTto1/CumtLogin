@@ -135,21 +135,21 @@ class _HomePage extends State<HomePage> {
             BottomNavigationBarItem(
               icon: Icon(
                 MyIcons.layer,
-                size: 32,
+                size: 15,
               ),
               label: '常用',
             ),
             BottomNavigationBarItem(
               icon: Icon(
                 MyIcons.net,
-                size: 32,
+                size: 15,
               ),
               label: '登录',
             ),
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.settings,
-                size: 32,
+                size: 15,
               ),
               label: '设置 ',
             ),
