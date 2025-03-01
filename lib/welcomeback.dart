@@ -4,6 +4,7 @@ import 'package:cumt_login/main.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'Login/login_util/SchoolDio.dart';
 
@@ -28,32 +29,74 @@ class _WelcomePageState extends State<WelcomePage> {
     {'school': '', 'index': ''}
   ];
 
-  Future<void> searchStringChange(String v) async {
-    Dio dio = Dio();
-    Response res1 = await dio.get("http://1.117.72.161:8083/schoollink");
-    Map<String, dynamic> mapData = jsonDecode(res1.toString());
-    setState(() {
-      searchString = v;
-      if (searchString != "") {
-        //重置搜索结果
-        schoolelection.clear();
-        schoolelection = [
-          {'school': '', 'index': ''}
-        ];
-        flag = true;
-        //输入搜索结果
-        for (int i = 0; i < mapData['school'].length; i++) {
-          final school = mapData['school'][i]['name'];
-          if (school.contains(searchString) &&
-              !schoolelection.any(
-                  (element) => element['school']?.contains(school) ?? false)) {
-            schoolelection.add({'school': school, 'index': i.toString()});
-          }
-        }
-      } else {
-        flag = false;
-      }
-    });
+  final List<Map<String, dynamic>> _localSchools = [];
+
+  Future<void> _loadLocalConfig() async {
+    try {
+      final jsonString =
+          await rootBundle.loadString('config/config.json');
+      final config = jsonDecode(jsonString) as Map<String, dynamic>;
+      _localSchools
+          .addAll((config['school'] as List).cast<Map<String, dynamic>>());
+    } catch (e) {
+      debugPrint('本地配置加载失败: $e');
+    }
+  }
+
+  Future<void> searchStringChange(String query) async {
+    try {
+      List<dynamic> schools = [];
+
+      // 尝试获取网络数据
+      // final dio = Dio();
+      // final response = await dio.get(
+      //   "http://1.117.72.161:8083/schoollink",
+      //   options: Options(receiveTimeout: const Duration(seconds: 1)),
+      // );
+      //
+      // if (response.statusCode == 200) {
+      //   schools = (jsonDecode(response.data))['school'] as List;
+      // } else {
+      //   schools = _localSchools; // 使用本地配置
+      // }
+      schools = _localSchools;
+
+      // 处理搜索结果
+      final results = schools
+          .asMap()
+          .entries
+          .where((entry) =>
+              (entry.value['name'] as String?)?.contains(query) ?? false)
+          .map((entry) => {
+                'school': entry.value['name'].toString(),
+                'index': entry.key.toString(),
+              })
+          .toList();
+
+      setState(() {
+        schoolelection = results;
+        flag = query.isNotEmpty;
+        print(schoolelection);
+      });
+    } catch (e) {
+      debugPrint('搜索失败: $e');
+      // 降级到本地配置
+      final results = _localSchools
+          .asMap()
+          .entries
+          .where((entry) =>
+              (entry.value['name'] as String?)?.contains(query) ?? false)
+          .map((entry) => {
+                'school': entry.value['name'].toString(),
+                'index': entry.key.toString(),
+              })
+          .toList();
+
+      setState(() {
+        schoolelection = results;
+        flag = query.isNotEmpty;
+      });
+    }
   }
 
   //提示联网弹窗
@@ -83,6 +126,7 @@ class _WelcomePageState extends State<WelcomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    _loadLocalConfig();
 
     Future.delayed(Duration.zero, () {
       if (_showDialog) {
@@ -151,12 +195,10 @@ class _WelcomePageState extends State<WelcomePage> {
                         borderRadius: BorderRadius.only(
                           topLeft: const Radius.circular(10.0),
                           topRight: const Radius.circular(10.0),
-                          bottomLeft: flag
-                              ? Radius.zero
-                              : const Radius.circular(10.0),
-                          bottomRight: flag
-                              ? Radius.zero
-                              : const Radius.circular(10.0),
+                          bottomLeft:
+                              flag ? Radius.zero : const Radius.circular(10.0),
+                          bottomRight:
+                              flag ? Radius.zero : const Radius.circular(10.0),
                         ),
                         color: Colors.white,
                       ),
@@ -219,18 +261,18 @@ class _WelcomePageState extends State<WelcomePage> {
           color: Colors.white,
         ),
         child: ListView.builder(
-          itemCount: schoolelection.length == 1 ? 1 : schoolelection.length - 1,
+          itemCount: schoolelection.length == 1 ? 1 : schoolelection.length,
           itemBuilder: (BuildContext context, int index) {
             return schoolelection.length != 1
                 ? ListTile(
                     onTap: () async {
                       int myInt =
-                          int.parse(schoolelection[index + 1]['index']!);
+                          int.parse(schoolelection[index]['index']!);
                       await SchoolDio.schoolUrlDio(myInt);
                       toHomePage(context, 0);
                     },
                     title: Text(
-                      schoolelection[index + 1]['school']!,
+                      schoolelection[index]['school']!,
                       style: const TextStyle(color: Colors.black),
                     ),
                     subtitle: const Divider(

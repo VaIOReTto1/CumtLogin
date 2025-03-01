@@ -114,7 +114,7 @@ class AppTheme {
           onError: Colors.white,
           onPrimary: Colors.white,
           onSecondary: Colors.white,
-          onSurface: Colors.white,
+          onSurface: Colors.black,
           surface: Colors.white,
         ),
       ),
